@@ -1,0 +1,6 @@
+Revision history for Perl extension Marpa::R3.
+
+0.01  Sun Jan  6 02:06:12 2013
+	- original version; created by h2xs 1.23 with options
+		-n Marpa::R3 -b 5.10.0
+
