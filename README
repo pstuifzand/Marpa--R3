@@ -1,0 +1,7 @@
+This is a working repository for RELEASE 3 of the Marpa.  This is
+beta software.  It has a CPAN-based installation procedure.
+
+Within Marpa::R3 may be several development directories.  These are
+not needed to build & install Marpa::R3, or even to do much of the
+development.  These do not have stable, fully documented installation
+procedures.
