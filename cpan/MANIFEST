@@ -2,7 +2,6 @@ Changes
 Makefile.PL
 MANIFEST
 ppport.h
-R3.xs
 README
 t/Marpa-R3.t
 lib/Marpa/R3.pm
