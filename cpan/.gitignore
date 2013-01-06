@@ -12,6 +12,7 @@
 /libmarpa_build/
 /libmarpa_dist/
 /libmarpa_doc_dist/
+/pm_to_blib
 /hide/
 /pod2htmd.tmp
 /pod2htmi.tmp
