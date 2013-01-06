@@ -1,7 +1,9 @@
+COPYING.LESSER
 Changes
-Makefile.PL
+LICENSE
 MANIFEST
-ppport.h
+Makefile.PL
 README
-t/Marpa-R3.t
 lib/Marpa/R3.pm
+ppport.h
+t/Marpa-R3.t

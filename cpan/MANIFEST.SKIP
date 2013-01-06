@@ -16,8 +16,15 @@
 # Temporary
 
 # Permanent
+\.tar.gz$
 ^MANIFEST\.SKIP$
 ^MYMETA.json$
+^MYMETA.json$
 ^MYMETA.yml$
+^MYMETA.yml$
+^Makefile$
 ^Marpa-R3-\d+.\d{3}_\d{3}/
 ^Marpa-R3-\d+.\d{6}/
+^[.]gitignore$
+^blib/
+^pm_to_blib$
