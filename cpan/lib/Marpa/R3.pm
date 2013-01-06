@@ -37,7 +37,7 @@ Stub documentation for Marpa::R3, created by h2xs.
 
 =head1 AUTHOR
 
-Jeffrey Kegler, E<lt>jeffreykegler@activestate.comE<gt>
+Jeffrey Kegler
 
 =head1 Copyright and License
 
