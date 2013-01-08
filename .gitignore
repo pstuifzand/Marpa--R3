@@ -1,0 +1,7 @@
+full_test.out
+*.swp
+[.]DS_store
+errs
+junk
+/nogit/
+nogit*

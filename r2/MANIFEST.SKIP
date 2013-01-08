@@ -1,0 +1,128 @@
+# Copyright 2012 Jeffrey Kegler
+# This file is part of Marpa::R2.  Marpa::R2 is free software: you can
+# redistribute it and/or modify it under the terms of the GNU Lesser
+# General Public License as published by the Free Software Foundation,
+# either version 3 of the License, or (at your option) any later version.
+#
+# Marpa::R2 is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser
+# General Public License along with Marpa::R2.  If not, see
+# http://www.gnu.org/licenses/.
+
+# Temporary
+
+# Permanent
+/[.]gdb_history$
+/[.]gitignore$
+/errs$
+/junk$
+[.]DS_Store$
+[/]nogit_
+\.a$
+\.la$
+\.lo$
+\.o$
+\.pdf$
+\.swp$
+\.tar.gz$
+\/\.git\/
+^Build$
+^MANIFEST\.SKIP$
+^MYMETA.json$
+^MYMETA.yml$
+^Makefile$
+^Marpa-R2-\d+.\d{3}_\d{3}/
+^Marpa-R2-\d+.\d{6}/
+^[.]gdb_history$
+^[.]gdbinit$
+^[.]gitattributes$
+^[.]inputrc$
+^\.git\/
+^\.gitignore$
+^\_build\/
+^author.t/all.errs$
+^author.t/critic.errs$
+^author.t/critic.list$
+^author.t/display.errs$
+^author.t/perlcritic.errs$
+^author.t/tidy.errs$
+^blib/
+^errs$
+^etc/track[.]list
+^hide/
+^html/Build$
+^html/MANIFEST\.SKIP$
+^html/MYMETA.yml$
+^html/Marpa-HTML-0.\d{3}_\d{3}/
+^html/Marpa-HTML-0.\d{6}/
+^html/_build
+^html/author.t/all.errs$
+^html/author.t/display.errs$
+^html/author.t/perlcritic.errs$
+^html/blib
+^html/errs$
+^html/inc/save/
+^html/junk$
+^html/sandbox/
+^inc/proof/.*[.]lyx[~]$
+^junk$
+^lib/Marpa/.*\.xsh
+^lib/Marpa/R2/Installed.pm$
+^lib/Marpa/R2/Version.pm$
+^lib/Marpa/R2\.c
+^lib/Marpa/R2\.xs
+^libmarpa/dev/api[.]texi[~]$
+^libmarpa/dev/codes[.]c
+^libmarpa/dev/codes[.]h
+^libmarpa/dev/fragments/
+^libmarpa/dev/internal[.]texi[~]$
+^libmarpa/dev/marpa.log
+^libmarpa/dev/marpa.scn
+^libmarpa/dev/marpa[.]c
+^libmarpa/dev/marpa[.]h
+^libmarpa/dev/marpa[.]idx
+^libmarpa/dev/marpa[.]tex
+^libmarpa/dev/marpa[.]toc
+^libmarpa/dev/marpa_api[.]h
+^libmarpa/dev/marpa_util[.]h
+^libmarpa/dev/old_pod/Algorithm[.]pod
+^libmarpa/dev/old_pod/Implementation[.]pod
+^libmarpa/dev/private[.]h$
+^libmarpa/doc/
+^libmarpa/libmarpa[-]doc[.]tar$
+^libmarpa/orig/
+^libmarpa/stage/
+^libmarpa/test/dev/Makefile[.]in$
+^libmarpa/test/dev/aclocal[.]m4$
+^libmarpa/test/dev/autom4te.cache/
+^libmarpa/test/dev/autoscan.log
+^libmarpa/test/dev/config[.]guess$
+^libmarpa/test/dev/config[.]sub$
+^libmarpa/test/dev/configure$
+^libmarpa/test/dev/depcomp$
+^libmarpa/test/dev/install-sh$
+^libmarpa/test/dev/ltmain[.]sh$
+^libmarpa/test/dev/m4/libtool[.]m4$
+^libmarpa/test/dev/m4/ltoptions[.]m4$
+^libmarpa/test/dev/m4/ltsugar[.]m4$
+^libmarpa/test/dev/m4/ltversion[.]m4$
+^libmarpa/test/dev/m4/lt~obsolete[.]m4$
+^libmarpa/test/dev/missing$
+^libmarpa/test/libmarpa/
+^libmarpa/test/work/
+^libmarpa_build/
+^nogit
+^nogit/
+^nytprof/
+^nytprof[.]out$
+^pod/Semantics/Order[.]pod[.]save$
+^pod2htmd.tmp
+^pod2htmi.tmp
+^pperl/Marpa/R2/Perl/Installed[.]pm$
+^pperl/Marpa/R2/Perl/Version[.]pm$
+^lib/Marpa/R2/meta/metag[-]g[123456789][.]pl
+^lib/Marpa/R2/meta/metag[.]pl
