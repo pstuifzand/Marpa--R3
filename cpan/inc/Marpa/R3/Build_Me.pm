@@ -1,25 +1,25 @@
 # Copyright 2012 Jeffrey Kegler
-# This file is part of Marpa::R2.  Marpa::R2 is free software: you can
+# This file is part of Marpa::R3.  Marpa::R3 is free software: you can
 # redistribute it and/or modify it under the terms of the GNU Lesser
 # General Public License as published by the Free Software Foundation,
 # either version 3 of the License, or (at your option) any later version.
 #
-# Marpa::R2 is distributed in the hope that it will be useful,
+# Marpa::R3 is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # Lesser General Public License for more details.
 #
 # You should have received a copy of the GNU Lesser
-# General Public License along with Marpa::R2.  If not, see
+# General Public License along with Marpa::R3.  If not, see
 # http://www.gnu.org/licenses/.
 
-package Marpa::R2::Build_Me;
+package Marpa::R3::Build_Me;
 
 use 5.010;
 use strict;
 use warnings;
 
-@Marpa::R2::Build_Me::ISA = ('Module::Build');
+@Marpa::R3::Build_Me::ISA = ('Module::Build');
 
 use Config;
 use ExtUtils::Manifest;
@@ -31,10 +31,10 @@ use Fatal qw(open close chdir chmod utime);
 use English qw( -no_match_vars );
 use Time::Piece;
 
-use Marpa::R2::Config;
+use Marpa::R3::Config;
 
 BEGIN {
-    if ($Marpa::R2::USE_PERL_AUTOCONF) {
+    if ($Marpa::R3::USE_PERL_AUTOCONF) {
 	say "Using Config::AutoConf";
         for my $package (qw( ExtUtils::MakeMaker Config::AutoConf ))
         {
@@ -42,13 +42,13 @@ BEGIN {
                 die "$package is not installed: $EVAL_ERROR\n",
                     "    Module $package is required for Windows and for USE_PERL_AUTOCONF mode\n";
             }
-            my $version = $Marpa::R2::VERSION_FOR_CONFIG{$package};
+            my $version = $Marpa::R3::VERSION_FOR_CONFIG{$package};
             if ( not $package->VERSION($version) ) {
                 die "Version $version of $package is not installed\n",
                     "    Version $version of $package is required for Windows and for USE_PERL_AUTOCONF mode\n";
             }
         } ## end for my $package (...)
-    } ## end if ($Marpa::R2::USE_PERL_AUTOCONF)
+    } ## end if ($Marpa::R3::USE_PERL_AUTOCONF)
 } ## end BEGIN
 
 my $preamble = <<'END_OF_STRING';
@@ -87,7 +87,7 @@ sub xs_version_contents {
 ##use critic
 
     for my $package (@use_packages) {
-        my $version = $Marpa::R2::VERSION_FOR_CONFIG{$package};
+        my $version = $Marpa::R3::VERSION_FOR_CONFIG{$package};
         die "No version defined for $package" if not defined $version;
         $text .= "use $package $version ();\n";
     }
@@ -97,7 +97,7 @@ sub xs_version_contents {
 
 sub perl_version_contents {
     my ( $self, $package, ) = @_;
-    my @use_packages     = qw( Scalar::Util Carp Data::Dumper PPI Marpa::R2 );
+    my @use_packages     = qw( Scalar::Util Carp Data::Dumper PPI Marpa::R3 );
     my $text             = $preamble;
     my $marpa_version = $self->dist_version();
     $text .= "package $package;\n";
@@ -109,9 +109,9 @@ sub perl_version_contents {
 
     for my $package (@use_packages) {
         my $version =
-              $package eq 'Marpa::R2'
+              $package eq 'Marpa::R3'
             ? $marpa_version
-            : $Marpa::R2::VERSION_FOR_CONFIG{$package};
+            : $Marpa::R3::VERSION_FOR_CONFIG{$package};
         die "No version defined for $package" if not defined $version;
         $text .= "use $package $version ();\n";
     } ## end for my $package (@use_packages)
@@ -272,8 +272,8 @@ sub process_xs {
         # finalize libmarpa.a
         my $libmarpa_libs_dir =
             File::Spec->catdir( $self->base_dir(), 'libmarpa_build',
-            $Marpa::R2::USE_PERL_AUTOCONF ? ('blib', 'arch', 'auto', 'libmarpa') : '.libs');
-        my $libmarpa_archive = File::Spec->catfile( $libmarpa_libs_dir, $Marpa::R2::USE_PERL_AUTOCONF ? "libmarpa$Config{lib_ext}" : 'libmarpa.a');
+            $Marpa::R3::USE_PERL_AUTOCONF ? ('blib', 'arch', 'auto', 'libmarpa') : '.libs');
+        my $libmarpa_archive = File::Spec->catfile( $libmarpa_libs_dir, $Marpa::R3::USE_PERL_AUTOCONF ? "libmarpa$Config{lib_ext}" : 'libmarpa.a');
         push @{ $self->{properties}->{objects} }, $libmarpa_archive;
     }
 
@@ -378,7 +378,7 @@ sub do_libmarpa {
 
     chdir $build_dir;
 
-    if (! $Marpa::R2::USE_PERL_AUTOCONF) {
+    if (! $Marpa::R3::USE_PERL_AUTOCONF) {
 
 	    # This is only necessary for GNU autoconf, which is aggressive
 	    # about looking for things to update
@@ -440,7 +440,7 @@ sub do_libmarpa {
             'MARPA_DEBUG_FLAG=' . ( join q{ }, @debug_flags );
     } ## end if ( defined $self->args('Marpa-debug') )
 	
-    if ($Marpa::R2::USE_PERL_AUTOCONF) {
+    if ($Marpa::R3::USE_PERL_AUTOCONF) {
 	my @marpa_version =
 	    ( map { $_ + 0 }
 		$self->dist_version()
@@ -626,11 +626,11 @@ sub make_writeable {
 sub ACTION_licensecheck {
     my $self = shift;
 
-    require inc::Marpa::R2::License;
+    require inc::Marpa::R3::License;
 
     my $manifest = [keys %{ExtUtils::Manifest::maniread()}];
     my @license_problems =
-        Marpa::R2::License::license_problems( $manifest, $self->verbose() );
+        Marpa::R3::License::license_problems( $manifest, $self->verbose() );
     if (@license_problems) {
         print {*STDERR} join q{}, @license_problems
             or die "Cannot print: $ERRNO";
@@ -670,15 +670,15 @@ sub write_installed_pm {
 
 sub ACTION_code {
     my $self               = shift;
-    my @r2_perl_components = qw(pperl Marpa R2 Perl);
-    my @r2_components      = qw(lib Marpa R2);
-    my $config_pm_filename = File::Spec->catfile(qw(inc Marpa R2 Config.pm ));
+    my @r3_perl_components = qw(pperl Marpa R3 Perl);
+    my @r3_components      = qw(lib Marpa R3);
+    my $config_pm_filename = File::Spec->catfile(qw(inc Marpa R3 Config.pm ));
     my $build_filename     = 'Build';
     my @derived_files      = (
-        File::Spec->catfile( @r2_components,      'Version.pm' ),
-        File::Spec->catfile( @r2_components,      'Installed.pm' ),
-        File::Spec->catfile( @r2_perl_components, 'Version.pm' ),
-        File::Spec->catfile( @r2_perl_components, 'Installed.pm' ),
+        File::Spec->catfile( @r3_components,      'Version.pm' ),
+        File::Spec->catfile( @r3_components,      'Installed.pm' ),
+        File::Spec->catfile( @r3_perl_components, 'Version.pm' ),
+        File::Spec->catfile( @r3_perl_components, 'Installed.pm' ),
     );
     if (not $self->up_to_date(
             [ $config_pm_filename, $build_filename ],
@@ -687,14 +687,14 @@ sub ACTION_code {
         )
     {
         say {*STDERR} 'Writing version files' or die "say failed: $ERRNO";
-        write_installed_pm( $self, qw(lib Marpa R2 ) );
-        write_installed_pm( $self, qw(pperl Marpa R2 Perl ) );
+        write_installed_pm( $self, qw(lib Marpa R3 ) );
+        write_installed_pm( $self, qw(pperl Marpa R3 Perl ) );
         my $perl_version_pm =
-            perl_version_contents( $self, 'Marpa::R2::Perl' );
-        my $version_pm = xs_version_contents( $self, 'Marpa::R2' );
-        $self->write_file( $version_pm, qw(lib Marpa R2 Version.pm) );
+            perl_version_contents( $self, 'Marpa::R3::Perl' );
+        my $version_pm = xs_version_contents( $self, 'Marpa::R3' );
+        $self->write_file( $version_pm, qw(lib Marpa R3 Version.pm) );
         $self->write_file( $perl_version_pm,
-            qw(pperl Marpa R2 Perl Version.pm) );
+            qw(pperl Marpa R3 Perl Version.pm) );
     } ## end if ( not $self->up_to_date( [ $config_pm_filename, ...]))
     $self->do_libmarpa();
     return $self->SUPER::ACTION_code;
