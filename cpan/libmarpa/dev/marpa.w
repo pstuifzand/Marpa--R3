@@ -544,6 +544,17 @@ marpa_check_version (unsigned int required_major,
   return MARPA_ERR_NONE;
 }
 
+@ Always succeeds at this point.
+@<Function definitions@> =
+Marpa_Error_Code
+marpa_version (unsigned int* version)
+{
+  *version++ = MARPA_MAJOR_VERSION;
+  *version++ = MARPA_MINOR_VERSION;
+  *version = MARPA_MICRO_VERSION;
+  return 0;
+}
+
 @*0 Header file.
 These and other globals may need
 special variable declarations so that they

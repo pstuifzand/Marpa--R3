@@ -55,7 +55,7 @@ Published @value{UPDATED} by Jeffrey Kegler
 * Threads::                     
 * Fatal Errors::                
 * Introduction to the external interface::  
-* Static method::               
+* Static methods::              
 * Configuration methods::       
 * Grammar methods::             
 * Recognizer methods::          
@@ -1110,7 +1110,7 @@ an alternative memory allocator to be specificied,
 and to allow the user to specifier a handler to
 be called when an out-of-memory condition occurs.
 
-@node Introduction to the external interface, Static method, Fatal Errors, Top
+@node Introduction to the external interface, Static methods, Fatal Errors, Top
 @chapter Introduction to the external interface
 
 The following chapters describe Libmarpa's external
@@ -1237,8 +1237,8 @@ All Libmarpa names visible outside the package
 will begin with a capitalization variant
 of one of these two prefixes.
 
-@node Static method, Configuration methods, Introduction to the external interface, Top
-@chapter Static method
+@node Static methods, Configuration methods, Introduction to the external interface, Top
+@chapter Static methods
 
 @deftypefun Marpa_Error_Code marpa_check_version @
     (unsigned int @var{required_major}, @
@@ -1276,7 +1276,16 @@ one of the following is returned, indicating the nature of the mismatch:
 
 @end deftypefun
 
-@node Configuration methods, Grammar methods, Static method, Top
+@deftypefun Marpa_Error_Code marpa_version (unsigned int* version)
+
+Returns the version number in @var{version},
+which must have room for three @code{unsigned int}'s.
+
+Return value: A non-negative number on success,
+@minus{}2 on failure.
+@end deftypefun
+
+@node Configuration methods, Grammar methods, Static methods, Top
 @chapter Configuration methods
 
 The configuration object is intended for future extensions.
