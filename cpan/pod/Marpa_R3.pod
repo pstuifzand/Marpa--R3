@@ -19,7 +19,7 @@ Marpa::R3 - Release 3 of Marpa
 
 =head1 THIS IS BETA SOFTWARE
 
-Marpa::R2 is beta software.
+Marpa::R3 is beta software.
 The interface is subject to change.
 
 =head1 Synopsis

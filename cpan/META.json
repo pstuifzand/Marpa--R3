@@ -84,38 +84,6 @@
       }
    },
    "provides" : {
-      "Marpa::R2::HTML" : {
-         "file" : "html/lib/Marpa/R3/HTML.pm",
-         "version" : "3.001_000"
-      },
-      "Marpa::R2::HTML::Callback" : {
-         "file" : "html/lib/Marpa/R3/HTML/Callback.pm",
-         "version" : "3.001_000"
-      },
-      "Marpa::R2::HTML::Config" : {
-         "file" : "html/lib/Marpa/R3/HTML/Config.pm",
-         "version" : 0
-      },
-      "Marpa::R2::HTML::Config::Compile" : {
-         "file" : "html/lib/Marpa/R3/HTML/Config/Compile.pm",
-         "version" : 0
-      },
-      "Marpa::R2::HTML::Internal" : {
-         "file" : "html/lib/Marpa/R3/HTML.pm",
-         "version" : 0
-      },
-      "Marpa::R2::HTML::Internal::Callback" : {
-         "file" : "html/lib/Marpa/R3/HTML/Callback.pm",
-         "version" : 0
-      },
-      "Marpa::R2::HTML::Internal::Config::Default" : {
-         "file" : "html/lib/Marpa/R3/HTML/Config/Default.pm",
-         "version" : 0
-      },
-      "Marpa::R2::HTML::Internal::Core" : {
-         "file" : "html/lib/Marpa/R3/HTML/Config/Core.pm",
-         "version" : 0
-      },
       "Marpa::R3" : {
          "file" : "lib/Marpa/R3.pm",
          "version" : "3.001_000"
@@ -123,6 +91,38 @@
       "Marpa::R3::Grammar" : {
          "file" : "lib/Marpa/R3/Grammar.pm",
          "version" : "3.001_000"
+      },
+      "Marpa::R3::HTML" : {
+         "file" : "html/lib/Marpa/R3/HTML.pm",
+         "version" : "3.001_000"
+      },
+      "Marpa::R3::HTML::Callback" : {
+         "file" : "html/lib/Marpa/R3/HTML/Callback.pm",
+         "version" : "3.001_000"
+      },
+      "Marpa::R3::HTML::Config" : {
+         "file" : "html/lib/Marpa/R3/HTML/Config.pm",
+         "version" : 0
+      },
+      "Marpa::R3::HTML::Config::Compile" : {
+         "file" : "html/lib/Marpa/R3/HTML/Config/Compile.pm",
+         "version" : 0
+      },
+      "Marpa::R3::HTML::Internal" : {
+         "file" : "html/lib/Marpa/R3/HTML.pm",
+         "version" : 0
+      },
+      "Marpa::R3::HTML::Internal::Callback" : {
+         "file" : "html/lib/Marpa/R3/HTML/Callback.pm",
+         "version" : 0
+      },
+      "Marpa::R3::HTML::Internal::Config::Default" : {
+         "file" : "html/lib/Marpa/R3/HTML/Config/Default.pm",
+         "version" : 0
+      },
+      "Marpa::R3::HTML::Internal::Core" : {
+         "file" : "html/lib/Marpa/R3/HTML/Config/Core.pm",
+         "version" : 0
       },
       "Marpa::R3::Inner::Scanless" : {
          "file" : "lib/Marpa/R3/Scanless.pm",
