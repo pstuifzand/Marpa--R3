@@ -13,7 +13,7 @@
 # General Public License along with Marpa::R3.  If not, see
 # http://www.gnu.org/licenses/.
 
-package Marpa::R2::Test;
+package Marpa::R3::Test;
 
 use 5.010;
 use strict;
@@ -21,7 +21,7 @@ use warnings;
 
 use Data::Dumper;
 
-Marpa::R2::exception('Test::More not loaded')
+Marpa::R3::exception('Test::More not loaded')
     if not defined &Test::More::is;
 
 BEGIN {
@@ -30,12 +30,12 @@ BEGIN {
     eval 'use Test::Differences';
 }
 
-sub Marpa::R2::Test::is {
+sub Marpa::R3::Test::is {
     goto &Test::Differences::eq_or_diff
         if defined &Test::Differences::eq_or_diff && @_ > 1;
     @_ = map { ref $_ ? Data::Dumper::Dumper(@_) : $_ } @_;
     goto &Test::More::is;
-} ## end sub Marpa::R2::Test::is
+} ## end sub Marpa::R3::Test::is
 
 1;
 

@@ -110,7 +110,7 @@ sub Marpa::R3::Display::read {
 
         my $display_spec;
         my $display_spec_line_number = $zero_based_line + 1;
-        if ( $line =~ /^[#] \s+ Marpa::R2[:][:]Display/xms ) {
+        if ( $line =~ /^[#] \s+ Marpa::R3[:][:]Display/xms ) {
 
             my $yaml = q{};
             while ( ( my $yaml_line = $lines[ ++$zero_based_line ] )
@@ -132,9 +132,9 @@ sub Marpa::R3::Display::read {
                         or Carp::croak("Cannot print: $ERRNO");
                 } ## end if ( not $eval_ok )
             } ## end if ( $yaml =~ / \S /xms )
-        } ## end if ( $line =~ /^[#] \s+ Marpa::R2[:][:]Display/xms )
+        } ## end if ( $line =~ /^[#] \s+ Marpa::R3[:][:]Display/xms )
 
-        if ( $line =~ /^[=]for \s+ Marpa::R2[:][:]Display/xms ) {
+        if ( $line =~ /^[=]for \s+ Marpa::R3[:][:]Display/xms ) {
 
             my $yaml = q{};
             while (
@@ -155,7 +155,7 @@ sub Marpa::R3::Display::read {
                         or Carp::croak("Cannot print: $ERRNO");
                 } ## end if ( not $eval_ok )
             } ## end if ( $yaml =~ / \S /xms )
-        } ## end if ( $line =~ /^[=]for \s+ Marpa::R2[:][:]Display/xms)
+        } ## end if ( $line =~ /^[=]for \s+ Marpa::R3[:][:]Display/xms)
 
         next LINE if not defined $display_spec;
 
@@ -220,10 +220,10 @@ sub Marpa::R3::Display::read {
                 } ## end if ( not defined $content_line )
                 last CONTENT_LINE
                     if $content_line
-                        =~ /^[=]for \s+ Marpa::R2[:][:]Display[:][:]End\b/xms;
+                        =~ /^[=]for \s+ Marpa::R3[:][:]Display[:][:]End\b/xms;
                 last CONTENT_LINE
                     if $content_line
-                        =~ /^[#] \s* Marpa::R2[:][:]Display[:][:]End\b/xms;
+                        =~ /^[#] \s* Marpa::R3[:][:]Display[:][:]End\b/xms;
                 $content .= "$content_line\n";
                 $content_end_line = $zero_based_line + 1;
                 $content_start_line //= $zero_based_line + 1;
