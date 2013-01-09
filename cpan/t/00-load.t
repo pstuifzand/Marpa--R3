@@ -23,10 +23,10 @@ use Test::More tests => 2;
 use Marpa::R3;
 
 defined $INC{'Marpa/R2.pm'}
-    or Test::More::BAIL_OUT('Could not load Marpa::R2');
+    or Test::More::BAIL_OUT('Could not load Marpa::R3');
 
-Test::More::ok( ( defined $Marpa::R2::VERSION ),
-    'Marpa::R2 version is ' . $Marpa::R2::VERSION );
-Test::More::ok( ( defined $Marpa::R2::STRING_VERSION ),
-    'Marpa::R2 string version is ' . $Marpa::R2::STRING_VERSION );
+Test::More::ok( ( defined $Marpa::R3::VERSION ),
+    'Marpa::R3 version is ' . $Marpa::R2::VERSION );
+Test::More::ok( ( defined $Marpa::R3::STRING_VERSION ),
+    'Marpa::R3 string version is ' . $Marpa::R2::STRING_VERSION );
 

@@ -122,15 +122,15 @@ use Marpa::R3::Thin::Trace;
 our %DEFAULT_SYMBOLS_RESERVED;
 %DEFAULT_SYMBOLS_RESERVED = map { ($_, 1) } split //xms, '}]>)';
 
-sub Marpa::R2::uncaught_error {
+sub Marpa::R3::uncaught_error {
     my ($error) = @_;
 
     # This would be Carp::confess, but in the testing
     # the stack trace includes the hoped for error
     # message, which causes spurious success reports.
-    Carp::croak( "libmarpa reported an error which Marpa::R2 did not catch\n",
+    Carp::croak( "libmarpa reported an error which Marpa::R3 did not catch\n",
         $error );
-} ## end sub Marpa::R2::uncaught_error
+} ## end sub Marpa::R3::uncaught_error
 
 package Marpa::R3::Internal::Grammar;
 
@@ -502,7 +502,7 @@ sub Marpa::R3::Grammar::precompute {
         Marpa::R3::exception(
             Marpa::R3::Grammar::show_problems($grammar),
             "Second attempt to precompute grammar with fatal problems\n",
-            'Marpa::R2 cannot proceed'
+            'Marpa::R3 cannot proceed'
         );
     } ## end if ($problems)
 
@@ -592,7 +592,7 @@ sub Marpa::R3::Grammar::precompute {
             Marpa::R3::exception(qq{Unproductive start symbol: "$name"});
         }
 
-        Marpa::R2::uncaught_error( scalar $grammar_c->error() );
+        Marpa::R3::uncaught_error( scalar $grammar_c->error() );
 
     } ## end if ( $precompute_error_code != $Marpa::R3::Error::NONE)
 
@@ -603,7 +603,7 @@ sub Marpa::R3::Grammar::precompute {
         for ( my $rule_id = 0; $rule_id <= $highest_rule_id; $rule_id++ ) {
             next RULE if defined $rules->[$rule_id];
 
-            # The Marpa::R2 logic assumes no "gaps" in the rule numbering,
+            # The Marpa::R3 logic assumes no "gaps" in the rule numbering,
             # which is currently the case for Libmarpa,
             # but not guaranteed.
             shadow_rule( $grammar, $rule_id );
@@ -1338,7 +1338,7 @@ sub set_start_symbol {
     } ## end VALIDATE_START_NAME:
 
     if ( not defined $grammar_c->start_symbol_set($start_id) ) {
-        Marpa::R2::uncaught_error( $grammar_c->error() );
+        Marpa::R3::uncaught_error( $grammar_c->error() );
     }
     return 1;
 } ## end sub set_start_symbol

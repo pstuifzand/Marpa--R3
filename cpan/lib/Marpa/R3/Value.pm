@@ -13,7 +13,7 @@
 # General Public License along with Marpa::R3.  If not, see
 # http://www.gnu.org/licenses/.
 
-package Marpa::R2::Value;
+package Marpa::R3::Value;
 
 use 5.010;
 use warnings;
@@ -32,12 +32,12 @@ use English qw( -no_match_vars );
 
 use constant SKIP => -1;
 
-sub Marpa::R2::show_rank_ref {
+sub Marpa::R3::show_rank_ref {
     my ($rank_ref) = @_;
     return 'undef' if not defined $rank_ref;
     return 'SKIP'  if $rank_ref == Marpa::R3::Internal::Value::SKIP;
     return ${$rank_ref};
-} ## end sub Marpa::R2::show_rank_ref
+} ## end sub Marpa::R3::show_rank_ref
 
 package Marpa::R3::Internal::Value;
 
@@ -429,7 +429,7 @@ sub code_problems {
         my $false_eval = $eval_given && !$eval_value && !$fatal_error;
         if ($false_eval) {
             push @problems, '* THE MARPA SEMANTICS RETURNED A PERL FALSE',
-                'Marpa::R2 requires its semantics to return a true value';
+                'Marpa::R3 requires its semantics to return a true value';
         }
         if ($fatal_error) {
             push @problems, '* THE MARPA SEMANTICS PRODUCED A FATAL ERROR';

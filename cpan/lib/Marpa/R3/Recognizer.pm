@@ -112,7 +112,7 @@ sub Marpa::R3::Recognizer::new {
         Marpa::R3::exception(
             Marpa::R3::Grammar::show_problems($grammar),
             "Attempt to parse grammar with fatal problems\n",
-            'Marpa::R2 cannot proceed',
+            'Marpa::R3 cannot proceed',
         );
     } ## end if ($problems)
 
@@ -254,7 +254,7 @@ sub Marpa::R3::Recognizer::set {
         my $ref_type = ref $args;
         if ( not $ref_type or $ref_type ne 'HASH' ) {
             Carp::croak(
-                'Marpa::R2 Recognizer expects args as ref to HASH, got ',
+                'Marpa::R3 Recognizer expects args as ref to HASH, got ',
                 ( "ref to $ref_type" || 'non-reference' ),
                 ' instead'
             );
@@ -266,7 +266,7 @@ sub Marpa::R3::Recognizer::set {
             keys %{$args}
             )
         {
-            Carp::croak( 'Unknown option(s) for Marpa::R2 Recognizer: ',
+            Carp::croak( 'Unknown option(s) for Marpa::R3 Recognizer: ',
                 join q{ }, @bad_options );
         } ## end if ( my @bad_options = grep { not $_ ~~ ...})
 
@@ -759,7 +759,7 @@ sub Marpa::R3::Recognizer::earleme_complete {
         print {$Marpa::R3::Internal::TRACE_FH} "=== Earley set $latest_set\n"
             or Marpa::R3::exception("Cannot print: $ERRNO");
         print {$Marpa::R3::Internal::TRACE_FH}
-            Marpa::R2::show_earley_set($latest_set)
+            Marpa::R3::show_earley_set($latest_set)
             or Marpa::R3::exception("Cannot print: $ERRNO");
     } ## end if ( $recce->[Marpa::R3::Internal::Recognizer::TRACE_EARLEY_SETS...])
 
@@ -835,7 +835,7 @@ sub Marpa::R3::Recognizer::earley_set_size {
     return $recce_c->_marpa_r_earley_set_size($set_id);
 }
 
-sub Marpa::R2::show_leo_item {
+sub Marpa::R3::show_leo_item {
     my ($recce)        = @_;
     my $recce_c        = $recce->[Marpa::R3::Internal::Recognizer::C];
     my $grammar        = $recce->[Marpa::R3::Internal::Recognizer::GRAMMAR];
@@ -861,10 +861,10 @@ sub Marpa::R2::show_leo_item {
         $trace_earleme;
     $text .= ' [' . ( join '; ', @link_texts ) . ']';
     return $text;
-} ## end sub Marpa::R2::show_leo_item
+} ## end sub Marpa::R3::show_leo_item
 
 # Assumes trace token source link set by caller
-sub Marpa::R2::show_token_link_choice {
+sub Marpa::R3::show_token_link_choice {
     my ( $recce, $current_earleme ) = @_;
     my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C];
     my $grammar = $recce->[Marpa::R3::Internal::Recognizer::GRAMMAR];
@@ -895,10 +895,10 @@ sub Marpa::R2::show_token_link_choice {
     chomp $token_dump;
     push @pieces, "t=$token_dump";
     return '[' . ( join '; ', @pieces ) . ']';
-} ## end sub Marpa::R2::show_token_link_choice
+} ## end sub Marpa::R3::show_token_link_choice
 
 # Assumes trace completion source link set by caller
-sub Marpa::R2::show_completion_link_choice {
+sub Marpa::R3::show_completion_link_choice {
     my ( $recce, $AHFA_state_id, $current_earleme ) = @_;
     my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C];
     my $grammar = $recce->[Marpa::R3::Internal::Recognizer::GRAMMAR];
@@ -924,10 +924,10 @@ sub Marpa::R2::show_completion_link_choice {
         . $middle_earleme . q{-}
         . $current_earleme;
     return '[' . ( join '; ', @pieces ) . ']';
-} ## end sub Marpa::R2::show_completion_link_choice
+} ## end sub Marpa::R3::show_completion_link_choice
 
 # Assumes trace completion source link set by caller
-sub Marpa::R2::show_leo_link_choice {
+sub Marpa::R3::show_leo_link_choice {
     my ( $recce, $AHFA_state_id, $current_earleme ) = @_;
     my $recce_c        = $recce->[Marpa::R3::Internal::Recognizer::C];
     my $grammar        = $recce->[Marpa::R3::Internal::Recognizer::GRAMMAR];
@@ -945,10 +945,10 @@ sub Marpa::R2::show_leo_link_choice {
         . $middle_earleme . q{-}
         . $current_earleme;
     return '[' . ( join '; ', @pieces ) . ']';
-} ## end sub Marpa::R2::show_leo_link_choice
+} ## end sub Marpa::R3::show_leo_link_choice
 
 # Assumes trace earley item was set by caller
-sub Marpa::R2::show_earley_item {
+sub Marpa::R3::show_earley_item {
     my ( $recce, $current_es, $state_id ) = @_;
     my $recce_c        = $recce->[Marpa::R3::Internal::Recognizer::C];
     my $text           = q{};
@@ -970,7 +970,7 @@ sub Marpa::R2::show_earley_item {
             $recce_c->_marpa_r_source_middle(),
             $symbol_id,
             ( $recce_c->_marpa_r_source_predecessor_state() // -1 ),
-            Marpa::R2::show_token_link_choice( $recce, $earleme )
+            Marpa::R3::show_token_link_choice( $recce, $earleme )
             ];
     } ## end for ( my $symbol_id = $recce_c->_marpa_r_first_token_link_trace...)
     push @pieces, map { $_->[-1] } sort {
@@ -990,7 +990,7 @@ sub Marpa::R2::show_earley_item {
             $recce_c->_marpa_r_source_middle(),
             $cause_AHFA_id,
             ( $recce_c->_marpa_r_source_predecessor_state() // -1 ),
-            Marpa::R2::show_completion_link_choice(
+            Marpa::R3::show_completion_link_choice(
                 $recce, $cause_AHFA_id, $earleme
             )
             ];
@@ -1012,7 +1012,7 @@ sub Marpa::R2::show_earley_item {
             $recce_c->_marpa_r_source_middle(),
             $AHFA_state_id,
             $recce_c->_marpa_r_source_leo_transition_symbol(),
-            Marpa::R2::show_leo_link_choice(
+            Marpa::R3::show_leo_link_choice(
                 $recce, $AHFA_state_id, $earleme
             )
             ];
@@ -1023,9 +1023,9 @@ sub Marpa::R2::show_earley_item {
             || $a->[2] <=> $b->[2]
     } @sort_data;
     return join q{ }, @pieces;
-} ## end sub Marpa::R2::show_earley_item
+} ## end sub Marpa::R3::show_earley_item
 
-sub Marpa::R2::show_earley_set {
+sub Marpa::R3::show_earley_set {
     my ( $recce, $traced_set_id ) = @_;
     my $recce_c   = $recce->[Marpa::R3::Internal::Recognizer::C];
     my $text      = q{};
@@ -1039,7 +1039,7 @@ sub Marpa::R2::show_earley_set {
         push @sort_data,
             [
             $recce_c->_marpa_r_earley_item_origin(), $state_id,
-            Marpa::R2::show_earley_item( $recce, $traced_set_id, $state_id )
+            Marpa::R3::show_earley_item( $recce, $traced_set_id, $state_id )
             ];
     } ## end EARLEY_ITEM: for ( my $item_id = 0;; $item_id++ )
     my @sorted_data =
@@ -1056,14 +1056,14 @@ sub Marpa::R2::show_earley_set {
 
         # If there is no base Earley item,
         # then this is not a Leo item, so we skip it
-        my $leo_item_desc = Marpa::R2::show_leo_item($recce);
+        my $leo_item_desc = Marpa::R3::show_leo_item($recce);
         next POSTDOT_ITEM if not defined $leo_item_desc;
         push @sort_data, [ $postdot_symbol_id, $leo_item_desc ];
     } ## end POSTDOT_ITEM: for ( my $postdot_symbol_id = $recce_c...)
     push @sorted_data, join q{},
         map { $_->[-1] . "\n" } sort { $a->[0] <=> $b->[0] } @sort_data;
     return join q{}, @sorted_data;
-} ## end sub Marpa::R2::show_earley_set
+} ## end sub Marpa::R3::show_earley_set
 
 sub Marpa::R3::Recognizer::show_earley_sets {
     my ($recce)                = @_;
@@ -1073,7 +1073,7 @@ sub Marpa::R3::Recognizer::show_earley_sets {
     my $text                   = "Last Completed: $last_completed_earleme; "
         . "Furthest: $furthest_earleme\n";
     LIST: for ( my $ix = 0;; $ix++ ) {
-        my $set_desc = Marpa::R2::show_earley_set( $recce, $ix );
+        my $set_desc = Marpa::R3::show_earley_set( $recce, $ix );
         last LIST if not $set_desc;
         $text .= "Earley Set $ix\n$set_desc";
     }
