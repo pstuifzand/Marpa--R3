@@ -26,7 +26,7 @@ $STRING_VERSION = $VERSION;
 $VERSION = eval $VERSION;
 ## use critic
 
-package Marpa::R2::Internal::Stuifzand::Symbol;
+package Marpa::R3::Internal::Stuifzand::Symbol;
 
 use constant NAME => 0;
 use constant HIDE => 1;
@@ -38,7 +38,7 @@ sub is_hidden { return $_[0]->{is_hidden} }
 sub hidden_set { $_[0]->{is_hidden} = 1; }
 sub symbols { return $_[0]; }
 
-package Marpa::R2::Internal::Stuifzand::Symbol_List;
+package Marpa::R3::Internal::Stuifzand::Symbol_List;
 
 sub new { my $class = shift; return bless [@_], $class }
 
@@ -61,7 +61,7 @@ sub symbols {
     return map { $_->symbols() } @{ $_[0] };
 }
 
-package Marpa::R2::Internal::Stuifzand;
+package Marpa::R3::Internal::Stuifzand;
 
 use English qw( -no_match_vars );
 
@@ -271,7 +271,7 @@ sub do_quantified_rule {
 sub create_hidden_internal_symbol {
     my ($self, $symbol_name) = @_;
     $self->{needs_symbol}->{$symbol_name} = 1;
-    my $symbol = Marpa::R2::Internal::Stuifzand::Symbol->new($symbol_name);
+    my $symbol = Marpa::R3::Internal::Stuifzand::Symbol->new($symbol_name);
     $symbol->hidden_set();
     return $symbol;
 }
@@ -292,18 +292,18 @@ sub do_ws_plus {
 
 sub do_symbol {
     shift;
-    return Marpa::R2::Internal::Stuifzand::Symbol->new( $_[0] );
+    return Marpa::R3::Internal::Stuifzand::Symbol->new( $_[0] );
 }
 
 sub do_character_class {
     Marpa::R2::exception( 'character classes not allowed unless grammar is scannerless');
 } ## end sub do_character_class
 
-sub do_rhs_primary_list { shift; return Marpa::R2::Internal::Stuifzand::Symbol_List->new(@_) }
+sub do_rhs_primary_list { shift; return Marpa::R3::Internal::Stuifzand::Symbol_List->new(@_) }
 sub do_lhs { shift; return $_[0]; }
 sub do_rhs {
     shift;
-    return Marpa::R2::Internal::Stuifzand::Symbol_List->new(
+    return Marpa::R3::Internal::Stuifzand::Symbol_List->new(
         map { $_->symbols() } @_ );
 }
 sub do_adverb_list { shift; return { map {; @{$_}} @_ } }
@@ -1881,7 +1881,7 @@ sub parse_rules {
     } ## end for my $rule_id ( grep { $thin_meta_g1_grammar->rule_length($_...)})
 
     my $token_values =
-        $thick_g1_recce->[Marpa::R2::Internal::Recognizer::TOKEN_VALUES];
+        $thick_g1_recce->[Marpa::R3::Internal::Recognizer::TOKEN_VALUES];
 
     # The parse result object
     my $self = { thick_grammar => $thick_grammar };

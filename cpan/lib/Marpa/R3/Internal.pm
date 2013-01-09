@@ -13,7 +13,7 @@
 # General Public License along with Marpa::R3.  If not, see
 # http://www.gnu.org/licenses/.
 
-package Marpa::R2::Internal;
+package Marpa::R3::Internal;
 
 use 5.010;
 use strict;

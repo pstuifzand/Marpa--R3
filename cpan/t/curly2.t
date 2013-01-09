@@ -130,9 +130,9 @@ sub find_curly {
     my $recce            = $parser->{recce};
     my $earleme_to_token = $parser->{earleme_to_PPI_token};
     my $PPI_tokens       = $parser->{PPI_tokens};
-    my $grammar          = $recce->[Marpa::R2::Internal::Recognizer::GRAMMAR];
-    my $grammar_c        = $grammar->[Marpa::R2::Internal::Grammar::C];
-    my $rules            = $grammar->[Marpa::R2::Internal::Grammar::RULES];
+    my $grammar          = $recce->[Marpa::R3::Internal::Recognizer::GRAMMAR];
+    my $grammar_c        = $grammar->[Marpa::R3::Internal::Grammar::C];
+    my $rules            = $grammar->[Marpa::R3::Internal::Grammar::RULES];
     for my $earley_set_id ( 0 .. $recce->latest_earley_set() ) {
         my @hash_locations  = ();
         my @code_locations  = ();
@@ -147,7 +147,7 @@ sub find_curly {
             my $origin_earleme = $recce->earleme($origin_earley_set_id);
 
             my $rule      = $rules->[$rule_id];
-            my $rule_name = $rule->[Marpa::R2::Internal::Rule::NAME];
+            my $rule_name = $rule->[Marpa::R3::Internal::Rule::NAME];
             next ITEM if not defined $rule_name;
             my $blocktype =
                   $rule_name eq 'anon_hash' ? 'hash'

@@ -40,7 +40,7 @@ my $p_bnf           = \(join q{}, <>);
 my @grammar_args  = ();
 my $dummy_grammar = Marpa::R2::Grammar->new( {@grammar_args} );
 my $parse_result =
-    Marpa::R2::Internal::Stuifzand::parse_rules( $dummy_grammar, $p_bnf );
+    Marpa::R3::Internal::Stuifzand::parse_rules( $dummy_grammar, $p_bnf );
 my $aoh = $parse_result->{rules};
 
 sub sort_bnf {

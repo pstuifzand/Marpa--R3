@@ -94,9 +94,9 @@ TEST: for my $test (@tests) {
     $parser = $parser->read( \$string );
     my @values    = $parser->eval();
     my $recce     = $parser->{recce};
-    my $grammar   = $recce->[Marpa::R2::Internal::Recognizer::GRAMMAR];
-    my $grammar_c = $grammar->[Marpa::R2::Internal::Grammar::C];
-    my $rules     = $grammar->[Marpa::R2::Internal::Grammar::RULES];
+    my $grammar   = $recce->[Marpa::R3::Internal::Recognizer::GRAMMAR];
+    my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
+    my $rules     = $grammar->[Marpa::R3::Internal::Grammar::RULES];
     for my $earley_set_id ( 0 .. $recce->latest_earley_set() ) {
         my $progress_report = $recce->progress($earley_set_id);
         ITEM: for my $progress_item ( @{$progress_report} ) {
@@ -113,7 +113,7 @@ TEST: for my $test (@tests) {
 # Marpa::R3::Display::End
 
             my $rule      = $rules->[$rule_id];
-            my $rule_name = $rule->[Marpa::R2::Internal::Rule::NAME];
+            my $rule_name = $rule->[Marpa::R3::Internal::Rule::NAME];
             next ITEM if not defined $rule_name;
             my $blocktype =
                   $rule_name eq 'anon_hash' ? 'hash'

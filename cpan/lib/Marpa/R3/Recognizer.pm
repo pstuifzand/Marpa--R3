@@ -31,7 +31,7 @@ $VERSION = eval $VERSION;
 BEGIN {
     my $structure = <<'END_OF_STRUCTURE';
 
-    :package=Marpa::R2::Internal::Recognizer
+    :package=Marpa::R3::Internal::Recognizer
 
     C { C structure for the recognizer }
     B_C { C structure for the bocage }
@@ -77,7 +77,7 @@ END_OF_STRUCTURE
     Marpa::R2::offset($structure);
 } ## end BEGIN
 
-package Marpa::R2::Internal::Recognizer;
+package Marpa::R3::Internal::Recognizer;
 
 use English qw( -no_match_vars );
 
@@ -97,17 +97,17 @@ sub Marpa::R2::Recognizer::new {
     } ## end ARG_HASH: for my $arg_hash (@arg_hashes)
     Marpa::R2::exception('No grammar specified') if not defined $grammar;
 
-    $recce->[Marpa::R2::Internal::Recognizer::GRAMMAR] = $grammar;
+    $recce->[Marpa::R3::Internal::Recognizer::GRAMMAR] = $grammar;
 
     my $grammar_class = ref $grammar;
     Marpa::R2::exception(
         "${class}::new() grammar arg has wrong class: $grammar_class")
         if not $grammar_class eq 'Marpa::R2::Grammar';
 
-    my $grammar_c = $grammar->[Marpa::R2::Internal::Grammar::C];
-    my $tracer    = $grammar->[Marpa::R2::Internal::Grammar::TRACER];
+    my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
+    my $tracer    = $grammar->[Marpa::R3::Internal::Grammar::TRACER];
 
-    my $problems = $grammar->[Marpa::R2::Internal::Grammar::PROBLEMS];
+    my $problems = $grammar->[Marpa::R3::Internal::Grammar::PROBLEMS];
     if ($problems) {
         Marpa::R2::exception(
             Marpa::R2::Grammar::show_problems($grammar),
@@ -117,11 +117,11 @@ sub Marpa::R2::Recognizer::new {
     } ## end if ($problems)
 
     # set the defaults
-    local $Marpa::R2::Internal::TRACE_FH = my $trace_fh =
-        $recce->[Marpa::R2::Internal::Recognizer::TRACE_FILE_HANDLE] =
-        $grammar->[Marpa::R2::Internal::Grammar::TRACE_FILE_HANDLE];
+    local $Marpa::R3::Internal::TRACE_FH = my $trace_fh =
+        $recce->[Marpa::R3::Internal::Recognizer::TRACE_FILE_HANDLE] =
+        $grammar->[Marpa::R3::Internal::Grammar::TRACE_FILE_HANDLE];
 
-    my $recce_c = $recce->[Marpa::R2::Internal::Recognizer::C] =
+    my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C] =
         Marpa::R2::Thin::R->new($grammar_c);
     if ( not defined $recce_c ) {
         my $error_code = $grammar_c->error_code() // -1;
@@ -159,12 +159,12 @@ sub Marpa::R2::Recognizer::new {
         } ## end if ( defined( my $value = $arg_hash->{'event_if_expected'...}))
     } ## end ARG_HASH: for my $arg_hash (@arg_hashes)
 
-    $recce->[Marpa::R2::Internal::Recognizer::WARNINGS]       = 1;
-    $recce->[Marpa::R2::Internal::Recognizer::RANKING_METHOD] = 'none';
-    $recce->[Marpa::R2::Internal::Recognizer::MAX_PARSES]     = 0;
+    $recce->[Marpa::R3::Internal::Recognizer::WARNINGS]       = 1;
+    $recce->[Marpa::R3::Internal::Recognizer::RANKING_METHOD] = 'none';
+    $recce->[Marpa::R3::Internal::Recognizer::MAX_PARSES]     = 0;
 
     # First position is reserved for undef
-    $recce->[Marpa::R2::Internal::Recognizer::TOKEN_VALUES] = [undef];
+    $recce->[Marpa::R3::Internal::Recognizer::TOKEN_VALUES] = [undef];
 
     $recce->reset_evaluation();
 
@@ -172,19 +172,19 @@ sub Marpa::R2::Recognizer::new {
         my $error = $grammar_c->error();
         Marpa::R2::exception( 'Recognizer start of input failed: ', $error );
     }
-    $recce->[Marpa::R2::Internal::Recognizer::EVENTS] = cook_events($recce);
+    $recce->[Marpa::R3::Internal::Recognizer::EVENTS] = cook_events($recce);
 
     $recce->set(@arg_hashes);
 
     my $trace_terminals =
-        $recce->[Marpa::R2::Internal::Recognizer::TRACE_TERMINALS] // 0;
-    my $trace_tasks = $recce->[Marpa::R2::Internal::Recognizer::TRACE_TASKS]
+        $recce->[Marpa::R3::Internal::Recognizer::TRACE_TERMINALS] // 0;
+    my $trace_tasks = $recce->[Marpa::R3::Internal::Recognizer::TRACE_TASKS]
         // 0;
 
     if ( $trace_terminals > 1 ) {
         my @terminals_expected = @{ $recce->terminals_expected() };
         for my $terminal ( sort @terminals_expected ) {
-            say {$Marpa::R2::Internal::TRACE_FH}
+            say {$Marpa::R3::Internal::TRACE_FH}
                 qq{Expecting "$terminal" at earleme 0}
                 or Marpa::R2::exception("Cannot print: $ERRNO");
         }
@@ -195,15 +195,15 @@ sub Marpa::R2::Recognizer::new {
 
 # Not documented, at least for the moment
 sub Marpa::R2::Recognizer::grammar {
-    $_[0]->[Marpa::R2::Internal::Recognizer::GRAMMAR];
+    $_[0]->[Marpa::R3::Internal::Recognizer::GRAMMAR];
 }
 
 sub Marpa::R2::Recognizer::thin {
-    $_[0]->[Marpa::R2::Internal::Recognizer::C];
+    $_[0]->[Marpa::R3::Internal::Recognizer::C];
 }
 
 sub Marpa::R2::Recognizer::thin_stream {
-    $_[0]->[Marpa::R2::Internal::Recognizer::STREAM];
+    $_[0]->[Marpa::R3::Internal::Recognizer::STREAM];
 }
 
 
@@ -232,22 +232,22 @@ use constant RECOGNIZER_OPTIONS => [
 
 sub Marpa::R2::Recognizer::reset_evaluation {
     my ($recce) = @_;
-    $recce->[Marpa::R2::Internal::Recognizer::B_C]           = undef;
-    $recce->[Marpa::R2::Internal::Recognizer::O_C]           = undef;
-    $recce->[Marpa::R2::Internal::Recognizer::T_C]           = undef;
-    $recce->[Marpa::R2::Internal::Recognizer::RULE_CLOSURES] = undef;
-    $recce->[Marpa::R2::Internal::Recognizer::NULL_VALUES]   = undef;
-    $recce->[Marpa::R2::Internal::Recognizer::EVENTS]        = [];
+    $recce->[Marpa::R3::Internal::Recognizer::B_C]           = undef;
+    $recce->[Marpa::R3::Internal::Recognizer::O_C]           = undef;
+    $recce->[Marpa::R3::Internal::Recognizer::T_C]           = undef;
+    $recce->[Marpa::R3::Internal::Recognizer::RULE_CLOSURES] = undef;
+    $recce->[Marpa::R3::Internal::Recognizer::NULL_VALUES]   = undef;
+    $recce->[Marpa::R3::Internal::Recognizer::EVENTS]        = [];
     return;
 } ## end sub Marpa::R2::Recognizer::reset_evaluation
 
 sub Marpa::R2::Recognizer::set {
     my ( $recce, @arg_hashes ) = @_;
-    my $recce_c = $recce->[Marpa::R2::Internal::Recognizer::C];
+    my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C];
 
     # This may get changed below
     my $trace_fh =
-        $recce->[Marpa::R2::Internal::Recognizer::TRACE_FILE_HANDLE];
+        $recce->[Marpa::R3::Internal::Recognizer::TRACE_FILE_HANDLE];
 
     for my $args (@arg_hashes) {
 
@@ -261,7 +261,7 @@ sub Marpa::R2::Recognizer::set {
         } ## end if ( not $ref_type or $ref_type ne 'HASH' )
         if (my @bad_options =
             grep {
-                not $_ ~~ Marpa::R2::Internal::Recognizer::RECOGNIZER_OPTIONS
+                not $_ ~~ Marpa::R3::Internal::Recognizer::RECOGNIZER_OPTIONS
             }
             keys %{$args}
             )
@@ -282,13 +282,13 @@ sub Marpa::R2::Recognizer::set {
         }
 
         if ( defined( my $value = $args->{'max_parses'} ) ) {
-            $recce->[Marpa::R2::Internal::Recognizer::MAX_PARSES] = $value;
+            $recce->[Marpa::R3::Internal::Recognizer::MAX_PARSES] = $value;
         }
 
         if ( defined( my $value = $args->{'ranking_method'} ) ) {
 
             # Not allowed once parsing is started
-            if ( defined $recce->[Marpa::R2::Internal::Recognizer::B_C] ) {
+            if ( defined $recce->[Marpa::R3::Internal::Recognizer::B_C] ) {
                 Marpa::R2::exception(
                     q{Cannot change ranking method once parsing has started});
             }
@@ -298,24 +298,24 @@ sub Marpa::R2::Recognizer::set {
                 ( join q{, }, map { q{'} . $_ . q{'} } @ranking_methods ),
                 ')' )
                 if not $value ~~ \@ranking_methods;
-            $recce->[Marpa::R2::Internal::Recognizer::RANKING_METHOD] =
+            $recce->[Marpa::R3::Internal::Recognizer::RANKING_METHOD] =
                 $value;
         } ## end if ( defined( my $value = $args->{'ranking_method'} ...))
 
         if ( defined( my $value = $args->{'trace_fh'} ) ) {
             $trace_fh =
-                $recce->[Marpa::R2::Internal::Recognizer::TRACE_FILE_HANDLE] =
+                $recce->[Marpa::R3::Internal::Recognizer::TRACE_FILE_HANDLE] =
                 $value;
         }
 
         if ( defined( my $value = $args->{'trace_file_handle'} ) ) {
             $trace_fh =
-                $recce->[Marpa::R2::Internal::Recognizer::TRACE_FILE_HANDLE] =
+                $recce->[Marpa::R3::Internal::Recognizer::TRACE_FILE_HANDLE] =
                 $value;
         }
 
         if ( defined( my $value = $args->{'trace_actions'} ) ) {
-            $recce->[Marpa::R2::Internal::Recognizer::TRACE_ACTIONS] = $value;
+            $recce->[Marpa::R3::Internal::Recognizer::TRACE_ACTIONS] = $value;
             if ($value) {
                 say {$trace_fh} 'Setting trace_actions option'
                     or Marpa::R2::exception("Cannot print: $ERRNO");
@@ -326,7 +326,7 @@ sub Marpa::R2::Recognizer::set {
             Marpa::R2::exception(
                 'trace_and_nodes must be set to a number >= 0')
                 if $value !~ /\A\d+\z/xms;
-            $recce->[Marpa::R2::Internal::Recognizer::TRACE_AND_NODES] =
+            $recce->[Marpa::R3::Internal::Recognizer::TRACE_AND_NODES] =
                 $value + 0;
             if ($value) {
                 say {$trace_fh} "Setting trace_and_nodes option to $value"
@@ -337,7 +337,7 @@ sub Marpa::R2::Recognizer::set {
         if ( defined( my $value = $args->{'trace_bocage'} ) ) {
             Marpa::R2::exception('trace_bocage must be set to a number >= 0')
                 if $value !~ /\A\d+\z/xms;
-            $recce->[Marpa::R2::Internal::Recognizer::TRACE_BOCAGE] =
+            $recce->[Marpa::R3::Internal::Recognizer::TRACE_BOCAGE] =
                 $value + 0;
             if ($value) {
                 say {$trace_fh} "Setting trace_bocage option to $value"
@@ -349,7 +349,7 @@ sub Marpa::R2::Recognizer::set {
             Marpa::R2::exception(
                 'trace_or_nodes must be set to a number >= 0')
                 if $value !~ /\A\d+\z/xms;
-            $recce->[Marpa::R2::Internal::Recognizer::TRACE_OR_NODES] =
+            $recce->[Marpa::R3::Internal::Recognizer::TRACE_OR_NODES] =
                 $value + 0;
             if ($value) {
                 say {$trace_fh} "Setting trace_or_nodes option to $value"
@@ -360,7 +360,7 @@ sub Marpa::R2::Recognizer::set {
         if ( defined( my $value = $args->{'trace_tasks'} ) ) {
             Marpa::R2::exception('trace_tasks must be set to a number >= 0')
                 if $value !~ /\A\d+\z/xms;
-            $recce->[Marpa::R2::Internal::Recognizer::TRACE_TASKS] =
+            $recce->[Marpa::R3::Internal::Recognizer::TRACE_TASKS] =
                 $value + 0;
             if ($value) {
                 say {$trace_fh} "Setting trace_tasks option to $value"
@@ -369,7 +369,7 @@ sub Marpa::R2::Recognizer::set {
         } ## end if ( defined( my $value = $args->{'trace_tasks'} ) )
 
         if ( defined( my $value = $args->{'trace_terminals'} ) ) {
-            $recce->[Marpa::R2::Internal::Recognizer::TRACE_TERMINALS] =
+            $recce->[Marpa::R3::Internal::Recognizer::TRACE_TERMINALS] =
                 $value;
             if ($value) {
                 say {$trace_fh} 'Setting trace_terminals option'
@@ -378,7 +378,7 @@ sub Marpa::R2::Recognizer::set {
         } ## end if ( defined( my $value = $args->{'trace_terminals'}...))
 
         if ( defined( my $value = $args->{'trace_earley_sets'} ) ) {
-            $recce->[Marpa::R2::Internal::Recognizer::TRACE_EARLEY_SETS] =
+            $recce->[Marpa::R3::Internal::Recognizer::TRACE_EARLEY_SETS] =
                 $value;
             if ($value) {
                 say {$trace_fh} 'Setting trace_earley_sets option'
@@ -387,7 +387,7 @@ sub Marpa::R2::Recognizer::set {
         } ## end if ( defined( my $value = $args->{'trace_earley_sets'...}))
 
         if ( defined( my $value = $args->{'trace_values'} ) ) {
-            $recce->[Marpa::R2::Internal::Recognizer::TRACE_VALUES] = $value;
+            $recce->[Marpa::R3::Internal::Recognizer::TRACE_VALUES] = $value;
             if ($value) {
                 say {$trace_fh} 'Setting trace_values option'
                     or Marpa::R2::exception("Cannot print: $ERRNO");
@@ -397,22 +397,22 @@ sub Marpa::R2::Recognizer::set {
         if ( defined( my $value = $args->{'end'} ) ) {
 
             # Not allowed once evaluation is started
-            if ( defined $recce->[Marpa::R2::Internal::Recognizer::B_C] ) {
+            if ( defined $recce->[Marpa::R3::Internal::Recognizer::B_C] ) {
                 Marpa::R2::exception(
                     q{Cannot reset end once evaluation has started});
             }
-            $recce->[Marpa::R2::Internal::Recognizer::END] = $value;
+            $recce->[Marpa::R3::Internal::Recognizer::END] = $value;
         } ## end if ( defined( my $value = $args->{'end'} ) )
 
         if ( defined( my $value = $args->{'closures'} ) ) {
 
             # Not allowed once evaluation is started
-            if ( defined $recce->[Marpa::R2::Internal::Recognizer::B_C] ) {
+            if ( defined $recce->[Marpa::R3::Internal::Recognizer::B_C] ) {
                 Marpa::R2::exception(
                     q{Cannot reset closures once evaluation has started});
             }
             my $closures =
-                $recce->[Marpa::R2::Internal::Recognizer::CLOSURES] = $value;
+                $recce->[Marpa::R3::Internal::Recognizer::CLOSURES] = $value;
             while ( my ( $action, $closure ) = each %{$closures} ) {
                 Marpa::R2::exception(qq{Bad closure for action "$action"})
                     if ref $closure ne 'CODE';
@@ -420,7 +420,7 @@ sub Marpa::R2::Recognizer::set {
         } ## end if ( defined( my $value = $args->{'closures'} ) )
 
         if ( defined( my $value = $args->{'warnings'} ) ) {
-            $recce->[Marpa::R2::Internal::Recognizer::WARNINGS] = $value;
+            $recce->[Marpa::R3::Internal::Recognizer::WARNINGS] = $value;
         }
 
         if ( defined( my $value = $args->{'too_many_earley_items'} ) ) {
@@ -434,46 +434,46 @@ sub Marpa::R2::Recognizer::set {
 
 sub Marpa::R2::Recognizer::latest_earley_set {
     my ($recce) = @_;
-    my $recce_c = $recce->[Marpa::R2::Internal::Recognizer::C];
+    my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C];
     return $recce_c->latest_earley_set();
 }
 
 sub Marpa::R2::Recognizer::check_terminal {
     my ( $recce, $name ) = @_;
-    my $grammar = $recce->[Marpa::R2::Internal::Recognizer::GRAMMAR];
+    my $grammar = $recce->[Marpa::R3::Internal::Recognizer::GRAMMAR];
     return $grammar->check_terminal($name);
 }
 
 sub Marpa::R2::Recognizer::exhausted {
     my ($recce) = @_;
-    my $recce_c = $recce->[Marpa::R2::Internal::Recognizer::C];
+    my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C];
     return $recce_c->is_exhausted();
 }
 
 sub Marpa::R2::Recognizer::current_earleme {
     my ($recce) = @_;
-    my $recce_c = $recce->[Marpa::R2::Internal::Recognizer::C];
+    my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C];
     return $recce_c->current_earleme();
 }
 
 sub Marpa::R2::Recognizer::furthest_earleme {
     my ($recce) = @_;
-    my $recce_c = $recce->[Marpa::R2::Internal::Recognizer::C];
+    my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C];
     return $recce_c->furthest_earleme();
 }
 
 sub Marpa::R2::Recognizer::earleme {
     my ( $recce, $earley_set_id ) = @_;
-    my $recce_c = $recce->[Marpa::R2::Internal::Recognizer::C];
+    my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C];
     return $recce_c->earleme($earley_set_id);
 }
 
 sub Marpa::R2::Recognizer::expected_symbol_event_set {
     my ( $recce, $symbol_name, $value ) = @_;
-    my $recce_c = $recce->[Marpa::R2::Internal::Recognizer::C];
-    my $grammar = $recce->[Marpa::R2::Internal::Recognizer::GRAMMAR];
+    my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C];
+    my $grammar = $recce->[Marpa::R3::Internal::Recognizer::GRAMMAR];
     my $symbol_id =
-        $grammar->[Marpa::R2::Internal::Grammar::TRACER]
+        $grammar->[Marpa::R3::Internal::Grammar::TRACER]
         ->symbol_by_name($symbol_name);
     Marpa::exception(qq{Unknown symbol: "$symbol_name"})
         if not defined $symbol_id;
@@ -488,7 +488,7 @@ sub Marpa::R2::Recognizer::strip { return 1; }
 BEGIN {
     my $structure = <<'END_OF_STRUCTURE';
 
-    :package=Marpa::R2::Internal::Progress_Report
+    :package=Marpa::R3::Internal::Progress_Report
 
     RULE_ID
     POSITION
@@ -501,7 +501,7 @@ END_OF_STRUCTURE
 
 sub Marpa::R2::Recognizer::progress {
     my ( $recce, $ordinal ) = @_;
-    my $recce_c = $recce->[Marpa::R2::Internal::Recognizer::C];
+    my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C];
     $ordinal = $recce->latest_earley_set() if not defined $ordinal;
     my $result = [];
     $recce_c->progress_report_start($ordinal);
@@ -516,8 +516,8 @@ sub Marpa::R2::Recognizer::progress {
 
 sub Marpa::R2::Recognizer::show_progress {
     my ( $recce, $start_ordinal, $end_ordinal ) = @_;
-    my $grammar   = $recce->[Marpa::R2::Internal::Recognizer::GRAMMAR];
-    my $grammar_c = $grammar->[Marpa::R2::Internal::Grammar::C];
+    my $grammar   = $recce->[Marpa::R3::Internal::Recognizer::GRAMMAR];
+    my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
 
     my $last_ordinal = $recce->latest_earley_set();
 
@@ -630,16 +630,16 @@ sub Marpa::R2::Recognizer::alternative {
     ) if not defined $symbol_name;
 
     Marpa::R2::exception('Attempt to read token after parsing is finished')
-        if $recce->[Marpa::R2::Internal::Recognizer::FINISHED];
+        if $recce->[Marpa::R3::Internal::Recognizer::FINISHED];
 
-    my $recce_c = $recce->[Marpa::R2::Internal::Recognizer::C];
+    my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C];
     my $trace_fh =
-        $recce->[Marpa::R2::Internal::Recognizer::TRACE_FILE_HANDLE];
-    my $grammar = $recce->[Marpa::R2::Internal::Recognizer::GRAMMAR];
+        $recce->[Marpa::R3::Internal::Recognizer::TRACE_FILE_HANDLE];
+    my $grammar = $recce->[Marpa::R3::Internal::Recognizer::GRAMMAR];
     my $token_values =
-        $recce->[Marpa::R2::Internal::Recognizer::TOKEN_VALUES];
+        $recce->[Marpa::R3::Internal::Recognizer::TOKEN_VALUES];
     my $symbol_id =
-        $grammar->[Marpa::R2::Internal::Grammar::TRACER]
+        $grammar->[Marpa::R3::Internal::Grammar::TRACER]
         ->symbol_by_name($symbol_name);
 
     if ( not defined $symbol_id ) {
@@ -665,7 +665,7 @@ sub Marpa::R2::Recognizer::alternative {
     my $result = $recce_c->alternative( $symbol_id, $value_ix, $length );
 
     my $trace_terminals =
-        $recce->[Marpa::R2::Internal::Recognizer::TRACE_TERMINALS];
+        $recce->[Marpa::R3::Internal::Recognizer::TRACE_TERMINALS];
     if ($trace_terminals) {
         my $verb =
             $result == $Marpa::R2::Error::NONE ? 'Accepted' : 'Rejected';
@@ -684,7 +684,7 @@ sub Marpa::R2::Recognizer::alternative {
             || $result == $Marpa::R2::Error::NO_TOKEN_EXPECTED_HERE
             || $result == $Marpa::R2::Error::INACCESSIBLE_TOKEN;
 
-    my $grammar_c = $grammar->[Marpa::R2::Internal::Grammar::C];
+    my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
     Marpa::R2::exception( $grammar_c->error() );
 
 } ## end sub Marpa::R2::Recognizer::alternative
@@ -693,28 +693,28 @@ sub Marpa::R2::Recognizer::alternative {
 
 sub Marpa::R2::Recognizer::end_input {
     my ($recce)          = @_;
-    my $recce_c          = $recce->[Marpa::R2::Internal::Recognizer::C];
+    my $recce_c          = $recce->[Marpa::R3::Internal::Recognizer::C];
     my $furthest_earleme = $recce_c->furthest_earleme();
     while ( $recce_c->current_earleme() < $furthest_earleme ) {
         $recce->earleme_complete();
     }
-    $recce->[Marpa::R2::Internal::Recognizer::FINISHED] = 1;
+    $recce->[Marpa::R3::Internal::Recognizer::FINISHED] = 1;
     return 1;
 } ## end sub Marpa::R2::Recognizer::end_input
 
 sub Marpa::R2::Recognizer::terminals_expected {
     my ($recce) = @_;
-    my $recce_c = $recce->[Marpa::R2::Internal::Recognizer::C];
-    my $grammar = $recce->[Marpa::R2::Internal::Recognizer::GRAMMAR];
+    my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C];
+    my $grammar = $recce->[Marpa::R3::Internal::Recognizer::GRAMMAR];
     return [ map { $grammar->symbol_name($_) }
             $recce_c->terminals_expected() ];
 } ## end sub Marpa::R2::Recognizer::terminals_expected
 
 sub cook_events {
     my ($recce)   = @_;
-    my $recce_c   = $recce->[Marpa::R2::Internal::Recognizer::C];
-    my $grammar   = $recce->[Marpa::R2::Internal::Recognizer::GRAMMAR];
-    my $grammar_c = $grammar->[Marpa::R2::Internal::Grammar::C];
+    my $recce_c   = $recce->[Marpa::R3::Internal::Recognizer::C];
+    my $grammar   = $recce->[Marpa::R3::Internal::Recognizer::GRAMMAR];
+    my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
 
     my @cooked_events = ();
     my $event_count   = $grammar_c->event_count();
@@ -722,7 +722,7 @@ sub cook_events {
         my ( $event_type, $value ) = $grammar_c->event($event_ix);
         if ( $event_type eq 'MARPA_EVENT_EARLEY_ITEM_THRESHOLD' ) {
             say {
-                $recce->[Marpa::R2::Internal::Recognizer::TRACE_FILE_HANDLE] }
+                $recce->[Marpa::R3::Internal::Recognizer::TRACE_FILE_HANDLE] }
                 "Earley item count ($value) exceeds warning threshold"
                 or die "say: $ERRNO";
             push @cooked_events, ['EARLEY_ITEM_THRESHOLD'];
@@ -744,32 +744,32 @@ sub cook_events {
 sub Marpa::R2::Recognizer::earleme_complete {
     my ($recce) = @_;
 
-    my $recce_c = $recce->[Marpa::R2::Internal::Recognizer::C];
-    local $Marpa::R2::Internal::TRACE_FH =
-        $recce->[Marpa::R2::Internal::Recognizer::TRACE_FILE_HANDLE];
-    my $grammar   = $recce->[Marpa::R2::Internal::Recognizer::GRAMMAR];
-    my $grammar_c = $grammar->[Marpa::R2::Internal::Grammar::C];
+    my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C];
+    local $Marpa::R3::Internal::TRACE_FH =
+        $recce->[Marpa::R3::Internal::Recognizer::TRACE_FILE_HANDLE];
+    my $grammar   = $recce->[Marpa::R3::Internal::Recognizer::GRAMMAR];
+    my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
 
     my $event_count = $recce_c->earleme_complete();
-    $recce->[Marpa::R2::Internal::Recognizer::EVENTS] =
+    $recce->[Marpa::R3::Internal::Recognizer::EVENTS] =
         $event_count ? cook_events($recce) : [];
 
-    if ( $recce->[Marpa::R2::Internal::Recognizer::TRACE_EARLEY_SETS] ) {
+    if ( $recce->[Marpa::R3::Internal::Recognizer::TRACE_EARLEY_SETS] ) {
         my $latest_set = $recce_c->latest_earley_set();
-        print {$Marpa::R2::Internal::TRACE_FH} "=== Earley set $latest_set\n"
+        print {$Marpa::R3::Internal::TRACE_FH} "=== Earley set $latest_set\n"
             or Marpa::R2::exception("Cannot print: $ERRNO");
-        print {$Marpa::R2::Internal::TRACE_FH}
+        print {$Marpa::R3::Internal::TRACE_FH}
             Marpa::R2::show_earley_set($latest_set)
             or Marpa::R2::exception("Cannot print: $ERRNO");
-    } ## end if ( $recce->[Marpa::R2::Internal::Recognizer::TRACE_EARLEY_SETS...])
+    } ## end if ( $recce->[Marpa::R3::Internal::Recognizer::TRACE_EARLEY_SETS...])
 
     my $trace_terminals =
-        $recce->[Marpa::R2::Internal::Recognizer::TRACE_TERMINALS] // 0;
+        $recce->[Marpa::R3::Internal::Recognizer::TRACE_TERMINALS] // 0;
     if ( $trace_terminals > 1 ) {
         my $current_earleme    = $recce_c->current_earleme();
         my $terminals_expected = $recce->terminals_expected();
         for my $terminal ( @{$terminals_expected} ) {
-            say {$Marpa::R2::Internal::TRACE_FH}
+            say {$Marpa::R3::Internal::TRACE_FH}
                 qq{Expecting "$terminal" at $current_earleme}
                 or Marpa::R2::exception("Cannot print: $ERRNO");
         }
@@ -781,7 +781,7 @@ sub Marpa::R2::Recognizer::earleme_complete {
 
 sub Marpa::R2::Recognizer::events {
     my ($recce) = @_;
-    return $recce->[Marpa::R2::Internal::Recognizer::EVENTS];
+    return $recce->[Marpa::R3::Internal::Recognizer::EVENTS];
 }
 
 my @escape_by_ord = ();
@@ -820,7 +820,7 @@ sub Marpa::R2::escape_string {
 
 sub Marpa::R2::Recognizer::use_leo_set {
     my ( $recce, $boolean ) = @_;
-    my $recce_c = $recce->[Marpa::R2::Internal::Recognizer::C];
+    my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C];
     return $recce_c->_marpa_r_is_use_leo_set($boolean);
 }
 
@@ -830,16 +830,16 @@ sub Marpa::R2::Recognizer::use_leo_set {
 # are doing their job.
 sub Marpa::R2::Recognizer::earley_set_size {
     my ( $recce, $set_id ) = @_;
-    my $recce_c = $recce->[Marpa::R2::Internal::Recognizer::C];
+    my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C];
     $set_id //= $recce_c->latest_earley_set();
     return $recce_c->_marpa_r_earley_set_size($set_id);
 }
 
 sub Marpa::R2::show_leo_item {
     my ($recce)        = @_;
-    my $recce_c        = $recce->[Marpa::R2::Internal::Recognizer::C];
-    my $grammar        = $recce->[Marpa::R2::Internal::Recognizer::GRAMMAR];
-    my $tracer         = $grammar->[Marpa::R2::Internal::Grammar::TRACER];
+    my $recce_c        = $recce->[Marpa::R3::Internal::Recognizer::C];
+    my $grammar        = $recce->[Marpa::R3::Internal::Recognizer::GRAMMAR];
+    my $tracer         = $grammar->[Marpa::R3::Internal::Grammar::TRACER];
     my $leo_base_state = $recce_c->_marpa_r_leo_base_state();
     return if not defined $leo_base_state;
     my $trace_earley_set      = $recce_c->_marpa_r_trace_earley_set();
@@ -866,9 +866,9 @@ sub Marpa::R2::show_leo_item {
 # Assumes trace token source link set by caller
 sub Marpa::R2::show_token_link_choice {
     my ( $recce, $current_earleme ) = @_;
-    my $recce_c = $recce->[Marpa::R2::Internal::Recognizer::C];
-    my $grammar = $recce->[Marpa::R2::Internal::Recognizer::GRAMMAR];
-    my $tracer  = $grammar->[Marpa::R2::Internal::Grammar::TRACER];
+    my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C];
+    my $grammar = $recce->[Marpa::R3::Internal::Recognizer::GRAMMAR];
+    my $tracer  = $grammar->[Marpa::R3::Internal::Grammar::TRACER];
     my $text    = q{};
     my @pieces  = ();
     my ( $token_id, $value_ix ) = $recce_c->_marpa_r_source_token();
@@ -890,7 +890,7 @@ sub Marpa::R2::show_token_link_choice {
     push @pieces, 's=' . $symbol_name;
     my $token_length = $current_earleme - $middle_earleme;
     my $value =
-        $recce->[Marpa::R2::Internal::Recognizer::TOKEN_VALUES]->[$value_ix];
+        $recce->[Marpa::R3::Internal::Recognizer::TOKEN_VALUES]->[$value_ix];
     my $token_dump = Data::Dumper->new( [ \$value ] )->Terse(1)->Dump;
     chomp $token_dump;
     push @pieces, "t=$token_dump";
@@ -900,9 +900,9 @@ sub Marpa::R2::show_token_link_choice {
 # Assumes trace completion source link set by caller
 sub Marpa::R2::show_completion_link_choice {
     my ( $recce, $AHFA_state_id, $current_earleme ) = @_;
-    my $recce_c = $recce->[Marpa::R2::Internal::Recognizer::C];
-    my $grammar = $recce->[Marpa::R2::Internal::Recognizer::GRAMMAR];
-    my $symbols = $grammar->[Marpa::R2::Internal::Grammar::SYMBOLS];
+    my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C];
+    my $grammar = $recce->[Marpa::R3::Internal::Recognizer::GRAMMAR];
+    my $symbols = $grammar->[Marpa::R3::Internal::Grammar::SYMBOLS];
     my $text    = q{};
     my @pieces  = ();
     my $predecessor_state = $recce_c->_marpa_r_source_predecessor_state();
@@ -929,9 +929,9 @@ sub Marpa::R2::show_completion_link_choice {
 # Assumes trace completion source link set by caller
 sub Marpa::R2::show_leo_link_choice {
     my ( $recce, $AHFA_state_id, $current_earleme ) = @_;
-    my $recce_c        = $recce->[Marpa::R2::Internal::Recognizer::C];
-    my $grammar        = $recce->[Marpa::R2::Internal::Recognizer::GRAMMAR];
-    my $symbols        = $grammar->[Marpa::R2::Internal::Grammar::SYMBOLS];
+    my $recce_c        = $recce->[Marpa::R3::Internal::Recognizer::C];
+    my $grammar        = $recce->[Marpa::R3::Internal::Recognizer::GRAMMAR];
+    my $symbols        = $grammar->[Marpa::R3::Internal::Grammar::SYMBOLS];
     my $text           = q{};
     my @pieces         = ();
     my $middle_set_id  = $recce_c->_marpa_r_source_middle();
@@ -950,7 +950,7 @@ sub Marpa::R2::show_leo_link_choice {
 # Assumes trace earley item was set by caller
 sub Marpa::R2::show_earley_item {
     my ( $recce, $current_es, $state_id ) = @_;
-    my $recce_c        = $recce->[Marpa::R2::Internal::Recognizer::C];
+    my $recce_c        = $recce->[Marpa::R3::Internal::Recognizer::C];
     my $text           = q{};
     my $origin_set_id  = $recce_c->_marpa_r_earley_item_origin();
     my $earleme        = $recce_c->earleme($current_es);
@@ -1027,7 +1027,7 @@ sub Marpa::R2::show_earley_item {
 
 sub Marpa::R2::show_earley_set {
     my ( $recce, $traced_set_id ) = @_;
-    my $recce_c   = $recce->[Marpa::R2::Internal::Recognizer::C];
+    my $recce_c   = $recce->[Marpa::R3::Internal::Recognizer::C];
     my $text      = q{};
     my @sort_data = ();
     if ( not defined $recce_c->_marpa_r_earley_set_trace($traced_set_id) ) {
@@ -1067,7 +1067,7 @@ sub Marpa::R2::show_earley_set {
 
 sub Marpa::R2::Recognizer::show_earley_sets {
     my ($recce)                = @_;
-    my $recce_c                = $recce->[Marpa::R2::Internal::Recognizer::C];
+    my $recce_c                = $recce->[Marpa::R3::Internal::Recognizer::C];
     my $last_completed_earleme = $recce_c->current_earleme();
     my $furthest_earleme       = $recce_c->furthest_earleme();
     my $text                   = "Last Completed: $last_completed_earleme; "

@@ -2268,7 +2268,7 @@ sub Marpa::R2::Scanless::G::_source_to_hash {
     } ## end for my $rule_id ( grep { $thin_meta_g1_grammar->rule_length($_...)})
 
     my $token_values =
-        $thick_g1_recce->[Marpa::R2::Internal::Recognizer::TOKEN_VALUES];
+        $thick_g1_recce->[Marpa::R3::Internal::Recognizer::TOKEN_VALUES];
 
     my @stack = ();
     STEP: while (1) {
@@ -2573,7 +2573,7 @@ sub Marpa::R2::Scanless::R::read {
     # Here we access an internal value of the Recognizer class
     # Scanless is, in C++ terms, a friend class of the Recognizer
     my $token_values =
-        $thick_g1_recce->[Marpa::R2::Internal::Recognizer::TOKEN_VALUES];
+        $thick_g1_recce->[Marpa::R3::Internal::Recognizer::TOKEN_VALUES];
 
     # These values are used for diagnostics,
     # so they are initialized here.
@@ -2736,7 +2736,7 @@ sub Marpa::R2::Scanless::R::read {
                 my ( $symbol_id, $re ) = @{$entry};
                 if ( chr($codepoint) =~ $re ) {
 
-                    # if ( $recce->[Marpa::R2::Internal::Recognizer::TRACE_SL] )
+                    # if ( $recce->[Marpa::R3::Internal::Recognizer::TRACE_SL] )
                     if (0) {
                         say {$Marpa::R2::Inner::Scanless::TRACE_FILE_HANDLE}
                             "Registering character ",

@@ -90,9 +90,9 @@ for ( my $error = 0; $error <= $#error_names; ) {
 }
 
 my $version_result;
-require Marpa::R2::Internal;
-( $version_result = version_ok($Marpa::R2::Internal::VERSION) )
-    and die 'Marpa::R2::Internal::VERSION ', $version_result;
+require Marpa::R3::Internal;
+( $version_result = version_ok($Marpa::R3::Internal::VERSION) )
+    and die 'Marpa::R3::Internal::VERSION ', $version_result;
 
 require Marpa::R2::Grammar;
 ( $version_result = version_ok($Marpa::R2::Grammar::VERSION) )
