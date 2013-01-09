@@ -91,13 +91,13 @@ typedef struct {
      G_Wrapper* base;
 } V_Wrapper;
 
-static const char grammar_c_class_name[] = "Marpa::R2::Thin::G";
-static const char recce_c_class_name[] = "Marpa::R2::Thin::R";
-static const char bocage_c_class_name[] = "Marpa::R2::Thin::B";
-static const char unicode_stream_class_name[] = "Marpa::R2::Thin::U";
-static const char order_c_class_name[] = "Marpa::R2::Thin::O";
-static const char tree_c_class_name[] = "Marpa::R2::Thin::T";
-static const char value_c_class_name[] = "Marpa::R2::Thin::V";
+static const char grammar_c_class_name[] = "Marpa::R3::Thin::G";
+static const char recce_c_class_name[] = "Marpa::R3::Thin::R";
+static const char bocage_c_class_name[] = "Marpa::R3::Thin::B";
+static const char unicode_stream_class_name[] = "Marpa::R3::Thin::U";
+static const char order_c_class_name[] = "Marpa::R3::Thin::O";
+static const char tree_c_class_name[] = "Marpa::R3::Thin::T";
+static const char value_c_class_name[] = "Marpa::R3::Thin::V";
 
 #include "codes.h"
 #include "codes.c"
@@ -228,7 +228,7 @@ enum marpa_recce_op {
    op_unregistered,
 };
 
-MODULE = Marpa::R2        PACKAGE = Marpa::R2::Thin
+MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin
 
 PROTOTYPES: DISABLE
 
@@ -253,7 +253,7 @@ PPCODE:
     }
 }
 
-MODULE = Marpa::R2        PACKAGE = Marpa::R2::Thin::G
+MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin::G
 
 void
 new( ... )
@@ -272,7 +272,7 @@ PPCODE:
       /* If we are using the (deprecated) interface 0,
        * get the throw setting from a (deprecated) global variable
        */
-      SV *throw_sv = get_sv ("Marpa::R2::Thin::C::THROW", 0);
+      SV *throw_sv = get_sv ("Marpa::R3::Thin::C::THROW", 0);
       throw = throw_sv && SvTRUE (throw_sv);
     }
     break;
@@ -343,7 +343,7 @@ PPCODE:
 	  error_description = marpa_error_description[error_code].name;
 	}
       if (throw)
-	croak ("Problem in Marpa::R2->new(): %s", error_description);
+	croak ("Problem in Marpa::R3->new(): %s", error_description);
       if (GIMME != G_ARRAY)
 	{
 	  XSRETURN_UNDEF;
@@ -678,7 +678,7 @@ PPCODE:
   XPUSHs (sv_2mortal (newSVpv (error_message, 0)));
 }
 
-MODULE = Marpa::R2        PACKAGE = Marpa::R2::Thin::R
+MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin::R
 
 void
 new( class, g_wrapper )
@@ -803,7 +803,7 @@ PPCODE:
   XPUSHs (sv_2mortal (newSViv (origin)));
 }
 
-MODULE = Marpa::R2        PACKAGE = Marpa::R2::Thin::U
+MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin::U
 
 void
 new( class, r_sv )
@@ -811,9 +811,9 @@ new( class, r_sv )
     SV *r_sv;
 PPCODE:
 {
-  if (!sv_isa (r_sv, "Marpa::R2::Thin::R"))
+  if (!sv_isa (r_sv, "Marpa::R3::Thin::R"))
     {
-      croak ("Problem in u->new(): arg is not of type Marpa::R2::Thin::R");
+      croak ("Problem in u->new(): arg is not of type Marpa::R3::Thin::R");
     }
   SvREFCNT_inc (r_sv);
   {
@@ -855,9 +855,9 @@ recce_set( stream, new_r_sv )
     SV *new_r_sv;
 PPCODE:
 {
-  if (!sv_isa (new_r_sv, "Marpa::R2::Thin::R"))
+  if (!sv_isa (new_r_sv, "Marpa::R3::Thin::R"))
     {
-      croak ("Problem in u->recce_set(): arg is not of type Marpa::R2::Thin::R");
+      croak ("Problem in u->recce_set(): arg is not of type Marpa::R3::Thin::R");
     }
   SvREFCNT_inc (new_r_sv);
   {
@@ -1259,7 +1259,7 @@ PPCODE:
   XSRETURN_IV(0);
 }
 
-MODULE = Marpa::R2        PACKAGE = Marpa::R2::Thin::B
+MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin::B
 
 void
 new( class, r_wrapper, ordinal )
@@ -1295,7 +1295,7 @@ PPCODE:
     Safefree( b_wrapper );
 }
 
-MODULE = Marpa::R2        PACKAGE = Marpa::R2::Thin::O
+MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin::O
 
 void
 new( class, b_wrapper )
@@ -1330,7 +1330,7 @@ PPCODE:
     Safefree( o_wrapper );
 }
 
-MODULE = Marpa::R2        PACKAGE = Marpa::R2::Thin::T
+MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin::T
 
 void
 new( class, o_wrapper )
@@ -1365,7 +1365,7 @@ PPCODE:
     Safefree( t_wrapper );
 }
 
-MODULE = Marpa::R2        PACKAGE = Marpa::R2::Thin::V
+MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin::V
 
 void
 new( class, t_wrapper )
@@ -1513,7 +1513,7 @@ PPCODE:
   XSRETURN_EMPTY;
 }
 
-MODULE = Marpa::R2        PACKAGE = Marpa::R2::Thin::G
+MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin::G
 
 void
 _marpa_g_symbol_is_semantic( g_wrapper, symbol_id )
@@ -2003,7 +2003,7 @@ PPCODE:
   XPUSHs (sv_2mortal (newSViv (result)));
 }
 
-MODULE = Marpa::R2        PACKAGE = Marpa::R2::Thin::R
+MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin::R
 
 void
 _marpa_r_is_use_leo_set( r_wrapper, boolean )
@@ -2331,7 +2331,7 @@ PPCODE:
       XPUSHs (sv_2mortal (newSViv (leo_predecessor_symbol)));
     }
 
-MODULE = Marpa::R2        PACKAGE = Marpa::R2::Thin::B
+MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin::B
 
 void
 _marpa_b_top_or_node( b_wrapper )
@@ -2613,7 +2613,7 @@ PPCODE:
   XPUSHs (sv_2mortal (newSViv (value)));
 }
 
-MODULE = Marpa::R2        PACKAGE = Marpa::R2::Thin::O
+MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin::O
 
 int
 _marpa_o_and_node_order_get( o_wrapper, or_node_id, and_ix )
@@ -2632,7 +2632,7 @@ PPCODE:
     XPUSHs( sv_2mortal( newSViv(result) ) );
 }
 
-MODULE = Marpa::R2        PACKAGE = Marpa::R2::Thin::T
+MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin::T
 
 int
 _marpa_t_size( t_wrapper )
@@ -2795,7 +2795,7 @@ PPCODE:
   XPUSHs (sv_2mortal (newSViv (result)));
 }
 
-MODULE = Marpa::R2        PACKAGE = Marpa::R2::Thin::V
+MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin::V
 
 void
 _marpa_v_trace( v_wrapper, flag )

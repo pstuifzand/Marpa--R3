@@ -151,7 +151,7 @@ END_OF_PREAMBLE
 
 $main::CLASS_LETTER   = 'g';
 $main::LIBMARPA_CLASS = 'Marpa_Grammar';
-print {$out} 'MODULE = Marpa::R2        PACKAGE = Marpa::R2::Thin::G', "\n\n";
+print {$out} 'MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin::G', "\n\n";
 
 say {$out} gp_generate(qw(error_clear));
 say {$out} gp_generate(qw(event_count));
@@ -189,7 +189,7 @@ say {$out} gp_generate(qw(symbol_new));
 
 $main::CLASS_LETTER   = 'r';
 $main::LIBMARPA_CLASS = 'Marpa_Recognizer';
-print {$out} 'MODULE = Marpa::R2        PACKAGE = Marpa::R2::Thin::R', "\n\n";
+print {$out} 'MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin::R', "\n\n";
 
 say {$out} gp_generate(qw(current_earleme));
 say {$out} gp_generate(qw(earleme Marpa_Earley_Set_ID ordinal));
@@ -210,7 +210,7 @@ say {$out} gp_generate(qw(start_input));
 
 $main::CLASS_LETTER   = 'o';
 $main::LIBMARPA_CLASS = 'Marpa_Order';
-print {$out} 'MODULE = Marpa::R2        PACKAGE = Marpa::R2::Thin::O', "\n\n";
+print {$out} 'MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin::O', "\n\n";
 
 say {$out} gp_generate(qw(high_rank_only_set int flag));
 say {$out} gp_generate(qw(high_rank_only));
@@ -218,21 +218,21 @@ say {$out} gp_generate(qw(rank));
 
 $main::CLASS_LETTER   = 't';
 $main::LIBMARPA_CLASS = 'Marpa_Tree';
-print {$out} 'MODULE = Marpa::R2        PACKAGE = Marpa::R2::Thin::T', "\n\n";
+print {$out} 'MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin::T', "\n\n";
 
 say {$out} gp_generate(qw(next));
 say {$out} gp_generate(qw(parse_count));
 
 $main::CLASS_LETTER   = 'v';
 $main::LIBMARPA_CLASS = 'Marpa_Value';
-print {$out} 'MODULE = Marpa::R2        PACKAGE = Marpa::R2::Thin::V', "\n\n";
+print {$out} 'MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin::V', "\n\n";
 
 say {$out} gp_generate(qw(symbol_is_valued_set Marpa_Symbol_ID symbol_id int value));
 say {$out} gp_generate(qw(rule_is_valued_set Marpa_Rule_ID symbol_id int value));
 
 $main::CLASS_LETTER   = 'g';
 $main::LIBMARPA_CLASS = 'Marpa_Grammar';
-print {$out} 'MODULE = Marpa::R2        PACKAGE = Marpa::R2::Thin::G', "\n\n";
+print {$out} 'MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin::G', "\n\n";
 
 say {$out} gp_generate(qw(_marpa_g_rule_is_keep_separation Marpa_Rule_ID rule_id));
 say {$out} gp_generate(qw(_marpa_g_irl_lhs Marpa_IRL_ID rule_id));
