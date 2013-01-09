@@ -317,7 +317,7 @@ short_subroutine_statements = 3
 
 [Subroutines::RequireFinalReturn]
 severity=5
-terminal_funcs = Marpa::R2::exception
+terminal_funcs = Marpa::R3::exception
 
 [TestingAndDebugging::ProhibitNoStrict]
 severity=5
@@ -433,7 +433,7 @@ severity=5
 
 [Variables::ProhibitPackageVars]
 severity=5
-add_packages = DynaLoader Marpa::R2::Context
+add_packages = DynaLoader Marpa::R3::Context
 
 [Variables::ProhibitPerl4PackageNames]
 severity=5

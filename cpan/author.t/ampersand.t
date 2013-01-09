@@ -26,9 +26,9 @@ use lib 'pperl';
 
 BEGIN {
     Test::More::use_ok('Devel::SawAmpersand');
-    Test::More::use_ok('Marpa::R2');
-    Test::More::use_ok('Marpa::R2::Perl');
-    Test::More::use_ok('Marpa::R2::Test');
+    Test::More::use_ok('Marpa::R3');
+    Test::More::use_ok('Marpa::R3::Perl');
+    Test::More::use_ok('Marpa::R3::Test');
 } ## end BEGIN
 
 Test::More::ok( !Devel::SawAmpersand::sawampersand(), 'PL_sawampersand set' );
