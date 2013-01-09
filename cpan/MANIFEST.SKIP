@@ -113,6 +113,7 @@
 ^libmarpa/test/dev/m4/lt~obsolete[.]m4$
 ^libmarpa/test/dev/missing$
 ^libmarpa/test/libmarpa/
+^libmarpa/test/libmarpa[.]tar$
 ^libmarpa/test/work/
 ^libmarpa_build/
 ^nogit
