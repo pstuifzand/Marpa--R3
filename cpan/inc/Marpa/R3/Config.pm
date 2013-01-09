@@ -16,7 +16,7 @@
 # This file is editable.  It is used during the
 # configuration process to set up version information.
 
-package Marpa::R2;
+package Marpa::R3;
 
 use 5.010;
 
@@ -24,10 +24,10 @@ use strict;
 use warnings;
 
 my %perl_autoconf_os = map { $_ => 1 } qw( MSWin32 openbsd solaris sunos );
-$Marpa::R2::USE_PERL_AUTOCONF = $ENV{MARPA_USE_PERL_AUTOCONF}
+$Marpa::R3::USE_PERL_AUTOCONF = $ENV{MARPA_USE_PERL_AUTOCONF}
     || ( $perl_autoconf_os{$^O} // 0 );
 
-%Marpa::R2::VERSION_FOR_CONFIG = (
+%Marpa::R3::VERSION_FOR_CONFIG = (
     'Config::AutoConf'    => 0.22,
     'ExtUtils::MakeMaker' => 0,
     'Carp'                => 1.08,
