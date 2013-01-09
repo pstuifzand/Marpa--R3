@@ -2864,7 +2864,7 @@ unproductive symbols will be make productive somehow,
 and not eliminated.
 The downside of this choice is that, in a few uncommon cases,
 a user relying entirely
-on the Marpa::R2 warnings to clean up his grammar will have to go through
+on Marpa warnings to clean up his grammar will have to go through
 more than a single pass of the diagnostics.
 (As of this writing, I personally have yet to encounter such a case.)
 The upside is that in the more frequent cases, the user is spared
@@ -7608,7 +7608,7 @@ Each possible cause
 link is only visited once.
 It may be paired with several different predecessors.
 Each cause may complete several different LHS symbols
-and Marpa::R2 will seek predecessors for each at
+and Marpa will seek predecessors for each at
 the parent location.
 Two different completed LHS symbols might be postdot
 symbols for the same predecessor Earley item.

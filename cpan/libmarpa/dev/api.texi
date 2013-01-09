@@ -237,7 +237,8 @@ enough to understand function prototypes and return values.
 @item
 The reader
 has read the documents for one of Libmarpa's upper layers.
-As of this writing, the only such layer is @code{Marpa::R2},
+As of this writing, the only such layer is @code{Marpa::R2}
+or @code{Marpa::R3},
 in Perl.
 @item
 The reader knows some parsing theory.
@@ -563,8 +564,9 @@ This document assumes that the reader knows the concepts
 behind Libmarpa's
 alternative input models, either from the documentation
 of a higher level interface, such as
-@code{Marpa::XS} or
+@code{Marpa::XS},
 @code{Marpa::R2},
+or @code{Marpa::R3},
 or from Marpa's
 @uref{https://github.com/downloads/jeffreykegler/Marpa-theory/recce.pdf, theory document}.
 
