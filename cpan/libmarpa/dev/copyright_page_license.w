@@ -1,4 +1,4 @@
-Copyright \copyright\ 2012 Jeffrey Kegler
+Copyright \copyright\ 2013 Jeffrey Kegler
 \bigskip\noindent
 This file is part of Marpa::R3.  Marpa::R3 is free software: you can
 redistribute it and/or modify it under the terms of the GNU Lesser
