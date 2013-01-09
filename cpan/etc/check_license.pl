@@ -26,11 +26,11 @@ my $result = Getopt::Long::GetOptions( 'verbose=i' => \$verbose );
 die "usage $PROGRAM_NAME [--verbose=n] file ...\n" if not $result;
 
 use lib 'inc';
-use Marpa::R2::License;
+use Marpa::R3::License;
 
 my $file_count = @ARGV;
 my @license_problems =
-    map { Marpa::R2::License::file_license_problems( $_, $verbose ) } @ARGV;
+    map { Marpa::R3::License::file_license_problems( $_, $verbose ) } @ARGV;
 
 print join "\n", @license_problems;
 

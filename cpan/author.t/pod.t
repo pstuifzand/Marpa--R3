@@ -34,7 +34,7 @@ my %exclude = map { ( $_, 1 ) } qw(
 );
 
 open my $manifest, '<', 'MANIFEST'
-    or Marpa::R2::exception("open of MANIFEST failed: $ERRNO");
+    or Marpa::R3::exception("open of MANIFEST failed: $ERRNO");
 
 my @test_files = ();
 FILE: while ( my $file = <$manifest> ) {
