@@ -52,11 +52,11 @@ You can also look for information at:
 
 =item * RT: CPAN's request tracker
 
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Marpa-R2>
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Marpa-R3>
 
 =item * Search CPAN
 
-L<http://search.cpan.org/dist/Marpa-R2>
+L<http://search.cpan.org/dist/Marpa-R3>
 
 =back
 
