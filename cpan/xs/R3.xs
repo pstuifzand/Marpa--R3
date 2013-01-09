@@ -253,6 +253,18 @@ PPCODE:
     }
 }
 
+void
+version()
+PPCODE:
+{
+    unsigned int version[3];
+    int result = marpa_version(version);
+    if (result < 0) { XSRETURN_UNDEF; }
+    XPUSHs (sv_2mortal (newSViv (version[0])));
+    XPUSHs (sv_2mortal (newSViv (version[1])));
+    XPUSHs (sv_2mortal (newSViv (version[2])));
+}
+
 MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin::G
 
 void
