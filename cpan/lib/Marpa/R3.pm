@@ -32,8 +32,6 @@ use English qw( -no_match_vars );
 
 use Marpa::R3::Version;
 
-$Marpa::R3::USING_XS = 1;
-
 eval {
     require XSLoader;
     XSLoader::load( 'Marpa::R3', $Marpa::R3::STRING_VERSION );

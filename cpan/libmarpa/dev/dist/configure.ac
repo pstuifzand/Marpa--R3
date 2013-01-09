@@ -23,16 +23,8 @@ dnl ***********************************
 
 m4_define(marpa_configure_in)
 
-# Making releases:
-#   marpa_micro_version += 1;
-#   marpa_interface_age += 1;
-#   marpa_binary_age += 1;
-# if any functions have been added, set marpa_interface_age to 0.
-# if backwards compatibility has been broken,
-# set marpa_binary_age _and_ marpa_interface_age to 0.
-#
-m4_define([marpa_major_version], [3])
-m4_define([marpa_minor_version], [1])
+m4_define([marpa_major_version], [4])
+m4_define([marpa_minor_version], [0])
 m4_define([marpa_micro_version], [0])
 m4_define([marpa_interface_age], [100])
 m4_define([marpa_binary_age],

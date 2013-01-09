@@ -41,28 +41,6 @@ for my $versioned_file (@versioned_files) {
     print $out $file;
 } ## end for my $versioned_file (@versioned_files)
 
-for my $configure_ac_file (
-    qw(
-    cpan/libmarpa/dev/dist/configure.ac
-    cpan/libmarpa/dev/doc_dist/configure.ac
-    )
-    )
-{
-    say STDERR $configure_ac_file;
-    my $file = do { local ( @ARGV, $/ ) = ($configure_ac_file); <> };
-    $file =~ s{
-    ( m4_define [(] [\[] marpa_major_version [\]] [,] \s* [\[] )  \d+ ( [\]] )
-  }{$1${major}$2}xms;
-    $file =~ s{
-    ( m4_define [(] [\[] marpa_minor_version [\]] [,] \s* [\[] )  \d+ ( [\]] )
-  }{$1${minor}$2}xms;
-    $file =~ s{
-    ( m4_define [(] [\[] marpa_micro_version [\]] [,] \s* [\[] )  \d+ ( [\]] )
-  }{$1${micro}$2}xms;
-    open my $out, '>', $configure_ac_file;
-    print $out $file;
-} ## end for my $configure_ac_file ( qw( cpan/libmarpa/dev/dist/configure.ac...))
-
 chdir 'cpan';
 die qq{"perl Build.PL" failed: $!}
     if not IPC::Cmd::run(
