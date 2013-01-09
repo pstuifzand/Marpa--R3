@@ -1,162 +1,24 @@
-# Copyright 2012 Jeffrey Kegler
-# This file is part of Marpa::R2.  Marpa::R2 is free software: you can
+# Copyright 2013 Jeffrey Kegler
+# This file is part of Marpa::R3.  Marpa::R3 is free software: you can
 # redistribute it and/or modify it under the terms of the GNU Lesser
 # General Public License as published by the Free Software Foundation,
 # either version 3 of the License, or (at your option) any later version.
 #
-# Marpa::R2 is distributed in the hope that it will be useful,
+# Marpa::R3 is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # Lesser General Public License for more details.
 #
 # You should have received a copy of the GNU Lesser
-# General Public License along with Marpa::R2.  If not, see
+# General Public License along with Marpa::R3.  If not, see
 # http://www.gnu.org/licenses/.
 
-Revision history for Marpa::R2
+Revision history for Marpa::R3
 
-2.041_000
+3.001_000
+
+      * Copied from Marpa::R2 2.041_000, and module name
+        changed.
 
       * New series of developer's releases.
 
-2.040000 Sat Jan  5 08:33:52 PST 2013
-
-     * Fixed two cases in the Scanless interface.  In
-       one case, parse exhaustion at the G1 level was
-       treated as an error.  In the other, the G0 level
-       assumed there would be at least one :discard rule,
-       and had problems if there were none.
-
-     * Based on release candidate 2.039_000
-
-2.038000 Wed Jan  2 09:14:38 PST 2013
-
-     * The Scanless G0 rule order depended
-       indirectly on the order of
-       keys in a Perl hash.  Fixed that.
-
-     * Based on release candidate 2.035_003
-
-2.036000 Tue Jan  1 00:54:36 PST 2013
- 
-     * Documentation for the Stuifzand (BNF) and
-       Scanless interfaces is complete.  They are
-       now in full release.
-
-2.034000 Wed Dec 26 08:44:16 PST 2012
-
-     * Fix problem with negative rule ranks.
-
-     * Stuifzand and Scanless interfaces are complete
-       and tested.  Only lack of documentation prevented
-       them from being taken out of beta.
-
-2.032000 Sun Dec  9 10:19:50 PST 2012
-
-      * Speed up precomputation of large grammars.
-
-2.030000 Tue Dec  4 18:01:55 PST 2012
-
-      * Use Config::AutoConf to install on Sun's,
-	OpenBSD.
-      * Use legacy File::Path::mkpath() for portability
-      * Based on 2.027_003.
-
-2.026000 Fri Nov 23 08:04:02 PST 2012
-
-      * Now installs in  Windows,
-        using Config::AutoConf
-
-2.024000 Thu Nov  8 08:19:21 PST 2012
-
-      * Changing Marpa::R2, Libmarpa and
-        Marpa::R2::Thin to full release.
-
-2.022000 Fri Oct 19 18:27:16 PDT 2012
-
-      * Extensive revisions to internals of
-        Marpa::R2::HTML; now requires only
-	HTML::Parser, not HTML::PullParser;
-	'pseudoclass' argspec of descendants()
-	method removed from documentation.
-
-      * Make HTML::Parser a required
-        dependency.
-
-2.020000 Wed Sep 12 20:44:46 PDT 2012
-
-      * Make Marpa::R2::HTML a fully visible part
-	of the distribution.
-
-      * Documentation changes and fixes
-
-2.018000 Wed Aug 22 20:46:44 PDT 2012
-
-      * Libmarpa docs now shipped with Marpa::R2
-
-      * Changed Marpa::R2 to beta.  Libmarpa and
-        Marpa::R2::Thin remain alpha.
-
-2.016000 Sun Aug  5 17:20:13 PDT 2012
-
-      * Documentation fixes
-
-      * Added marpa_r_expected_symbol_event_set() to Libmarpa
-
-      * Added Marpa::R2::Recognizer::expected_symbol_event_set(),
-	Marpa::R2::Recognizer::events(), and 'event_if_expected'
-	recognizer named argument to Marpa::R2
-
-2.014000 Sat Jul 21 18:18:52 PDT 2012
-
-      * Added $v->location() to thin interface
-
-      * Added location step accessors to Libmarpa
-
-2.012000 Sun Jul 15 17:43:59 PDT 2012
-
-      * Added marpa_o_rank() to Libmarpa interface
-
-      * Added "if" arg to Marpa::R2::Thin::G->new()
-
-2.010000 Thu Jul  5 20:44:07 PDT 2012
-
-      * Documented Libmarpa API and Marpa::R2::Thin.
-
-      * Added context variables
-
-2.008000 14-Jun-2012 10:42
-
-       * Documented $recce->progress()
-
-       * Clean up libmarpa build
-
-2.006000 8-Jun-2012 08:18
-
-        * Convert progress reports to C
-
-        * Cleanup logic of valued/unvalued symbols
-
-        * Cleanup ranking of symbols/rules
-
-        * LHS of rule no longer implicitly used
-          as action name.
-
-2.004000 01-Jun-2012 08:20
-
-        * Fix action resolution issue; cleanup
-          memory allocation.
-
-        * Large bump in version number is to sync
-          version numbers with libmarpa.
-
-0.002000 26-May-2012 08:56
-
-       * First official ("indexed") release
-
-       * Changes incompatible with Marpa::XS are described
-         in Marpa::R2::Changes POD doc
-
-0.001_000 Fri Oct 21 20:57:44 PDT 2011
-
-        * Marpa::R2 forked from Marpa::XS 0.019_002
