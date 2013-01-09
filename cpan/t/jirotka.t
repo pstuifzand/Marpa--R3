@@ -22,7 +22,7 @@ use warnings;
 use Test::More tests => 8;
 
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 
 use Data::Dumper;
 use English qw( -no_match_vars );
@@ -46,7 +46,7 @@ my $tokens = [
 
 my @terminals =
     qw/AS BY CREATE FALSE FOR METRIC PF SELECT TRUE WHERE WITH ID_METRIC SEPARATOR NUMBER/;
-my $grammar = Marpa::R2::Grammar->new(
+my $grammar = Marpa::R3::Grammar->new(
     {   start          => 'Input',
         action_object  => 'Maql_Actions',
         default_action => 'tisk',
@@ -111,7 +111,7 @@ my $grammar = Marpa::R2::Grammar->new(
 
 $grammar->precompute();
 
-Marpa::R2::Test::is(
+Marpa::R3::Test::is(
     $grammar->show_symbols(),
     <<'END_OF_SYMBOLS', 'Symbols' );
 0: AS, terminal
@@ -140,7 +140,7 @@ Marpa::R2::Test::is(
 23: FilterExpr
 END_OF_SYMBOLS
 
-Marpa::R2::Test::is( $grammar->show_rules(),
+Marpa::R3::Test::is( $grammar->show_rules(),
 <<'END_OF_RULES', 'Rules' );
 0: Input -> Statement+ /* discard_sep */
 1: Statement -> CREATE TypeDef
@@ -159,7 +159,7 @@ Marpa::R2::Test::is( $grammar->show_rules(),
 14: WithPf -> WITH PF
 END_OF_RULES
 
-Marpa::R2::Test::is( $grammar->show_AHFA(),
+Marpa::R3::Test::is( $grammar->show_AHFA(),
 <<'END_OF_AHFA', 'AHFA' );
 * S0:
 Input['] -> . Input
@@ -332,7 +332,7 @@ MetricSelect[R3:3] -> Match MetricSelect[R3:4] .
 MetricSelect[R3:4] -> Filter WithPf .
 END_OF_AHFA
 
-Marpa::R2::Test::is( $grammar->show_AHFA_items(),
+Marpa::R3::Test::is( $grammar->show_AHFA_items(),
     <<'END_OF_AHFA_ITEMS', 'AHFA Items' );
 AHFA item 0: sort = 36; postdot = "Input[Seq]"
     Input -> . Input[Seq]
@@ -470,11 +470,11 @@ AHFA item 66: sort = 66; completion
     Input['] -> Input .
 END_OF_AHFA_ITEMS
 
-my $recog = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+my $recog = Marpa::R3::Recognizer->new( { grammar => $grammar } );
 for my $token ( @{$tokens} ) { $recog->read( @{$token} ); }
 my @result = $recog->value();
 
-Marpa::R2::Test::is( $recog->show_earley_sets(),
+Marpa::R3::Test::is( $recog->show_earley_sets(),
     <<'END_OF_EARLEY_SETS', 'Earley Sets' );
 Last Completed: 8; Furthest: 8
 Earley Set 0
@@ -522,7 +522,7 @@ S32@8-8
 L25@8 ["WithPf"; L30@6; S31@6-8]
 END_OF_EARLEY_SETS
 
-Marpa::R2::Test::is( $recog->show_and_nodes(),
+Marpa::R3::Test::is( $recog->show_and_nodes(),
     <<'END_OF_AND_NODES', 'And Nodes' );
 R4:1@0-1S2@0
 R0:1@0-8C2@0
@@ -547,7 +547,7 @@ R19:2@6-8C20@7
 R20:1@7-8S8@7
 END_OF_AND_NODES
 
-Marpa::R2::Test::is( $recog->show_or_nodes(),
+Marpa::R3::Test::is( $recog->show_or_nodes(),
     <<'END_OF_OR_NODES', 'Or Nodes' );
 R4:1@0-1
 R0:1@0-8
@@ -572,7 +572,7 @@ R19:2@6-8
 R20:1@7-8
 END_OF_OR_NODES
 
-Marpa::R2::Test::is( Dumper( \@result ), <<'END_OF_STRING', 'Result' );
+Marpa::R3::Test::is( Dumper( \@result ), <<'END_OF_STRING', 'Result' );
 $VAR1 = [
           \[
               [

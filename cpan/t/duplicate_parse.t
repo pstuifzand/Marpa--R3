@@ -23,7 +23,7 @@ use warnings;
 use Test::More tests => 5;
 
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 ## no critic (Subroutines::RequireArgUnpacking)
@@ -39,7 +39,7 @@ sub default_action {
 
 ## use critic
 
-my $grammar = Marpa::R2::Grammar->new(
+my $grammar = Marpa::R3::Grammar->new(
     {   start => 'S',
 
         rules => [
@@ -56,7 +56,7 @@ my $grammar = Marpa::R2::Grammar->new(
 
 $grammar->precompute();
 
-Marpa::R2::Test::is( $grammar->show_rules,
+Marpa::R3::Test::is( $grammar->show_rules,
     <<'END_OF_STRING', 'duplicate parse Rules' );
 0: S -> p p p n
 1: p -> a
@@ -64,7 +64,7 @@ Marpa::R2::Test::is( $grammar->show_rules,
 3: n -> a
 END_OF_STRING
 
-Marpa::R2::Test::is( $grammar->show_AHFA,
+Marpa::R3::Test::is( $grammar->show_AHFA,
     <<'END_OF_STRING', 'duplicate parse AHFA' );
 * S0:
 S['] -> . S
@@ -129,7 +129,7 @@ END_OF_STRING
 
 use constant SPACE => 0x60;
 
-my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+my $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
 my $input_length = 3;
 for my $input_ix ( 1 .. $input_length ) {
     $recce->read( 'a', chr( SPACE + $input_ix ) );

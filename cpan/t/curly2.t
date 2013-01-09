@@ -45,7 +45,7 @@ BEGIN {
 use Marpa::R2;
 use Marpa::R2::Perl;
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 
 my $input_string = <<'END_OF_INPUT';
 Note: line:column figures include preceding whitepace
@@ -104,7 +104,7 @@ PERL_CODE: while (1) {
 $main_result .= sprintf "perl tokens = %d; all tokens=%d; %.2f%%\n", $perl_found,
     $count_of_tokens, ( $perl_found / $count_of_tokens ) * 100;
 
-Marpa::R2::Test::is( $main_result, <<'END_OF_OUTPUT', 'Output' );
+Marpa::R3::Test::is( $main_result, <<'END_OF_OUTPUT', 'Output' );
 Perl fragment: {42;{1,2,3;4}}
 Code block at 3:5 3:13 {1,2,3;4}
 Code block at 2:33 3:14 {42;{1,2,3;4}}

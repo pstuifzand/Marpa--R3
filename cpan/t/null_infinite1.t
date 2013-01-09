@@ -22,7 +22,7 @@ use warnings;
 use Test::More tests => 3;
 
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 ## no critic (Subroutines::RequireArgUnpacking)
@@ -57,7 +57,7 @@ sub rule_fS {
 
 ## use critic
 
-my $grammar = Marpa::R2::Grammar->new(
+my $grammar = Marpa::R3::Grammar->new(
     {   start           => 'S',
         infinite_action => 'quiet',
         rules           => [
@@ -106,7 +106,7 @@ my @expected = (
 );
 
 for my $input_length ( 1 .. 3 ) {
-    my $recce = Marpa::R2::Recognizer->new(
+    my $recce = Marpa::R3::Recognizer->new(
         { grammar => $grammar, max_parses => 99 } );
     for my $token_ix ( 1 .. $input_length ) {
         $recce->read( 'a', 'A' );
@@ -120,7 +120,7 @@ for my $input_length ( 1 .. 3 ) {
     my $expected_values = join "\n", sort @{$expected};
 
     # die if $values ne $expected_values;
-    Marpa::R2::Test::is( $values, $expected_values,
+    Marpa::R3::Test::is( $values, $expected_values,
         "value for input length $input_length" );
 } ## end for my $input_length ( 1 .. 3 )
 

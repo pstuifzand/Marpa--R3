@@ -22,7 +22,7 @@ use warnings;
 use Test::More tests => 7;
 
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Fatal qw( open close );
 use English qw( -no_match_vars );
 use Marpa::R2;
@@ -265,7 +265,7 @@ sub run_test {
     ### e_op_action: $e_op_action
     ### e_number_action: $e_number_action
 
-    my $grammar = Marpa::R2::Grammar->new(
+    my $grammar = Marpa::R3::Grammar->new(
         {   start => 'S',
             rules => [
                 [ 'S', [qw/T trailer optional_trailer1 optional_trailer2/], ],
@@ -285,7 +285,7 @@ sub run_test {
     );
     $grammar->precompute();
 
-    my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+    my $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
 
     $recce->read( Number => 2 );
     $recce->read( MultOp => q{*} );
@@ -301,7 +301,7 @@ sub run_test {
     my $expected  = '(((2*3)+(4*1))==10;trailer;[default null];[null])';
     my $value_ref = $recce->value();
     my $value     = $value_ref ? ${$value_ref} : 'No parse';
-    Marpa::R2::Test::is( $value, $expected, 'Ambiguous Equation Value' );
+    Marpa::R3::Test::is( $value, $expected, 'Ambiguous Equation Value' );
 
     return 1;
 
@@ -321,7 +321,7 @@ for my $test (@tests) {
         } ## end if ( eval { run_test( { $feature => $test_arg{$test}...})})
         else {
             my $eval_error = $EVAL_ERROR;
-            Marpa::R2::Test::is( canonical($eval_error),
+            Marpa::R3::Test::is( canonical($eval_error),
                 $expected{$test}{$feature}, $test_name );
         }
     } ## end FEATURE: for my $feature (@features)

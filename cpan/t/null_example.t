@@ -22,7 +22,7 @@ use warnings;
 use Test::More tests => 1;
 
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use English qw( -no_match_vars );
 use Fatal qw(open close);
 use Marpa::R2;
@@ -74,7 +74,7 @@ our $null_X = 'null X';
 our $null_Y = 'null Y';
 ## use critic
 
-my $grammar = Marpa::R2::Grammar->new(
+my $grammar = Marpa::R3::Grammar->new(
     {   start   => 'S',
         actions => 'main',
         rules   => [
@@ -95,7 +95,7 @@ my $grammar = Marpa::R2::Grammar->new(
 
 $grammar->precompute();
 
-my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+my $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
 
 $recce->read( 'x', 'x' );
 
@@ -115,7 +115,7 @@ END_OF_OUTPUT
 # Marpa::R3::Display::End
 
 my $value = $recce->value();
-Marpa::R2::Test::is( ${$value}, $expected, 'Null example' );
+Marpa::R3::Test::is( ${$value}, $expected, 'Null example' );
 
 1;    # In case used as "do" file
 

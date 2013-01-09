@@ -25,7 +25,7 @@ use warnings;
 use Test::More tests => 17;
 
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 ## no critic (Subroutines::RequireArgUnpacking)
@@ -47,7 +47,7 @@ my $default_action = generate_action(q{?});
 
 ## use critic
 
-my $grammar = Marpa::R2::Grammar->new(
+my $grammar = Marpa::R3::Grammar->new(
     {   start => 'S',
         rules => [
             [ 'S', [qw/a S/],   'S_action', ],
@@ -62,7 +62,7 @@ my $grammar = Marpa::R2::Grammar->new(
 
 $grammar->precompute();
 
-Marpa::R2::Test::is( $grammar->show_symbols(),
+Marpa::R3::Test::is( $grammar->show_symbols(),
     <<'END_OF_STRING', 'Leo168 Symbols' );
 0: a, terminal
 1: b, terminal
@@ -70,7 +70,7 @@ Marpa::R2::Test::is( $grammar->show_symbols(),
 3: C
 END_OF_STRING
 
-Marpa::R2::Test::is( $grammar->show_rules,
+Marpa::R3::Test::is( $grammar->show_rules,
     <<'END_OF_STRING', 'Leo168 Rules' );
 0: S -> a S
 1: S -> C
@@ -78,7 +78,7 @@ Marpa::R2::Test::is( $grammar->show_rules,
 3: C -> /* empty !used */
 END_OF_STRING
 
-Marpa::R2::Test::is( $grammar->show_AHFA, <<'END_OF_STRING', 'Leo168 AHFA' );
+Marpa::R3::Test::is( $grammar->show_AHFA, <<'END_OF_STRING', 'Leo168 AHFA' );
 * S0:
 S['] -> . S
  <S> => S2; leo(S['])
@@ -134,7 +134,7 @@ for my $a_length ( 1 .. 4 ) {
     for my $b_length ( 0 .. $a_length ) {
 
         my $string = ( 'a' x $a_length ) . ( 'b' x $b_length );
-        my $recce = Marpa::R2::Recognizer->new(
+        my $recce = Marpa::R3::Recognizer->new(
             {   grammar  => $grammar,
                 closures => {
                     'C_action'       => $C_action,
@@ -151,7 +151,7 @@ for my $a_length ( 1 .. 4 ) {
         }
         my $value_ref = $recce->value();
         my $value = $value_ref ? ${$value_ref} : 'No parse';
-        Marpa::R2::Test::is( $value, $expected{$string}, "Parse of $string" );
+        Marpa::R3::Test::is( $value, $expected{$string}, "Parse of $string" );
 
     } ## end for my $b_length ( 0 .. $a_length )
 } ## end for my $a_length ( 1 .. 4 )

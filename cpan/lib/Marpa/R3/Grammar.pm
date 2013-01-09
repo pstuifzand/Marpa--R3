@@ -13,7 +13,7 @@
 # General Public License along with Marpa::R3.  If not, see
 # http://www.gnu.org/licenses/.
 
-package Marpa::R2::Grammar;
+package Marpa::R3::Grammar;
 
 use 5.010;
 
@@ -134,7 +134,7 @@ sub Marpa::R2::uncaught_error {
 
 package Marpa::R3::Internal::Grammar;
 
-sub Marpa::R2::Grammar::new {
+sub Marpa::R3::Grammar::new {
     my ( $class, @arg_hashes ) = @_;
 
     my $grammar = [];
@@ -162,17 +162,17 @@ sub Marpa::R2::Grammar::new {
     $grammar->set(@arg_hashes);
 
     return $grammar;
-} ## end sub Marpa::R2::Grammar::new
+} ## end sub Marpa::R3::Grammar::new
 
-sub Marpa::R2::Grammar::tracer {
+sub Marpa::R3::Grammar::tracer {
     return $_[0]->[Marpa::R3::Internal::Grammar::TRACER];
 }
 
-sub Marpa::R2::Grammar::thin {
+sub Marpa::R3::Grammar::thin {
     return $_[0]->[Marpa::R3::Internal::Grammar::C];
 }
 
-sub Marpa::R2::Grammar::thin_symbol {
+sub Marpa::R3::Grammar::thin_symbol {
     my ( $grammar, $symbol_name ) = @_;
     return $grammar->[Marpa::R3::Internal::Grammar::TRACER]
         ->symbol_by_name($symbol_name);
@@ -200,7 +200,7 @@ use constant GRAMMAR_OPTIONS => [
         }
 ];
 
-sub Marpa::R2::Grammar::set {
+sub Marpa::R3::Grammar::set {
     my ( $grammar, @arg_hashes ) = @_;
 
     # set trace_fh even if no tracing, because we may turn it on in this method
@@ -213,12 +213,12 @@ sub Marpa::R2::Grammar::set {
         my $ref_type = ref $args;
         if ( not $ref_type ) {
             Carp::croak(
-                'Marpa::R2::Grammar expects args as ref to HASH; arg was non-reference'
+                'Marpa::R3::Grammar expects args as ref to HASH; arg was non-reference'
             );
         }
         if ( $ref_type ne 'HASH' ) {
             Carp::croak(
-                "Marpa::R2::Grammar expects args as ref to HASH, got ref to $ref_type instead"
+                "Marpa::R3::Grammar expects args as ref to HASH, got ref to $ref_type instead"
             );
         }
         if (my @bad_options =
@@ -226,7 +226,7 @@ sub Marpa::R2::Grammar::set {
             keys %{$args}
             )
         {
-            Carp::croak( 'Unknown option(s) for Marpa::R2::Grammar: ',
+            Carp::croak( 'Unknown option(s) for Marpa::R3::Grammar: ',
                 join q{ }, @bad_options );
         } ## end if ( my @bad_options = grep { not $_ ~~ ...})
 
@@ -466,9 +466,9 @@ sub Marpa::R2::Grammar::set {
     } ## end for my $args (@arg_hashes)
 
     return 1;
-} ## end sub Marpa::R2::Grammar::set
+} ## end sub Marpa::R3::Grammar::set
 
-sub Marpa::R2::Grammar::symbol_reserved_set {
+sub Marpa::R3::Grammar::symbol_reserved_set {
     my ( $grammar, $final_character, $boolean ) = @_;
     if ( length $final_character != 1 ) {
         Marpa::R3::exception( 'symbol_reserved_set(): "',
@@ -487,9 +487,9 @@ sub Marpa::R2::Grammar::symbol_reserved_set {
     }
     # Return a value to make perlcritic happy
     return $DEFAULT_SYMBOLS_RESERVED{$final_character} = $boolean ? 1 : 0;
-} ## end sub Marpa::R2::Grammar::symbol_reserved_set
+} ## end sub Marpa::R3::Grammar::symbol_reserved_set
 
-sub Marpa::R2::Grammar::precompute {
+sub Marpa::R3::Grammar::precompute {
     my $grammar = shift;
 
     my $rules     = $grammar->[Marpa::R3::Internal::Grammar::RULES];
@@ -500,7 +500,7 @@ sub Marpa::R2::Grammar::precompute {
     my $problems = $grammar->[Marpa::R3::Internal::Grammar::PROBLEMS];
     if ($problems) {
         Marpa::R3::exception(
-            Marpa::R2::Grammar::show_problems($grammar),
+            Marpa::R3::Grammar::show_problems($grammar),
             "Second attempt to precompute grammar with fatal problems\n",
             'Marpa::R2 cannot proceed'
         );
@@ -655,7 +655,7 @@ sub Marpa::R2::Grammar::precompute {
     {
         SYMBOL:
         for my $symbol (
-            @{ Marpa::R2::Grammar::inaccessible_symbols($grammar) } )
+            @{ Marpa::R3::Grammar::inaccessible_symbols($grammar) } )
         {
 
             # Inaccessible internal symbols may be created
@@ -682,7 +682,7 @@ sub Marpa::R2::Grammar::precompute {
     {
         SYMBOL:
         for my $symbol (
-            @{ Marpa::R2::Grammar::unproductive_symbols($grammar) } )
+            @{ Marpa::R3::Grammar::unproductive_symbols($grammar) } )
         {
 
             # Unproductive internal symbols may be created
@@ -714,14 +714,14 @@ sub Marpa::R2::Grammar::precompute {
 
     return $grammar;
 
-} ## end sub Marpa::R2::Grammar::precompute
+} ## end sub Marpa::R3::Grammar::precompute
 
-sub Marpa::R2::Grammar::rule_by_name {
+sub Marpa::R3::Grammar::rule_by_name {
     my ( $grammar, $name ) = @_;
     return $grammar->[Marpa::R3::Internal::Grammar::RULE_BY_NAME]->{$name};
 }
 
-sub Marpa::R2::Grammar::show_problems {
+sub Marpa::R3::Grammar::show_problems {
     my ($grammar) = @_;
 
     my $problems = $grammar->[Marpa::R3::Internal::Grammar::PROBLEMS];
@@ -732,9 +732,9 @@ sub Marpa::R2::Grammar::show_problems {
             . ( join "\n", @{$problems} ) . "\n";
     } ## end if ($problems)
     return "Grammar has no problems\n";
-} ## end sub Marpa::R2::Grammar::show_problems
+} ## end sub Marpa::R3::Grammar::show_problems
 
-sub Marpa::R2::Grammar::show_symbol {
+sub Marpa::R3::Grammar::show_symbol {
     my ( $grammar, $symbol ) = @_;
     my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
     my $text      = q{};
@@ -755,9 +755,9 @@ sub Marpa::R2::Grammar::show_symbol {
     $text .= "\n";
     return $text;
 
-} ## end sub Marpa::R2::Grammar::show_symbol
+} ## end sub Marpa::R3::Grammar::show_symbol
 
-sub Marpa::R2::Grammar::show_symbols {
+sub Marpa::R3::Grammar::show_symbols {
     my ($grammar) = @_;
     my $symbols   = $grammar->[Marpa::R3::Internal::Grammar::SYMBOLS];
     my $text      = q{};
@@ -765,33 +765,33 @@ sub Marpa::R2::Grammar::show_symbols {
         $text .= $grammar->show_symbol($symbol_ref);
     }
     return $text;
-} ## end sub Marpa::R2::Grammar::show_symbols
+} ## end sub Marpa::R3::Grammar::show_symbols
 
-sub Marpa::R2::Grammar::show_nulling_symbols {
+sub Marpa::R3::Grammar::show_nulling_symbols {
     my ($grammar) = @_;
     my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
     my $symbols   = $grammar->[Marpa::R3::Internal::Grammar::SYMBOLS];
     return join q{ }, sort map { $grammar->symbol_name($_) }
         grep { $grammar_c->symbol_is_nulling($_) } ( 0 .. $#{$symbols} );
-} ## end sub Marpa::R2::Grammar::show_nulling_symbols
+} ## end sub Marpa::R3::Grammar::show_nulling_symbols
 
-sub Marpa::R2::Grammar::show_productive_symbols {
+sub Marpa::R3::Grammar::show_productive_symbols {
     my ($grammar) = @_;
     my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
     my $symbols   = $grammar->[Marpa::R3::Internal::Grammar::SYMBOLS];
     return join q{ }, sort map { $grammar->symbol_name($_) }
         grep { $grammar_c->symbol_is_productive($_) } ( 0 .. $#{$symbols} );
-} ## end sub Marpa::R2::Grammar::show_productive_symbols
+} ## end sub Marpa::R3::Grammar::show_productive_symbols
 
-sub Marpa::R2::Grammar::show_accessible_symbols {
+sub Marpa::R3::Grammar::show_accessible_symbols {
     my ($grammar) = @_;
     my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
     my $symbols   = $grammar->[Marpa::R3::Internal::Grammar::SYMBOLS];
     return join q{ }, sort map { $grammar->symbol_name($_) }
         grep { $grammar_c->symbol_is_accessible($_) } ( 0 .. $#{$symbols} );
-} ## end sub Marpa::R2::Grammar::show_accessible_symbols
+} ## end sub Marpa::R3::Grammar::show_accessible_symbols
 
-sub Marpa::R2::Grammar::inaccessible_symbols {
+sub Marpa::R3::Grammar::inaccessible_symbols {
     my ($grammar) = @_;
     my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
     my $symbols   = $grammar->[Marpa::R3::Internal::Grammar::SYMBOLS];
@@ -800,9 +800,9 @@ sub Marpa::R2::Grammar::inaccessible_symbols {
             grep { !$grammar_c->symbol_is_accessible($_) }
             ( 0 .. $#{$symbols} )
     ];
-} ## end sub Marpa::R2::Grammar::inaccessible_symbols
+} ## end sub Marpa::R3::Grammar::inaccessible_symbols
 
-sub Marpa::R2::Grammar::unproductive_symbols {
+sub Marpa::R3::Grammar::unproductive_symbols {
     my ($grammar) = @_;
     my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
     my $symbols   = $grammar->[Marpa::R3::Internal::Grammar::SYMBOLS];
@@ -811,18 +811,18 @@ sub Marpa::R2::Grammar::unproductive_symbols {
             grep { !$grammar_c->symbol_is_productive($_) }
             ( 0 .. $#{$symbols} )
     ];
-} ## end sub Marpa::R2::Grammar::unproductive_symbols
+} ## end sub Marpa::R3::Grammar::unproductive_symbols
 
-sub Marpa::R2::Grammar::brief_rule {
+sub Marpa::R3::Grammar::brief_rule {
     my ( $grammar, $rule_id ) = @_;
     my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
     my ( $lhs, @rhs ) = $grammar->rule($rule_id);
     my $minimum = $grammar_c->sequence_min($rule_id);
     my $quantifier = defined $minimum ? $minimum <= 0 ? q{*} : q{+} : q{};
     return ( join q{ }, "$rule_id:", $lhs, '->', @rhs ) . $quantifier;
-} ## end sub Marpa::R2::Grammar::brief_rule
+} ## end sub Marpa::R3::Grammar::brief_rule
 
-sub Marpa::R2::Grammar::show_rule {
+sub Marpa::R3::Grammar::show_rule {
     my ( $grammar, $rule ) = @_;
 
     my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
@@ -846,7 +846,7 @@ sub Marpa::R2::Grammar::show_rule {
 
 }    # sub show_rule
 
-sub Marpa::R2::Grammar::show_rules {
+sub Marpa::R3::Grammar::show_rules {
     my ($grammar) = @_;
     my $rules = $grammar->[Marpa::R3::Internal::Grammar::RULES];
     my $text;
@@ -855,20 +855,20 @@ sub Marpa::R2::Grammar::show_rules {
         $text .= $grammar->show_rule($rule);
     }
     return $text;
-} ## end sub Marpa::R2::Grammar::show_rules
+} ## end sub Marpa::R3::Grammar::show_rules
 
 # This logic tests for gaps in the rule numbering.
 # Currently there are none, but Libmarpa does not
 # guarantee this.
-sub Marpa::R2::Grammar::rule_ids {
+sub Marpa::R3::Grammar::rule_ids {
     my ($grammar) = @_;
     my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
     return
         grep { $grammar_c->rule_length($_); }
         0 .. $grammar_c->highest_rule_id();
-} ## end sub Marpa::R2::Grammar::rule_ids
+} ## end sub Marpa::R3::Grammar::rule_ids
 
-sub Marpa::R2::Grammar::rule {
+sub Marpa::R3::Grammar::rule {
     my ( $grammar, $rule_id ) = @_;
     my $grammar_c   = $grammar->[Marpa::R3::Internal::Grammar::C];
     my $rule_length = $grammar_c->rule_length($rule_id);
@@ -881,30 +881,30 @@ sub Marpa::R2::Grammar::rule {
     for my $symbol_id (@symbol_ids) {
         ## The name of the symbols, before the BNF rewrites
         push @symbol_names,
-            Marpa::R2::Grammar::original_symbol_name(
+            Marpa::R3::Grammar::original_symbol_name(
             $grammar->symbol_name($symbol_id) );
     } ## end for my $symbol_id (@symbol_ids)
     return @symbol_names;
-} ## end sub Marpa::R2::Grammar::rule
+} ## end sub Marpa::R3::Grammar::rule
 
 # Internal, for use with in coordinating thin and thick
 # interfaces.  NOT DOCUMENTED.
-sub Marpa::R2::Grammar::_rule_mask {
+sub Marpa::R3::Grammar::_rule_mask {
     my ( $grammar, $rule_id ) = @_;
     my $rules = $grammar->[Marpa::R3::Internal::Grammar::RULES];
     my $rule = $rules->[$rule_id];
     return $rule->[Marpa::R3::Internal::Rule::MASK];
-} ## end sub Marpa::R2::Grammar::rule
+} ## end sub Marpa::R3::Grammar::rule
 
 # Deprecated and for removal
 # Used in blog post, and part of
 # CPAN version 2.023_008 but
 # never documented in any CPAN version
-sub Marpa::R2::Grammar::bnf_rule {
-    goto &Marpa::R2::Grammar::rule;
-} ## end sub Marpa::R2::Grammar::bnf_rule
+sub Marpa::R3::Grammar::bnf_rule {
+    goto &Marpa::R3::Grammar::rule;
+} ## end sub Marpa::R3::Grammar::bnf_rule
 
-sub Marpa::R2::Grammar::show_dotted_rule {
+sub Marpa::R3::Grammar::show_dotted_rule {
     my ( $grammar, $rule_id, $dot_position ) = @_;
     my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
     my ( $lhs, @rhs ) = $grammar->rule($rule_id);
@@ -917,10 +917,10 @@ sub Marpa::R2::Grammar::show_dotted_rule {
     $dot_position = 0 if $dot_position < 0;
     splice @rhs, $dot_position, 0, q{.};
     return join q{ }, $lhs, q{->}, @rhs;
-} ## end sub Marpa::R2::Grammar::show_dotted_rule
+} ## end sub Marpa::R3::Grammar::show_dotted_rule
 
 # Used by lexers to check that symbol is a terminal
-sub Marpa::R2::Grammar::check_terminal {
+sub Marpa::R3::Grammar::check_terminal {
     my ( $grammar, $name ) = @_;
     return 0 if not defined $name;
     my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
@@ -931,14 +931,14 @@ sub Marpa::R2::Grammar::check_terminal {
     my $symbols = $grammar->[Marpa::R3::Internal::Grammar::SYMBOLS];
     my $symbol  = $symbols->[$symbol_id];
     return $grammar_c->symbol_is_terminal($symbol_id) ? 1 : 0;
-} ## end sub Marpa::R2::Grammar::check_terminal
+} ## end sub Marpa::R3::Grammar::check_terminal
 
-sub Marpa::R2::Grammar::symbol_name {
+sub Marpa::R3::Grammar::symbol_name {
     my ( $grammar, $id ) = @_;
     my $symbol_name =
         $grammar->[Marpa::R3::Internal::Grammar::TRACER]->symbol_name($id);
     return defined $symbol_name ? $symbol_name : '[SYMBOL#' . $id . ']';
-} ## end sub Marpa::R2::Grammar::symbol_name
+} ## end sub Marpa::R3::Grammar::symbol_name
 
 sub shadow_symbol {
     my ( $grammar, $symbol_id ) = @_;
@@ -1343,7 +1343,7 @@ sub set_start_symbol {
     return 1;
 } ## end sub set_start_symbol
 
-sub Marpa::R2::Grammar::error {
+sub Marpa::R3::Grammar::error {
     my ($grammar) = @_;
     my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
     return $grammar_c->error();
@@ -1351,7 +1351,7 @@ sub Marpa::R2::Grammar::error {
 
 # INTERNAL OK AFTER HERE _marpa_
 
-sub Marpa::R2::Grammar::show_ISY {
+sub Marpa::R3::Grammar::show_ISY {
     my ( $grammar, $isy_id ) = @_;
     my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
     my $tracer    = $grammar->[Marpa::R3::Internal::Grammar::TRACER];
@@ -1369,9 +1369,9 @@ sub Marpa::R2::Grammar::show_ISY {
 
     return $text;
 
-} ## end sub Marpa::R2::Grammar::show_ISY
+} ## end sub Marpa::R3::Grammar::show_ISY
 
-sub Marpa::R2::Grammar::show_ISYs {
+sub Marpa::R3::Grammar::show_ISYs {
     my ($grammar) = @_;
     my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
     my $text      = q{};
@@ -1379,9 +1379,9 @@ sub Marpa::R2::Grammar::show_ISYs {
         $text .= $grammar->show_ISY($isy_id);
     }
     return $text;
-} ## end sub Marpa::R2::Grammar::show_ISYs
+} ## end sub Marpa::R3::Grammar::show_ISYs
 
-sub Marpa::R2::Grammar::brief_irl {
+sub Marpa::R3::Grammar::brief_irl {
     my ( $grammar, $irl_id ) = @_;
     my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
     my $tracer    = $grammar->[Marpa::R3::Internal::Grammar::TRACER];
@@ -1395,9 +1395,9 @@ sub Marpa::R2::Grammar::brief_irl {
         $text .= q{ } . ( join q{ }, map { $tracer->isy_name($_) } @rhs_ids );
     } ## end if ( my $rh_length = $grammar_c->_marpa_g_irl_length...)
     return $text;
-} ## end sub Marpa::R2::Grammar::brief_irl
+} ## end sub Marpa::R3::Grammar::brief_irl
 
-sub Marpa::R2::Grammar::show_IRLs {
+sub Marpa::R3::Grammar::show_IRLs {
     my ($grammar) = @_;
     my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
     my $text      = q{};
@@ -1405,21 +1405,21 @@ sub Marpa::R2::Grammar::show_IRLs {
         $text .= $grammar->brief_irl($irl_id) . "\n";
     }
     return $text;
-} ## end sub Marpa::R2::Grammar::show_IRLs
+} ## end sub Marpa::R3::Grammar::show_IRLs
 
-sub Marpa::R2::Grammar::rule_is_used {
+sub Marpa::R3::Grammar::rule_is_used {
     my ( $grammar, $rule_id ) = @_;
     my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
     return $grammar_c->_marpa_g_rule_is_used($rule_id);
 }
 
-sub Marpa::R2::Grammar::show_AHFA {
+sub Marpa::R3::Grammar::show_AHFA {
     my ( $grammar, $verbose ) = @_;
     return $grammar->[Marpa::R3::Internal::Grammar::TRACER]
         ->show_AHFA($verbose);
 }
 
-sub Marpa::R2::Grammar::show_AHFA_items {
+sub Marpa::R3::Grammar::show_AHFA_items {
     my ( $grammar, $verbose ) = @_;
     return $grammar->[Marpa::R3::Internal::Grammar::TRACER]
         ->show_AHFA_items($verbose);

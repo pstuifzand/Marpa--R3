@@ -24,7 +24,7 @@ use warnings;
 
 use Test::More tests => 10;
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 ## no critic (Subroutines::RequireArgUnpacking)
@@ -41,7 +41,7 @@ sub default_action {
 
 sub gen_grammar {
     my ($null_ranking) = @_;
-    my $grammar = Marpa::R2::Grammar->new(
+    my $grammar = Marpa::R3::Grammar->new(
         {   start => 'S',
             rules => [
                 {   lhs          => 'S',
@@ -64,7 +64,7 @@ my @minimal = ( q{}, qw[(;;;a) (;;a;a) (;a;a;a) (a;a;a;a)] );
 
 for my $maximal ( 0, 1 ) {
     my $grammar = gen_grammar( $maximal ? 'low' : 'high' );
-    my $recce = Marpa::R2::Recognizer->new(
+    my $recce = Marpa::R3::Recognizer->new(
         { grammar => $grammar, ranking_method => 'high_rule_only' } );
 
     my $input_length = 4;

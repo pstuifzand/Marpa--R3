@@ -22,7 +22,7 @@ use warnings;
 use Test::More tests => 12;
 
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use English qw( -no_match_vars );
 use Fatal qw( close open );
 use Marpa::R2;
@@ -82,7 +82,7 @@ sub default_action {
     return '(' . join( q{;}, @_ ) . ')';
 } ## end sub default_action
 
-my $grammar = Marpa::R2::Grammar->new(
+my $grammar = Marpa::R3::Grammar->new(
     {   start   => 'E',
         actions => 'main',
         rules   => [
@@ -108,7 +108,7 @@ print $grammar->show_symbols()
 
 restore_stdout();
 
-Marpa::R2::Test::is( ${$actual_ref},
+Marpa::R3::Test::is( ${$actual_ref},
     <<'END_SYMBOLS', 'Ambiguous Equation Symbols' );
 0: E
 1: Op, terminal
@@ -125,7 +125,7 @@ print $grammar->show_rules()
 
 # Marpa::R3::Display::End
 
-Marpa::R2::Test::is( ${$actual_ref},
+Marpa::R3::Test::is( ${$actual_ref},
     <<'END_RULES', 'Ambiguous Equation Rules' );
 0: E -> E Op E
 1: E -> Number
@@ -138,7 +138,7 @@ $actual_ref = save_stdout();
 print $grammar->show_AHFA_items()
     or die "print failed: $ERRNO";
 
-Marpa::R2::Test::is( ${$actual_ref},
+Marpa::R3::Test::is( ${$actual_ref},
     <<'EOS', 'Ambiguous Equation AHFA Items' );
 AHFA item 0: sort = 0; postdot = "E"
     E -> . E Op E
@@ -163,7 +163,7 @@ $actual_ref = save_stdout();
 print $grammar->show_AHFA()
     or die "print failed: $ERRNO";
 
-Marpa::R2::Test::is( ${$actual_ref},
+Marpa::R3::Test::is( ${$actual_ref},
     <<'END_AHFA', 'Ambiguous Equation AHFA' );
 * S0:
 E['] -> . E
@@ -197,7 +197,7 @@ print $grammar->show_problems()
 
 # Marpa::R3::Display::End
 
-Marpa::R2::Test::is(
+Marpa::R3::Test::is(
     ${$actual_ref},
     "Grammar has no problems\n",
     'Ambiguous Equation Problems'
@@ -205,7 +205,7 @@ Marpa::R2::Test::is(
 
 restore_stdout();
 
-my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+my $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
 
 $recce->read( 'Number', 2 );
 $recce->read( 'Op',     q{-} );
@@ -267,7 +267,7 @@ S3@6-7 [p=S1@6-6; c=S4@6-7]
 S4@6-7 [p=S1@6-6; s=Number; t=\1]
 END_OF_EARLEY_SETS
 
-Marpa::R2::Test::is( ${$actual_ref}, $expected_earley_sets,
+Marpa::R3::Test::is( ${$actual_ref}, $expected_earley_sets,
     'Ambiguous Equation Earley Sets' );
 
 restore_stdout();
@@ -282,7 +282,7 @@ print $recce->show_progress()
 
 # Marpa::R3::Display::End
 
-Marpa::R2::Test::is( ${$actual_ref},
+Marpa::R3::Test::is( ${$actual_ref},
     <<'END_OF_PROGRESS_REPORT', 'Ambiguous Equation Progress Report' );
 R0:1 x4 @0...6-7 E -> E . Op E
 F0 x3 @0,2,4-7 E -> E Op E .

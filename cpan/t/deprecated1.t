@@ -26,7 +26,7 @@ use warnings;
 use Test::More tests => 2;
 
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use English qw( -no_match_vars );
 use Fatal qw( close open );
 use Marpa::R2;

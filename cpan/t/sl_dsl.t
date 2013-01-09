@@ -23,7 +23,7 @@ use warnings;
 use Test::More tests => 6;
 use English qw( -no_match_vars );
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 my $rules = <<'END_OF_GRAMMAR';
@@ -60,7 +60,7 @@ whitespace ~ [\s]+
 <hash comment char> ~ [^\x{A}\x{B}\x{C}\x{D}\x{2028}\x{2029}]
 END_OF_GRAMMAR
 
-my $grammar = Marpa::R2::Scanless::G->new(
+my $grammar = Marpa::R3::Scanless::G->new(
     {   action_object  => 'My_Actions',
         default_action => 'do_arg0',
         source          => \$rules,
@@ -70,7 +70,7 @@ my $grammar = Marpa::R2::Scanless::G->new(
 my %binop_closure = (
     '*' => sub { $_[0] * $_[1] },
     '/' => sub {
-        Marpa::R2::Context::bail('Division by zero') if not $_[1];
+        Marpa::R3::Context::bail('Division by zero') if not $_[1];
         $_[0] / $_[1];
     },
     '+' => sub { $_[0] + $_[1] },
@@ -95,7 +95,7 @@ sub calculate {
 
     %symbol_table = ();
 
-    my $recce = Marpa::R2::Scanless::R->new( { grammar => $grammar } );
+    my $recce = Marpa::R3::Scanless::R->new( { grammar => $grammar } );
 
     my $self = bless { grammar => $grammar }, 'My_Actions';
     $self->{slr} = $recce;
@@ -155,7 +155,7 @@ sub new { return $SELF }
 sub do_is_var {
     my ( undef, $var ) = @_;
     my $value = $symbol_table{$var};
-    Marpa::R2::Context::bail(qq{Undefined variable "$var"})
+    Marpa::R3::Context::bail(qq{Undefined variable "$var"})
         if not defined $value;
     return $value;
 } ## end sub do_is_var
@@ -178,7 +178,7 @@ sub do_array {
     my @value = ();
     my $ref;
     if ( $ref = ref $left ) {
-        Marpa::R2::Context::bail("Bad ref type for array operand: $ref")
+        Marpa::R3::Context::bail("Bad ref type for array operand: $ref")
             if $ref ne 'ARRAY';
         push @value, @{$left};
     }
@@ -186,7 +186,7 @@ sub do_array {
         push @value, $left;
     }
     if ( $ref = ref $right ) {
-        Marpa::R2::Context::bail("Bad ref type for array operand: $ref")
+        Marpa::R3::Context::bail("Bad ref type for array operand: $ref")
             if $ref ne 'ARRAY';
         push @value, @{$right};
     }
@@ -199,7 +199,7 @@ sub do_array {
 sub do_binop {
     my ( $op, $left, $right ) = @_;
     my $closure = $binop_closure{$op};
-    Marpa::R2::Context::bail(
+    Marpa::R3::Context::bail(
         qq{Do not know how to perform binary operation "$op"})
         if not defined $closure;
     return $closure->( $left, $right );
@@ -233,7 +233,7 @@ sub do_minus {
 sub do_reduce {
     my ( undef, $op, undef, $args ) = @_;
     my $closure = $binop_closure{$op};
-    Marpa::R2::Context::bail(
+    Marpa::R3::Context::bail(
         qq{Do not know how to perform binary operation "$op"})
         if not defined $closure;
     $args = [$args] if ref $args eq '';
@@ -243,7 +243,7 @@ sub do_reduce {
         my $result = $closure->( $stack[-2], $stack[-1] );
         splice @stack, -2, 2, $result;
     }
-    Marpa::R2::Context::bail('Should not get here');
+    Marpa::R3::Context::bail('Should not get here');
 } ## end sub do_reduce
 
 sub show_last_expression {

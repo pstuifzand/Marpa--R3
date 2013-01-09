@@ -25,12 +25,12 @@ use Test::More tests => 3;
 use English qw( -no_match_vars );
 use Fatal qw( open close );
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 my $progress_report = q{};
 
-my $grammar = Marpa::R2::Grammar->new(
+my $grammar = Marpa::R3::Grammar->new(
     {   start => 'Document',
         rules => [ { lhs => 'Document', rhs => [qw/Stuff/], min => 1 }, ],
     }
@@ -38,7 +38,7 @@ my $grammar = Marpa::R2::Grammar->new(
 
 $grammar->precompute();
 
-my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+my $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
 
 # Marpa::R3::Display
 # name: Recognizer check_terminal Synopsis
@@ -60,7 +60,7 @@ $progress_report = $recce->show_progress(0);
 my $value_ref = $recce->value;
 Test::More::ok( $value_ref, 'Parse ok?' );
 
-Marpa::R2::Test::is( $progress_report,
+Marpa::R3::Test::is( $progress_report,
     << 'END_PROGRESS_REPORT', 'progress report' );
 P0 @0-0 Document -> . Stuff+
 END_PROGRESS_REPORT

@@ -23,7 +23,7 @@ use warnings;
 use Test::More tests => 3;
 
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 
 ## no critic (ErrorHandling::RequireCarping);
 
@@ -32,7 +32,7 @@ use Marpa::R2::Test;
 
 use Marpa::R2;
 
-my $grammar = Marpa::R2::Grammar->new(
+my $grammar = Marpa::R3::Grammar->new(
     {   start          => 'Expression',
         actions        => 'My_Actions',
         default_action => 'first_arg',
@@ -51,7 +51,7 @@ my $grammar = Marpa::R2::Grammar->new(
 
 $grammar->precompute();
 
-my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+my $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
 
 $recce->read( 'Number', 42 );
 $recce->read('Multiply');
@@ -83,7 +83,7 @@ my $value = $value_ref ? ${$value_ref} : 'No Parse';
 
 use Marpa::R2;
 
-my $ambiguous_grammar = Marpa::R2::Grammar->new(
+my $ambiguous_grammar = Marpa::R3::Grammar->new(
     {   start   => 'E',
         actions => 'My_Actions',
         rules   => [
@@ -98,7 +98,7 @@ my $ambiguous_grammar = Marpa::R2::Grammar->new(
 $ambiguous_grammar->precompute();
 
 my $ambiguous_recce =
-    Marpa::R2::Recognizer->new( { grammar => $ambiguous_grammar } );
+    Marpa::R3::Recognizer->new( { grammar => $ambiguous_grammar } );
 
 $ambiguous_recce->read( 'Number', 42 );
 $ambiguous_recce->read('Multiply');
@@ -127,7 +127,7 @@ sub fix_things {
 # Marpa::R3::Display
 # name: Engine Synopsis Interactive Parse
 
-$recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+$recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
 
 my @tokens = (
     [ 'Number', 42 ],

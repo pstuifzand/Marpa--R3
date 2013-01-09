@@ -345,7 +345,7 @@ sub Marpa::R3::Internal::Recognizer::set_actions {
 
 our $CONTEXT_EXCEPTION_CLASS = __PACKAGE__ . '::Context_Exception';
 
-sub Marpa::R2::Context::bail { ## no critic (Subroutines::RequireArgUnpacking)
+sub Marpa::R3::Context::bail { ## no critic (Subroutines::RequireArgUnpacking)
     if ( scalar @_ == 1 and ref $_[0] ) {
         die bless { exception_object => $_[0] }, $CONTEXT_EXCEPTION_CLASS;
     }
@@ -355,16 +355,16 @@ sub Marpa::R2::Context::bail { ## no critic (Subroutines::RequireArgUnpacking)
     die bless { message => qq{User bailed at line $line in file "$filename"\n}
             . $error_string
             . "\n" }, $CONTEXT_EXCEPTION_CLASS;
-} ## end sub Marpa::R2::Context::bail
+} ## end sub Marpa::R3::Context::bail
 ## use critic
 
-sub Marpa::R2::Context::location {
+sub Marpa::R3::Context::location {
     my $valuator = $Marpa::R3::Internal::Context::VALUATOR;
     Marpa::R3::exception(
-        'Marpa::R2::Context::location called outside of a valuation context')
+        'Marpa::R3::Context::location called outside of a valuation context')
         if not defined $valuator;
     return $valuator->location();
-} ## end sub Marpa::R2::Context::location
+} ## end sub Marpa::R3::Context::location
 
 sub code_problems {
     my $args = shift;
@@ -486,8 +486,8 @@ sub Marpa::R3::Internal::Recognizer::evaluate {
     my $trace_values = $recce->[Marpa::R3::Internal::Recognizer::TRACE_VALUES]
         // 0;
 
-    local $Marpa::R2::Context::grammar = $grammar;
-    local $Marpa::R2::Context::rule    = undef;
+    local $Marpa::R3::Context::grammar = $grammar;
+    local $Marpa::R3::Context::rule    = undef;
 
     my $action_object_class =
         $grammar->[Marpa::R3::Internal::Grammar::ACTION_OBJECT];
@@ -617,7 +617,7 @@ sub Marpa::R3::Internal::Recognizer::evaluate {
                     };
 
                     $eval_ok = eval {
-                        local $Marpa::R2::Context::rule = $semantic_rule_id;
+                        local $Marpa::R3::Context::rule = $semantic_rule_id;
                         $result = $value_ref->($action_object);
                         1;
                     };
@@ -680,7 +680,7 @@ sub Marpa::R3::Internal::Recognizer::evaluate {
                         };
 
                         $eval_ok = eval {
-                            local $Marpa::R2::Context::rule = $rule_id;
+                            local $Marpa::R3::Context::rule = $rule_id;
                             $result = $closure->( $action_object, @args );
                             1;
                         };
@@ -750,10 +750,10 @@ sub Marpa::R3::Internal::Recognizer::evaluate {
 } ## end sub Marpa::R3::Internal::Recognizer::evaluate
 
 # Returns false if no parse
-sub Marpa::R2::Recognizer::value { ## no critic (Subroutines::RequireArgUnpacking)
+sub Marpa::R3::Recognizer::value { ## no critic (Subroutines::RequireArgUnpacking)
     my ($recce) = @_;
 
-    Marpa::R3::exception('Too many arguments to Marpa::R2::Recognizer::value')
+    Marpa::R3::exception('Too many arguments to Marpa::R3::Recognizer::value')
         if scalar @_ != 1;
 
     my $grammar   = $recce->[Marpa::R3::Internal::Recognizer::GRAMMAR];
@@ -837,7 +837,7 @@ sub Marpa::R2::Recognizer::value { ## no critic (Subroutines::RequireArgUnpackin
     return if not defined $tree->next();
     return Marpa::R3::Internal::Recognizer::evaluate($recce);
 
-} ## end sub Marpa::R2::Recognizer::value
+} ## end sub Marpa::R3::Recognizer::value
 
 sub do_high_rule_only {
     my ($recce) = @_;
@@ -859,7 +859,7 @@ sub do_rank_by_rule {
 
 # INTERNAL OK AFTER HERE _marpa_
 
-sub Marpa::R2::Recognizer::show_bocage {
+sub Marpa::R3::Recognizer::show_bocage {
     my ($recce) = @_;
     my $text;
     my @data      = ();
@@ -893,15 +893,15 @@ sub Marpa::R2::Recognizer::show_bocage {
             if ( defined $cause_id ) {
                 $cause_irl_id = $bocage->_marpa_b_or_node_irl($cause_id);
                 $cause_tag =
-                    Marpa::R2::Recognizer::or_node_tag( $recce, $cause_id );
+                    Marpa::R3::Recognizer::or_node_tag( $recce, $cause_id );
             }
             my $parent_tag =
-                Marpa::R2::Recognizer::or_node_tag( $recce, $or_node_id );
+                Marpa::R3::Recognizer::or_node_tag( $recce, $or_node_id );
             my $predecessor_id =
                 $bocage->_marpa_b_and_node_predecessor($and_node_id);
             my $predecessor_tag = q{-};
             if ( defined $predecessor_id ) {
-                $predecessor_tag = Marpa::R2::Recognizer::or_node_tag( $recce,
+                $predecessor_tag = Marpa::R3::Recognizer::or_node_tag( $recce,
                     $predecessor_id );
             }
             my $tag = join q{ }, $parent_tag, $predecessor_tag, $cause_tag;
@@ -931,9 +931,9 @@ sub Marpa::R2::Recognizer::show_bocage {
             or $a->[6] <=> $b->[6]
     } @data;
     return ( join "\n", @sorted_data ) . "\n";
-} ## end sub Marpa::R2::Recognizer::show_bocage
+} ## end sub Marpa::R3::Recognizer::show_bocage
 
-sub Marpa::R2::Recognizer::and_node_tag {
+sub Marpa::R3::Recognizer::and_node_tag {
     my ( $recce, $and_node_id ) = @_;
     my $bocage            = $recce->[Marpa::R3::Internal::Recognizer::B_C];
     my $recce_c           = $recce->[Marpa::R3::Internal::Recognizer::C];
@@ -972,9 +972,9 @@ sub Marpa::R2::Recognizer::and_node_tag {
     }
     $tag .= q{@} . $middle_earleme;
     return $tag;
-} ## end sub Marpa::R2::Recognizer::and_node_tag
+} ## end sub Marpa::R3::Recognizer::and_node_tag
 
-sub Marpa::R2::Recognizer::show_and_nodes {
+sub Marpa::R3::Recognizer::show_and_nodes {
     my ($recce) = @_;
     my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C];
     my $bocage  = $recce->[Marpa::R3::Internal::Recognizer::B_C];
@@ -1033,9 +1033,9 @@ sub Marpa::R2::Recognizer::show_and_nodes {
             or $a->[6] <=> $b->[6]
     } @data;
     return ( join "\n", @sorted_data ) . "\n";
-} ## end sub Marpa::R2::Recognizer::show_and_nodes
+} ## end sub Marpa::R3::Recognizer::show_and_nodes
 
-sub Marpa::R2::Recognizer::or_node_tag {
+sub Marpa::R3::Recognizer::or_node_tag {
     my ( $recce, $or_node_id ) = @_;
     my $bocage   = $recce->[Marpa::R3::Internal::Recognizer::B_C];
     my $set      = $bocage->_marpa_b_or_node_set($or_node_id);
@@ -1043,9 +1043,9 @@ sub Marpa::R2::Recognizer::or_node_tag {
     my $origin   = $bocage->_marpa_b_or_node_origin($or_node_id);
     my $position = $bocage->_marpa_b_or_node_position($or_node_id);
     return 'R' . $irl_id . q{:} . $position . q{@} . $origin . q{-} . $set;
-} ## end sub Marpa::R2::Recognizer::or_node_tag
+} ## end sub Marpa::R3::Recognizer::or_node_tag
 
-sub Marpa::R2::Recognizer::show_or_nodes {
+sub Marpa::R3::Recognizer::show_or_nodes {
     my ( $recce, $verbose ) = @_;
     my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C];
     my $bocage  = $recce->[Marpa::R3::Internal::Recognizer::B_C];
@@ -1080,9 +1080,9 @@ sub Marpa::R2::Recognizer::show_or_nodes {
             or $a->[3] <=> $b->[3]
     } @data;
     return ( join "\n", @sorted_data ) . "\n";
-} ## end sub Marpa::R2::Recognizer::show_or_nodes
+} ## end sub Marpa::R3::Recognizer::show_or_nodes
 
-sub Marpa::R2::Recognizer::show_nook {
+sub Marpa::R3::Recognizer::show_nook {
     my ( $recce, $nook_id, $verbose ) = @_;
     my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C];
     my $order   = $recce->[Marpa::R3::Internal::Recognizer::O_C];
@@ -1105,7 +1105,7 @@ sub Marpa::R2::Recognizer::show_nook {
         $text .= '[-]';
     } ## end CHILD_TYPE:
     my $or_node_tag =
-        Marpa::R2::Recognizer::or_node_tag( $recce, $or_node_id );
+        Marpa::R3::Recognizer::or_node_tag( $recce, $or_node_id );
     $text .= " $or_node_tag";
 
     $text .= ' p';
@@ -1129,15 +1129,15 @@ sub Marpa::R2::Recognizer::show_nook {
                 $text .= q{*};
             }
             my $and_node_tag =
-                Marpa::R2::Recognizer::and_node_tag( $recce, $and_node_id );
+                Marpa::R3::Recognizer::and_node_tag( $recce, $and_node_id );
             $text .= " ::= a$and_node_id $and_node_tag";
             $text .= "\n";
         } ## end CHOICE: for ( my $choice_ix = 0;; $choice_ix++ )
     } ## end DESCRIBE_CHOICES:
     return $text;
-} ## end sub Marpa::R2::Recognizer::show_nook
+} ## end sub Marpa::R3::Recognizer::show_nook
 
-sub Marpa::R2::Recognizer::show_tree {
+sub Marpa::R3::Recognizer::show_tree {
     my ( $recce, $verbose ) = @_;
     my $text = q{};
     NOOK: for ( my $nook_id = 0; 1; $nook_id++ ) {
@@ -1146,7 +1146,7 @@ sub Marpa::R2::Recognizer::show_tree {
         $text .= "$nook_id: $nook_text";
     }
     return $text;
-} ## end sub Marpa::R2::Recognizer::show_tree
+} ## end sub Marpa::R3::Recognizer::show_tree
 
 sub trace_token_evaluation {
     my ( $recce, $value, $token_id, $value_ref ) = @_;
@@ -1171,7 +1171,7 @@ sub trace_token_evaluation {
 
     print {$Marpa::R3::Internal::TRACE_FH}
         'Pushed value from ',
-        Marpa::R2::Recognizer::and_node_tag( $recce, $and_node_id ),
+        Marpa::R3::Recognizer::and_node_tag( $recce, $and_node_id ),
         ': ',
         ( $token_name ? qq{$token_name = } : q{} ),
         Data::Dumper->new( [$value_ref] )->Terse(1)->Dump
@@ -1197,7 +1197,7 @@ sub trace_stack_1 {
 
     return 'Popping ', $argc,
         ' values to evaluate ',
-        Marpa::R2::Recognizer::and_node_tag( $recce, $and_node_id ),
+        Marpa::R3::Recognizer::and_node_tag( $recce, $and_node_id ),
         ', rule: ', $grammar->brief_rule($rule_id);
 
 } ## end sub trace_stack_1
@@ -1230,7 +1230,7 @@ sub trace_op {
 
         $trace_output .= join q{},
             'Head of Virtual Rule: ',
-            Marpa::R2::Recognizer::and_node_tag( $recce, $and_node_id ),
+            Marpa::R3::Recognizer::and_node_tag( $recce, $and_node_id ),
             ', rule: ', $grammar->brief_irl($trace_irl_id),
             "\n",
             'Incrementing virtual rule by ',
@@ -1246,7 +1246,7 @@ sub trace_op {
 
         $trace_output .= join q{},
             'Virtual Rule: ',
-            Marpa::R2::Recognizer::and_node_tag( $recce, $and_node_id ),
+            Marpa::R3::Recognizer::and_node_tag( $recce, $and_node_id ),
             ', rule: ', $grammar->brief_irl($trace_irl_id),
             "\nAdding ",
             $grammar_c->_marpa_g_real_symbol_count($trace_irl_id),
@@ -1260,7 +1260,7 @@ sub trace_op {
 
         $trace_output .= join q{},
             'New Virtual Rule: ',
-            Marpa::R2::Recognizer::and_node_tag( $recce, $and_node_id ),
+            Marpa::R3::Recognizer::and_node_tag( $recce, $and_node_id ),
             ', rule: ', $grammar->brief_irl($trace_irl_id),
             "\nReal symbol count is ",
             $grammar_c->_marpa_g_real_symbol_count($trace_irl_id),

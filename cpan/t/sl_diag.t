@@ -23,10 +23,10 @@ use warnings;
 use Test::More tests => 3;
 use English qw( -no_match_vars );
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
-my $prefix_grammar = Marpa::R2::Scanless::G->new(
+my $prefix_grammar = Marpa::R3::Scanless::G->new(
     {
         action_object        => 'My_Actions',
         default_action => 'do_arg0',
@@ -83,7 +83,7 @@ sub my_parser {
 
     my $trace_output = q{};
     open my $trace_fh, q{>}, \$trace_output;
-    my $recce = Marpa::R2::Scanless::R->new(
+    my $recce = Marpa::R3::Scanless::R->new(
         {   grammar           => $grammar,
             trace_terminals   => 1,
             trace_file_handle => $trace_fh
@@ -130,7 +130,7 @@ for my $test_data (@tests_data) {
 
 # Marpa::R3::Display::End
 
-    Marpa::R2::Test::is( $show_progress_output,
+    Marpa::R3::Test::is( $show_progress_output,
         <<'END_OF_EXPECTED_OUTPUT', qq{Scanless show_progess()} );
 F0 @0-11 [:start] -> Script .
 P1 @0-11 Script -> . Calculation*

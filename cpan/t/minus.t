@@ -22,7 +22,7 @@ use warnings;
 use Test::More tests => 10;
 
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 # The inefficiency (at least some of it) is deliberate.
@@ -77,7 +77,7 @@ sub default_action {
 
 ## use critic
 
-my $grammar = Marpa::R2::Grammar->new(
+my $grammar = Marpa::R3::Grammar->new(
     {   start   => 'E',
         actions => 'main',
         rules   => [
@@ -119,9 +119,9 @@ my $grammar = Marpa::R2::Grammar->new(
 );
 $grammar->precompute();
 
-my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+my $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
 
-Marpa::R2::Test::is( $grammar->show_rules,
+Marpa::R3::Test::is( $grammar->show_rules,
     <<'END_RULES', 'Minuses Equation Rules' );
 0: E -> E Minus E
 1: E -> E MinusMinus
@@ -130,7 +130,7 @@ Marpa::R2::Test::is( $grammar->show_rules,
 4: E -> Number
 END_RULES
 
-Marpa::R2::Test::is( $grammar->show_AHFA,
+Marpa::R3::Test::is( $grammar->show_AHFA,
     <<'END_AHFA', 'Minuses Equation AHFA' );
 * S0:
 E['] -> . E

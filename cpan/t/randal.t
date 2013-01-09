@@ -21,7 +21,7 @@ use English qw( -no_match_vars );
 
 use Test::More tests => 6;
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 package Test_Grammar;
@@ -171,7 +171,7 @@ my @test_data = (
     [ 'time', q{time  / 25 ; # / ; die "this dies!"}, ['division, comment'] ]
 );
 
-my $g = Marpa::R2::Grammar->new(
+my $g = Marpa::R3::Grammar->new(
     {   warnings => 1,
         actions  => 'main',
     },
@@ -185,7 +185,7 @@ TEST: for my $test_data (@test_data) {
     my ( $test_name, $test_input, $test_results ) = @{$test_data};
 
     my @event_tokens = keys %regexes;
-    my $recce        = Marpa::R2::Recognizer->new(
+    my $recce        = Marpa::R3::Recognizer->new(
         { grammar => $g, event_if_expected => \@event_tokens } );
 
     my $input_length = length $test_input;
@@ -246,12 +246,12 @@ TEST: for my $test_data (@test_data) {
     }
     my $expected_parse_count = scalar @{$test_results};
     my $parse_count          = scalar @parses;
-    Marpa::R2::Test::is( $parse_count, $expected_parse_count,
+    Marpa::R3::Test::is( $parse_count, $expected_parse_count,
         "$test_name: Parse count" );
 
     my $expected = join "\n", sort @{$test_results};
     my $actual   = join "\n", sort @parses;
-    Marpa::R2::Test::is( $actual, $expected, "$test_name: Parse match" );
+    Marpa::R3::Test::is( $actual, $expected, "$test_name: Parse match" );
 
     Test::More::ok( $terminals_expected_matches_events,
         'Output of terminals_expected() matched events()' );

@@ -22,7 +22,7 @@ use warnings;
 use Test::More tests => 1;
 
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 
 ## no critic (ErrorHandling::RequireCarping);
 
@@ -30,14 +30,14 @@ use Marpa::R2;
 
 # Regression test of bug found by Andrew Rodland
 
-my $g = Marpa::R2::Grammar->new(
+my $g = Marpa::R3::Grammar->new(
     {   actions => "main",
         start   => "start",
         source   => \"start ::= action => act"
     }
 );
 $g->precompute;
-my $r         = Marpa::R2::Recognizer->new( { grammar => $g } );
+my $r         = Marpa::R3::Recognizer->new( { grammar => $g } );
 my $value_ref = $r->value;
 my $value     = defined $value_ref ? ${$value_ref} : 'No parse';
 sub act {123};

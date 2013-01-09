@@ -22,7 +22,7 @@ use Test::More tests => 3;
 use Fatal qw(open close);
 
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 ## no critic (Subroutines::RequireArgUnpacking)
@@ -42,7 +42,7 @@ sub test_grammar {
 
     my $grammar;
     my $eval_ok =
-        eval { $grammar = Marpa::R2::Grammar->new($grammar_args); 1; };
+        eval { $grammar = Marpa::R3::Grammar->new($grammar_args); 1; };
     die "Exception while creating Grammar:\n$EVAL_ERROR"
         if not $eval_ok;
     die "Grammar not created\n" if not $grammar;
@@ -50,7 +50,7 @@ sub test_grammar {
 
     my $recce;
     $eval_ok = eval {
-        $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+        $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
         1;
     };
 

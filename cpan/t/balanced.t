@@ -22,7 +22,7 @@ use English qw( -no_match_vars );
 use List::Util qw(min);
 use Test::More tests => 7;
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 sub find_match {
@@ -53,7 +53,7 @@ sub find_match {
         ],
     };
 
-    my $grammar = Marpa::R2::Grammar->new($grammar_args);
+    my $grammar = Marpa::R3::Grammar->new($grammar_args);
 
     $grammar->precompute();
 
@@ -61,7 +61,7 @@ sub find_match {
         grep { ( $grammar->rule($_) )[0] eq 'first_balanced' }
         $grammar->rule_ids();
 
-    my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+    my $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
 
 # Marpa::R3::Display
 # name: Recognizer expected_symbol_event_set() Synopsis
@@ -146,8 +146,8 @@ for my $pos (
         $expected_end   = $pos + 40 + length $target;
     }
     my $expected = $expected_start . q{-} . $expected_end;
-    Marpa::R2::Test::is( find_match($test_string),
+    Marpa::R3::Test::is( find_match($test_string),
         $expected, "target at pos $pos" );
 } ## end for my $pos ( 0, 1, 2, -( 2 + length $target ), -( 1 ...))
 my $test_string = '(' x 20 . ')' x 20;
-Marpa::R2::Test::is( find_match($test_string), '0-40', 'Middle target' );
+Marpa::R3::Test::is( find_match($test_string), '0-40', 'Middle target' );

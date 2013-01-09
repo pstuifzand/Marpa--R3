@@ -27,7 +27,7 @@ use warnings;
 use Test::More tests => 32;
 use English qw( -no_match_vars );
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 sub zero { return '0' }
@@ -42,7 +42,7 @@ sub start_rule_action {
 
 sub gen_grammar {
     my ($is_count_up) = @_;
-    my $grammar = Marpa::R2::Grammar->new(
+    my $grammar = Marpa::R3::Grammar->new(
         {   start => 'S',
             default_rank => -7,
             rules => [
@@ -80,7 +80,7 @@ my @counting_down = reverse @counting_up;
 for my $is_count_up ( 1, 0 ) {
     my $count = $is_count_up ? ( \@counting_up ) : ( \@counting_down );
     my $direction_desc = $is_count_up ? 'up' : 'down';
-    my $recce = Marpa::R2::Recognizer->new(
+    my $recce = Marpa::R3::Recognizer->new(
         { grammar => gen_grammar($is_count_up), ranking_method => 'rule' } );
 
     my $input_length = 4;

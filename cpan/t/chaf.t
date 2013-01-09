@@ -22,7 +22,7 @@ use warnings;
 
 use Test::More tests => 2;
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 ## no critic (Subroutines::RequireArgUnpacking)
@@ -37,7 +37,7 @@ sub default_action {
 
 ## use critic
 
-my $grammar = Marpa::R2::Grammar->new(
+my $grammar = Marpa::R3::Grammar->new(
     {   start => 'S',
         rules => [
             [ 'S', [qw/A B B B C C /] ],
@@ -54,7 +54,7 @@ $grammar->set( { terminals => ['a'], } );
 
 $grammar->precompute();
 
-Marpa::R2::Test::is( $grammar->show_rules, <<'EOS', 'Aycock/Horspool Rules' );
+Marpa::R3::Test::is( $grammar->show_rules, <<'EOS', 'Aycock/Horspool Rules' );
 0: S -> A B B B C C
 1: A -> a
 2: B -> a
@@ -62,7 +62,7 @@ Marpa::R2::Test::is( $grammar->show_rules, <<'EOS', 'Aycock/Horspool Rules' );
 4: C -> /* empty !used */
 EOS
 
-my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+my $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
 
 $recce->read( 'a', 'a' );
 

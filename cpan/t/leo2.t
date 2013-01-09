@@ -22,7 +22,7 @@ use warnings;
 use Test::More tests => 9;
 
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 ## no critic (Subroutines::RequireArgUnpacking)
@@ -34,7 +34,7 @@ sub main::default_action {
 
 ## use critic
 
-my $grammar = Marpa::R2::Grammar->new(
+my $grammar = Marpa::R3::Grammar->new(
     {   start          => 'S',
         rules          => [ [ 'S', [qw/a S/] ], [ 'S', [], ], ],
         terminals      => [qw(a)],
@@ -44,19 +44,19 @@ my $grammar = Marpa::R2::Grammar->new(
 
 $grammar->precompute();
 
-Marpa::R2::Test::is( $grammar->show_symbols(),
+Marpa::R3::Test::is( $grammar->show_symbols(),
     <<'END_OF_STRING', 'Leo166 Symbols' );
 0: a, terminal
 1: S
 END_OF_STRING
 
-Marpa::R2::Test::is( $grammar->show_rules,
+Marpa::R3::Test::is( $grammar->show_rules,
     <<'END_OF_STRING', 'Leo166 Rules' );
 0: S -> a S
 1: S -> /* empty !used */
 END_OF_STRING
 
-Marpa::R2::Test::is( $grammar->show_AHFA, <<'END_OF_STRING', 'Leo166 AHFA' );
+Marpa::R3::Test::is( $grammar->show_AHFA, <<'END_OF_STRING', 'Leo166 AHFA' );
 * S0:
 S['] -> . S
  <S> => S2; leo(S['])
@@ -77,7 +77,7 @@ END_OF_STRING
 my $length = 50;
 
 LEO_FLAG: for my $leo_flag ( 0, 1 ) {
-    my $recce = Marpa::R2::Recognizer->new(
+    my $recce = Marpa::R3::Recognizer->new(
         { grammar => $grammar, leo => $leo_flag } );
 
     my $i                 = 0;
@@ -98,17 +98,17 @@ LEO_FLAG: for my $leo_flag ( 0, 1 ) {
     } ## end while ( $i++ < $length )
 
     my $expected_size = $leo_flag ? 4 : $length + 2;
-    Marpa::R2::Test::is( $max_size, $expected_size,
+    Marpa::R3::Test::is( $max_size, $expected_size,
         "Leo flag $leo_flag, size" );
 
     my $value_ref = $recce->value();
     my $value = $value_ref ? ${$value_ref} : 'No parse';
-    Marpa::R2::Test::is( $value, 'a' x $length, 'Leo p166 parse' );
+    Marpa::R3::Test::is( $value, 'a' x $length, 'Leo p166 parse' );
 } ## end for my $leo_flag ( 0, 1 )
 
 {
     open my $trace_fh, q{>}, \( my $trace_output = q{} );
-    my $recce = Marpa::R2::Recognizer->new(
+    my $recce = Marpa::R3::Recognizer->new(
         {   grammar               => $grammar,
             leo                   => 0,
             too_many_earley_items => $length,
@@ -126,10 +126,10 @@ LEO_FLAG: for my $leo_flag ( 0, 1 ) {
         Test::More::pass('Warns at earley item threshold');
     }
     else {
-        Marpa::R2::Test::is( $trace_output, q{}, 'Leo p166 parse' );
+        Marpa::R3::Test::is( $trace_output, q{}, 'Leo p166 parse' );
     }
     my $value = $value_ref ? ${$value_ref} : 'No parse';
-    Marpa::R2::Test::is( $value, 'a' x $length, 'Leo p166 parse' );
+    Marpa::R3::Test::is( $value, 'a' x $length, 'Leo p166 parse' );
 }
 
 1;    # In case used as "do" file

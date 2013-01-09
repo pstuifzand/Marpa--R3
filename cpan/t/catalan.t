@@ -24,10 +24,10 @@ use warnings;
 
 use Test::More tests => 7;
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
-my $g = Marpa::R2::Grammar->new(
+my $g = Marpa::R3::Grammar->new(
     {   start => 'pair',
         rules => [
             [ pair => [qw(a a)],       '::whatever' ],
@@ -45,7 +45,7 @@ sub do_pairings {
     my $n           = shift;
     my $parse_count = 0;
 
-    my $recce = Marpa::R2::Recognizer->new( { grammar => $g } );
+    my $recce = Marpa::R3::Recognizer->new( { grammar => $g } );
 
     # An arbitrary maximum is put on the number of parses -- this is for
     # debugging, and infinite loops happen.
@@ -66,7 +66,7 @@ my @catalan_numbers = ( 0, 1, 1, 2, 5, 14, 42, 132, 429 );
 for my $a ( ( 2 .. 8 ) ) {
 
     my $actual_parse_count = do_pairings($a);
-    Marpa::R2::Test::is( $actual_parse_count, $catalan_numbers[$a],
+    Marpa::R3::Test::is( $actual_parse_count, $catalan_numbers[$a],
         "Catalan number $a matches parse count ($actual_parse_count)" );
 
 } ## end for my $a ( ( 2 .. 8 ) )

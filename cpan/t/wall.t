@@ -29,7 +29,7 @@ use warnings;
 
 use Test::More tests => 12;
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 # The inefficiency (at least some of it) is deliberate.
@@ -82,7 +82,7 @@ sub default_action {
 
 ## use critic
 
-my $g = Marpa::R2::Grammar->new(
+my $g = Marpa::R3::Grammar->new(
     {   start   => 'E',
         actions => 'main',
         rules   => [
@@ -105,7 +105,7 @@ for my $n ( 1 .. 12 ) {
     # Set max_parses just in case there's an infinite loop.
     # This is for debugging, after all
     my $recce =
-        Marpa::R2::Recognizer->new( { grammar => $g, max_parses => 300 } );
+        Marpa::R3::Recognizer->new( { grammar => $g, max_parses => 300 } );
     $recce->read( 'Number', 6, 1 );
     for my $i (1 .. $n) {
             $recce->read( 'Minus', q{-}, 1 );
@@ -114,7 +114,7 @@ for my $n ( 1 .. 12 ) {
 
     my $parse_count = 0;
     while ( $recce->value() ) { $parse_count++; }
-    Marpa::R2::Test::is( $expected[$n], $parse_count,
+    Marpa::R3::Test::is( $expected[$n], $parse_count,
         "Wall Series Number $n" );
 
 } ## end for my $n ( 1 .. 12 )

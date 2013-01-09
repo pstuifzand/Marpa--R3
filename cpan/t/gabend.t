@@ -26,7 +26,7 @@ use Test::More tests => 7;
 use Fatal qw(open close);
 
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 ## no critic (Subroutines::RequireArgUnpacking)
@@ -54,7 +54,7 @@ sub test_grammar {
         $added_args = { trace_file_handle => $memory };
     } ## end if ($trace_result)
     my $eval_ok = eval {
-        my $grammar = Marpa::R2::Grammar->new( $grammar_args, $added_args );
+        my $grammar = Marpa::R3::Grammar->new( $grammar_args, $added_args );
         $grammar->precompute();
         1;
     };

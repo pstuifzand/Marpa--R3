@@ -25,13 +25,13 @@ use warnings;
 
 use Test::More tests => 7;
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 sub ah_extended {
     my $n = shift;
 
-    my $g = Marpa::R2::Grammar->new(
+    my $g = Marpa::R3::Grammar->new(
         {   start => 'S',
 
             rules => [
@@ -48,7 +48,7 @@ sub ah_extended {
     );
     $g->precompute();
 
-    my $recce = Marpa::R2::Recognizer->new( { grammar => $g } );
+    my $recce = Marpa::R3::Recognizer->new( { grammar => $g } );
 
     for my $token_ix ( 1 .. $n ) {
         $recce->read( 'a' );
@@ -92,7 +92,7 @@ my @answers = (
 for my $a ( ( 0 .. 5 ), 10 ) {
 ## use critic
 
-    Marpa::R2::Test::is( ah_extended($a), $answers[$a],
+    Marpa::R3::Test::is( ah_extended($a), $answers[$a],
         "Row $a of Pascal's triangle matches parse counts" );
 
 } ## end for my $a ( ( 0 .. 5 ), 10 )

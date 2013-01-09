@@ -24,7 +24,7 @@ use warnings;
 use Test::More tests => 54;
 use English qw( -no_match_vars );
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 my $source_template = <<'END_OF_SOURCE';
@@ -45,11 +45,11 @@ my @common_args = (
     default_action => 'do_list',
 );
 my $grammar_bare =
-    Marpa::R2::Scanless::G->new( { @common_args, source => \$source_bare } );
+    Marpa::R3::Scanless::G->new( { @common_args, source => \$source_bare } );
 my $grammar_plus =
-    Marpa::R2::Scanless::G->new( { @common_args, source => \$source_plus } );
+    Marpa::R3::Scanless::G->new( { @common_args, source => \$source_plus } );
 my $grammar_star =
-    Marpa::R2::Scanless::G->new( { @common_args, source => \$source_star } );
+    Marpa::R3::Scanless::G->new( { @common_args, source => \$source_star } );
 
 package My_Actions;
 our $SELF;
@@ -76,7 +76,7 @@ sub my_parser {
     my $self = bless { grammar => $grammar }, 'My_Actions';
     local $My_Actions::SELF = $self;
 
-    my $recce = Marpa::R2::Scanless::R->new( { grammar => $grammar } );
+    my $recce = Marpa::R3::Scanless::R->new( { grammar => $grammar } );
     $self->{recce} = $recce;
     my ( $parse_value, $parse_status, $last_expression );
 

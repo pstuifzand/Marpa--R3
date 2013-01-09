@@ -46,7 +46,7 @@ BEGIN {
 use Marpa::R2;
 use Marpa::R2::Perl;
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 
 # Run in utility mode?
 my $utility = 0;
@@ -132,7 +132,7 @@ TEST: for my $test (@tests) {
             $codeblock{$location}++ if $blocktype eq 'code';
         } ## end for my $progress_item ( @{$progress_report} )
     } ## end for my $earley_set_id ( 0 .. $recce->latest_earley_set...)
-    Marpa::R2::Test::is(
+    Marpa::R3::Test::is(
         ( scalar @values ),
         $expected_parse_count,
         'Count of values'
@@ -149,7 +149,7 @@ TEST: for my $test (@tests) {
         say $result or die 'say builtin failed';
     }
     else {
-        Marpa::R2::Test::is( $result, $expected, qq{Test of "$string"} );
+        Marpa::R3::Test::is( $result, $expected, qq{Test of "$string"} );
     }
     %hash      = ();
     %codeblock = ();

@@ -23,7 +23,7 @@ use Test::More tests => 7;
 use English qw( -no_match_vars );
 use Fatal qw( open close );
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 use Data::Dumper;
 
@@ -32,7 +32,7 @@ my $progress_report = q{};
 # Marpa::R3::Display
 # name: Debug Example Part 1
 
-my $grammar = Marpa::R2::Grammar->new(
+my $grammar = Marpa::R3::Grammar->new(
     {   start          => 'Expression',
         actions        => 'My_Actions',
         default_action => 'first_arg',
@@ -95,7 +95,7 @@ sub My_Actions::do_multiply {
 
 sub My_Actions::first_arg { shift; return shift; }
 
-my $recce = Marpa::R2::Recognizer->new(
+my $recce = Marpa::R3::Recognizer->new(
     { grammar => $grammar, trace_terminals => 2 } );
 
 my $token_ix = 0;
@@ -118,7 +118,7 @@ Test::More::is( $value, 42, 'value' );
 # start-after-line: END_PROGRESS_REPORT
 # end-before-line: '^END_PROGRESS_REPORT$'
 
-Marpa::R2::Test::is( $progress_report,
+Marpa::R3::Test::is( $progress_report,
     <<'END_PROGRESS_REPORT', 'progress report' );
 P0 @0-0 Expression -> . Factor
 P2 @0-0 Factor -> . Number
@@ -155,7 +155,7 @@ my $report0 = $recce->progress(0);
 chomp( my $expected_report0 = <<'END_PROGRESS_REPORT');
 [[0,0,0],[2,0,0],[4,0,0]]
 END_PROGRESS_REPORT
-Marpa::R2::Test::is( Data::Dumper::Dumper($report0),
+Marpa::R3::Test::is( Data::Dumper::Dumper($report0),
     $expected_report0, 'progress report at location 0' );
 
 # Marpa::R3::Display::End
@@ -170,7 +170,7 @@ my $report1 = $recce->progress(1);
 chomp( my $expected_report1 = <<'END_PROGRESS_REPORT');
 [[0,-1,0],[2,-1,0],[4,1,0]]
 END_PROGRESS_REPORT
-Marpa::R2::Test::is( Data::Dumper::Dumper($report1),
+Marpa::R3::Test::is( Data::Dumper::Dumper($report1),
     $expected_report1, 'progress report at location 1' );
 
 # Marpa::R3::Display::End
@@ -185,7 +185,7 @@ my $report2 = $recce->progress(2);
 chomp( my $expected_report2 = <<'END_PROGRESS_REPORT');
 [[2,0,2],[4,0,2],[4,2,0]]
 END_PROGRESS_REPORT
-Marpa::R2::Test::is( Data::Dumper::Dumper($report2),
+Marpa::R3::Test::is( Data::Dumper::Dumper($report2),
     $expected_report2, 'progress report at location 2' );
 
 # Marpa::R3::Display::End
@@ -205,7 +205,7 @@ my $latest_report = $recce->progress();
 chomp( my $expected_report3 = <<'END_PROGRESS_REPORT');
 [[0,-1,0],[2,-1,2],[4,-1,0],[4,1,0],[4,1,2]]
 END_PROGRESS_REPORT
-Marpa::R2::Test::is( Data::Dumper::Dumper($latest_report),
+Marpa::R3::Test::is( Data::Dumper::Dumper($latest_report),
     $expected_report3, 'progress report at location 3' );
 
 # Marpa::R3::Display::End
@@ -215,7 +215,7 @@ Marpa::R2::Test::is( Data::Dumper::Dumper($latest_report),
 # start-after-line: END_TRACE_OUTPUT
 # end-before-line: '^END_TRACE_OUTPUT$'
 
-Marpa::R2::Test::is( $trace_output, <<'END_TRACE_OUTPUT', 'trace output' );
+Marpa::R3::Test::is( $trace_output, <<'END_TRACE_OUTPUT', 'trace output' );
 Inaccessible symbol: Add
 Inaccessible symbol: Term
 Setting trace_terminals option

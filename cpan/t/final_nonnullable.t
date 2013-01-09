@@ -24,7 +24,7 @@ use warnings;
 use Test::More tests => 10;
 
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 ## no critic (Subroutines::RequireArgUnpacking)
@@ -40,7 +40,7 @@ sub default_action {
 
 ## use critic
 
-my $grammar = Marpa::R2::Grammar->new(
+my $grammar = Marpa::R3::Grammar->new(
     {   start => 'S',
 
         rules => [
@@ -56,7 +56,7 @@ my $grammar = Marpa::R2::Grammar->new(
 
 $grammar->precompute();
 
-Marpa::R2::Test::is( $grammar->show_rules,
+Marpa::R3::Test::is( $grammar->show_rules,
     <<'END_OF_STRING', 'final nonnulling Rules' );
 0: S -> p p p n
 1: p -> a
@@ -64,7 +64,7 @@ Marpa::R2::Test::is( $grammar->show_rules,
 3: n -> a
 END_OF_STRING
 
-Marpa::R2::Test::is( $grammar->show_AHFA,
+Marpa::R3::Test::is( $grammar->show_AHFA,
     <<'END_OF_STRING', 'final nonnulling AHFA' );
 * S0:
 S['] -> . S
@@ -140,7 +140,7 @@ for my $input_length ( 1 .. 4 ) {
 
     # Set max at 10 just in case there's an infinite loop.
     # This is for debugging, after all
-    my $recce = Marpa::R2::Recognizer->new(
+    my $recce = Marpa::R3::Recognizer->new(
         { grammar => $grammar, max_parses => 10 } );
     for ( 1 .. $input_length ) {
         $recce->read( 'a', 'a' );

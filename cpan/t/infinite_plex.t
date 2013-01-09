@@ -25,7 +25,7 @@ use Fatal qw(open close chdir);
 
 use Test::More tests => 4;
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 sub make_rule {
@@ -122,13 +122,13 @@ for my $test_data ( $plex1_test, $plex2_test ) {
         infinite_action   => 'warn',
         trace_file_handle => $MEMORY,
     );
-    my $grammar = Marpa::R2::Grammar->new( \%args );
+    my $grammar = Marpa::R3::Grammar->new( \%args );
     $grammar->precompute();
 
     close $MEMORY;
-    Marpa::R2::Test::is( $trace, $expected_trace, "$test_name trace" );
+    Marpa::R3::Test::is( $trace, $expected_trace, "$test_name trace" );
 
-    my $recce = Marpa::R2::Recognizer->new(
+    my $recce = Marpa::R3::Recognizer->new(
         { grammar => $grammar, trace_file_handle => \*STDERR } );
 
     $recce->read( 't', 't' );
@@ -139,7 +139,7 @@ for my $test_data ( $plex1_test, $plex2_test ) {
     }
 
     my $values = join "\n", sort @values;
-    Marpa::R2::Test::is( "$values\n", $expected_values, $test_name );
+    Marpa::R3::Test::is( "$values\n", $expected_values, $test_name );
 
 } ## end for my $test_data ( $plex1_test, $plex2_test )
 

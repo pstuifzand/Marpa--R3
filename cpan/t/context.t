@@ -25,7 +25,7 @@ use Test::More tests => 7;
 use English qw( -no_match_vars );
 use Fatal qw( open close );
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 my $trace_rules = q{};
@@ -35,14 +35,14 @@ my $trace_rules = q{};
 
 sub do_S {
     my ($action_object) = @_;
-    my $rule_id = $Marpa::R2::Context::rule;
-    my $grammar = $Marpa::R2::Context::grammar;
+    my $rule_id = $Marpa::R3::Context::rule;
+    my $grammar = $Marpa::R3::Context::grammar;
     my ( $lhs, @rhs ) = $grammar->rule($rule_id);
     $action_object->{text} =
           "rule $rule_id: $lhs ::= "
         . ( join q{ }, @rhs ) . "\n"
         . "locations: "
-        . ( join q{-}, Marpa::R2::Context::location() ) . "\n";
+        . ( join q{-}, Marpa::R3::Context::location() ) . "\n";
     return $action_object;
 } ## end sub do_S
 
@@ -55,18 +55,18 @@ my $bail_message = "This is a bail out message!";
 
 sub do_bail_with_message_if_A {
     my ($action_object, $terminal) = @_;
-    Marpa::R2::Context::bail($bail_message) if $terminal eq 'A';
+    Marpa::R3::Context::bail($bail_message) if $terminal eq 'A';
 }
 
 sub do_bail_with_object_if_A {
     my ($action_object, $terminal) = @_;
-    Marpa::R2::Context::bail([$bail_message]) if $terminal eq 'A';
+    Marpa::R3::Context::bail([$bail_message]) if $terminal eq 'A';
 }
 
 # Marpa::R3::Display::End
 
 my @terminals = qw/A B C D/;
-my $grammar   = Marpa::R2::Grammar->new(
+my $grammar   = Marpa::R3::Grammar->new(
     {   start => 'S',
         rules =>
             [ { lhs => 'S', rhs => \@terminals, action => 'main::do_S' }, ],
@@ -86,7 +86,7 @@ my @rule_ids = $grammar->rule_ids();
 Test::More::is( ( join q{ }, @rule_ids ), '0', '$g->rule_ids() ok?' );
 
 sub do_parse {
-    my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+    my $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
     for my $terminal (@terminals) {
         $recce->read( $terminal, $terminal );
     }

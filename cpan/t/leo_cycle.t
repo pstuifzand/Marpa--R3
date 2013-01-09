@@ -27,7 +27,7 @@ use English qw( -no_match_vars );
 use Test::More tests => 6;
 
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 sub main::default_action {
@@ -35,7 +35,7 @@ sub main::default_action {
     return ( join q{}, grep {defined} @_ );
 }
 
-my $grammar = Marpa::R2::Grammar->new(
+my $grammar = Marpa::R3::Grammar->new(
     {   start => 'S',
         rules => [
             [ 'S', [qw/a A/] ],
@@ -56,7 +56,7 @@ my $grammar = Marpa::R2::Grammar->new(
 
 $grammar->precompute();
 
-Marpa::R2::Test::is( $grammar->show_symbols(),
+Marpa::R3::Test::is( $grammar->show_symbols(),
     <<'END_OF_STRING', 'Leo166 Symbols' );
 0: a, terminal
 1: S
@@ -70,7 +70,7 @@ Marpa::R2::Test::is( $grammar->show_symbols(),
 9: G
 END_OF_STRING
 
-Marpa::R2::Test::is( $grammar->show_rules,
+Marpa::R3::Test::is( $grammar->show_rules,
     <<'END_OF_STRING', 'Leo166 Rules' );
 0: S -> a A
 1: H -> S
@@ -138,12 +138,12 @@ E -> F .
 F -> G .
 END_OF_STRING
 
-Marpa::R2::Test::is( $grammar->show_AHFA(), $expected_ahfa_output,
+Marpa::R3::Test::is( $grammar->show_AHFA(), $expected_ahfa_output,
     'Leo166 AHFA' );
 
 my $length = 20;
 
-my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+my $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
 
 my $i                 = 0;
 my $latest_earley_set = $recce->latest_earley_set();
@@ -160,7 +160,7 @@ TOKEN: while ( $i++ < $length ) {
 # beginning with Earley set c, for some small
 # constant c
 my $expected_size = 4;
-Marpa::R2::Test::is( $max_size, $expected_size, "size $max_size" );
+Marpa::R3::Test::is( $max_size, $expected_size, "size $max_size" );
 
 my $show_earley_sets_output = do {
     local $RS = undef;
@@ -168,12 +168,12 @@ my $show_earley_sets_output = do {
     <DATA>;
 };
 
-Marpa::R2::Test::is( $recce->show_earley_sets(1),
+Marpa::R3::Test::is( $recce->show_earley_sets(1),
     $show_earley_sets_output, 'Leo cycle Earley sets' );
 
 my $value_ref = $recce->value();
 my $value = $value_ref ? ${$value_ref} : 'No parse';
-Marpa::R2::Test::is( $value, 'a' x $length, 'Leo cycle parse' );
+Marpa::R3::Test::is( $value, 'a' x $length, 'Leo cycle parse' );
 
 1;    # In case used as "do" file
 

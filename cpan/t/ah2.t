@@ -24,7 +24,7 @@ use warnings;
 
 use Test::More tests => 30;
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 ## no critic (Subroutines::RequireArgUnpacking)
@@ -39,7 +39,7 @@ sub default_action {
 
 ## use critic
 
-my $grammar = Marpa::R2::Grammar->new(
+my $grammar = Marpa::R3::Grammar->new(
     {   start => 'S',
         rules => [
             [ 'S', [qw/A A A A/] ],
@@ -55,14 +55,14 @@ $grammar->set( { terminals => ['a'], } );
 
 $grammar->precompute();
 
-Marpa::R2::Test::is( $grammar->show_rules, <<'EOS', 'Aycock/Horspool Rules' );
+Marpa::R3::Test::is( $grammar->show_rules, <<'EOS', 'Aycock/Horspool Rules' );
 0: S -> A A A A
 1: A -> a
 2: A -> E /* !used */
 3: E -> /* empty !used */
 EOS
 
-Marpa::R2::Test::is( $grammar->show_symbols,
+Marpa::R3::Test::is( $grammar->show_symbols,
     <<'EOS', 'Aycock/Horspool Symbols' );
 0: S
 1: A
@@ -70,7 +70,7 @@ Marpa::R2::Test::is( $grammar->show_symbols,
 3: E, nulling
 EOS
 
-Marpa::R2::Test::is( $grammar->show_ISYs,
+Marpa::R3::Test::is( $grammar->show_ISYs,
     <<'EOS', 'Aycock/Horspool ISYs' );
 0: S
 1: S[], nulling
@@ -83,23 +83,23 @@ Marpa::R2::Test::is( $grammar->show_ISYs,
 8: S[']
 EOS
 
-Marpa::R2::Test::is(
+Marpa::R3::Test::is(
     $grammar->show_nulling_symbols,
     q{E},
     'Aycock/Horspool Nulling Symbols'
 );
-Marpa::R2::Test::is(
+Marpa::R3::Test::is(
     $grammar->show_productive_symbols,
     q{A E S a},
     'Aycock/Horspool Productive Symbols'
 );
-Marpa::R2::Test::is(
+Marpa::R3::Test::is(
     $grammar->show_accessible_symbols,
     q{A E S a},
     'Aycock/Horspool Accessible Symbols'
 );
 
-Marpa::R2::Test::is( $grammar->show_AHFA_items(),
+Marpa::R3::Test::is( $grammar->show_AHFA_items(),
     <<'EOS', 'Aycock/Horspool AHFA Items' );
 AHFA item 0: sort = 1; postdot = "A"
     S -> . A S[R0:1]
@@ -153,7 +153,7 @@ AHFA item 24: sort = 24; completion
     S['] -> S .
 EOS
 
-Marpa::R2::Test::is( $grammar->show_AHFA, <<'EOS', 'Aycock/Horspool AHFA' );
+Marpa::R3::Test::is( $grammar->show_AHFA, <<'EOS', 'Aycock/Horspool AHFA' );
 * S0:
 S['] -> . S
  <S> => S2; leo(S['])
@@ -233,7 +233,7 @@ A -> . a
  <a> => S5
 EOS
 
-my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+my $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
 
 my @set = (
     <<'END_OF_SET0', <<'END_OF_SET1', <<'END_OF_SET2', <<'END_OF_SET3', <<'END_OF_SET4', );
@@ -285,7 +285,7 @@ my $input_length = 4;
 EARLEME: for my $earleme ( 0 .. $input_length + 1 ) {
     my $furthest = my $last_completed =
         List::Util::min( $earleme, $input_length );
-    Marpa::R2::Test::is(
+    Marpa::R3::Test::is(
         $recce->show_earley_sets(1),
         "Last Completed: $last_completed; Furthest: $furthest\n"
             . ( join q{}, @set[ 0 .. $furthest ] ),

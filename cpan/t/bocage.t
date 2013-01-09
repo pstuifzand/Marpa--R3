@@ -26,7 +26,7 @@ use warnings;
 
 use Test::More tests => 19;
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 ## no critic (Subroutines::RequireArgUnpacking)
@@ -41,7 +41,7 @@ sub default_action {
 
 ## use critic
 
-my $grammar = Marpa::R2::Grammar->new(
+my $grammar = Marpa::R3::Grammar->new(
     {   start => 'S',
         rules => [
             [ 'S', [qw/A A A A/] ],
@@ -57,14 +57,14 @@ $grammar->set( { terminals => ['a'], } );
 
 $grammar->precompute();
 
-Marpa::R2::Test::is( $grammar->show_rules, <<'EOS', 'Aycock/Horspool Rules' );
+Marpa::R3::Test::is( $grammar->show_rules, <<'EOS', 'Aycock/Horspool Rules' );
 0: S -> A A A A
 1: A -> a
 2: A -> E /* !used */
 3: E -> /* empty !used */
 EOS
 
-Marpa::R2::Test::is( $grammar->show_symbols,
+Marpa::R3::Test::is( $grammar->show_symbols,
     <<'EOS', 'Aycock/Horspool Symbols' );
 0: S
 1: A
@@ -72,23 +72,23 @@ Marpa::R2::Test::is( $grammar->show_symbols,
 3: E, nulling
 EOS
 
-Marpa::R2::Test::is(
+Marpa::R3::Test::is(
     $grammar->show_nulling_symbols,
     q{E},
     'Aycock/Horspool Nulling Symbols'
 );
-Marpa::R2::Test::is(
+Marpa::R3::Test::is(
     $grammar->show_productive_symbols,
     q{A E S a},
     'Aycock/Horspool Productive Symbols'
 );
-Marpa::R2::Test::is(
+Marpa::R3::Test::is(
     $grammar->show_accessible_symbols,
     q{A E S a},
     'Aycock/Horspool Accessible Symbols'
 );
 
-Marpa::R2::Test::is( $grammar->show_AHFA_items(),
+Marpa::R3::Test::is( $grammar->show_AHFA_items(),
     <<'EOS', 'Aycock/Horspool AHFA Items' );
 AHFA item 0: sort = 1; postdot = "A"
     S -> . A S[R0:1]
@@ -142,7 +142,7 @@ AHFA item 24: sort = 24; completion
     S['] -> S .
 EOS
 
-Marpa::R2::Test::is( $grammar->show_AHFA, <<'EOS', 'Aycock/Horspool AHFA' );
+Marpa::R3::Test::is( $grammar->show_AHFA, <<'EOS', 'Aycock/Horspool AHFA' );
 * S0:
 S['] -> . S
  <S> => S2; leo(S['])
@@ -222,7 +222,7 @@ A -> . a
  <a> => S5
 EOS
 
-my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+my $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
 
 my @set =
     ( <<'END_OF_SET0', <<'END_OF_SET1', <<'END_OF_SET2', <<'END_OF_SET3', );
@@ -372,7 +372,7 @@ $recce->read( 'a', 'a' );
 $recce->read( 'a', 'a' );
 $recce->read( 'a', 'a' );
 
-Marpa::R2::Test::is(
+Marpa::R3::Test::is(
     $recce->show_earley_sets(1),
     "Last Completed: 3; Furthest: 3\n" . ( join q{}, @set[ 0 .. 3 ] ),
     'Aycock/Horspool Parse Status'
@@ -390,7 +390,7 @@ while ( my $value_ref = $recce->value() ) {
     my $value = 'No parse';
     if ($value_ref) {
         $value = ${$value_ref};
-        Marpa::R2::Test::is( $recce->show_tree(), $tree_expected{$value},
+        Marpa::R3::Test::is( $recce->show_tree(), $tree_expected{$value},
             qq{Tree, "$value"} );
     }
     else {
@@ -433,7 +433,7 @@ R8:2@2-3
 R9:1@2-3
 END_OF_TEXT
 
-Marpa::R2::Test::is( $recce->show_or_nodes(), $or_node_output,
+Marpa::R3::Test::is( $recce->show_or_nodes(), $or_node_output,
     'XS Or nodes' );
 
 my $and_node_output = <<'END_OF_TEXT';
@@ -462,7 +462,7 @@ R8:2@2-3C9@2
 R9:1@2-3S4@2
 END_OF_TEXT
 
-Marpa::R2::Test::is( $recce->show_and_nodes(),
+Marpa::R3::Test::is( $recce->show_and_nodes(),
     $and_node_output, 'XS And nodes' );
 
 my $bocage_output = <<'END_OF_TEXT';
@@ -491,7 +491,7 @@ R8:2@2-3 R8:1@2-2 R9:1@2-3
 R9:1@2-3 - S4
 END_OF_TEXT
 
-Marpa::R2::Test::is( $recce->show_bocage(), $bocage_output, 'XS Bocage' );
+Marpa::R3::Test::is( $recce->show_bocage(), $bocage_output, 'XS Bocage' );
 
 1;    # In case used as "do" file
 

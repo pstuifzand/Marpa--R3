@@ -46,7 +46,7 @@ BEGIN {
 use Marpa::R2;
 use Marpa::R2::Perl;
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 
 # Run in utility mode?
 my $utility = 0;
@@ -168,7 +168,7 @@ if ($utility) {
     say $result or die 'say builtin failed';
 }
 else {
-    Marpa::R2::Test::is( $result, $expected, 'Test of use statements' );
+    Marpa::R3::Test::is( $result, $expected, 'Test of use statements' );
 }
 
 # vim: expandtab shiftwidth=4:

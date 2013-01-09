@@ -25,7 +25,7 @@ use warnings;
 use English qw( -no_match_vars );
 use Test::More tests => 6;
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 my $source = <<'END_OF_GRAMMAR';
@@ -52,7 +52,7 @@ e ::=
   || VAR op_assign e action => do_set_var
 END_OF_GRAMMAR
 
-my $grammar = Marpa::R2::Grammar->new(
+my $grammar = Marpa::R3::Grammar->new(
     {   
         actions        => __PACKAGE__,
         source          => \$source,
@@ -162,7 +162,7 @@ sub calculate {
 
     %symbol_table = ();
 
-    my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+    my $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
 
     my $length = length $string;
     my $last_position = 0;
@@ -256,7 +256,7 @@ END_OF_OUTPUT
 for my $test (@tests) {
     my ( $input, $expected_output ) = @{$test};
     my $actual_output = report_calculation($input);
-    Marpa::R2::Test::is( $actual_output, $expected_output,
+    Marpa::R3::Test::is( $actual_output, $expected_output,
         qq{Parsing "$input"} );
 } ## end for my $test (@tests)
 

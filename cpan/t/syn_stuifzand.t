@@ -22,7 +22,7 @@ use warnings;
 use Test::More tests => 1;
 
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 
 ## no critic (ErrorHandling::RequireCarping);
 
@@ -31,7 +31,7 @@ use Marpa::R2::Test;
 
 use Marpa::R2;
 
-my $grammar = Marpa::R2::Grammar->new(
+my $grammar = Marpa::R3::Grammar->new(
     {   
         actions        => 'My_Actions',
         default_action => 'do_first_arg',
@@ -78,7 +78,7 @@ my @terminals = (
 
 sub my_parser {
     my ( $grammar, $string ) = @_;
-    my $recce         = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+    my $recce         = Marpa::R3::Recognizer->new( { grammar => $grammar } );
     my $length        = length $string;
     my $last_position = 0;
     pos $string = $last_position;

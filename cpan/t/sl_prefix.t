@@ -23,10 +23,10 @@ use warnings;
 use Test::More tests => 30;
 use English qw( -no_match_vars );
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
-my $prefix_grammar = Marpa::R2::Scanless::G->new(
+my $prefix_grammar = Marpa::R3::Scanless::G->new(
     {
         action_object        => 'My_Actions',
         default_action => 'do_arg0',
@@ -81,7 +81,7 @@ sub my_parser {
     my $self = bless { grammar => $grammar }, 'My_Actions';
     local $My_Actions::SELF = $self;
 
-    my $recce = Marpa::R2::Scanless::R->new( { grammar => $grammar } );
+    my $recce = Marpa::R3::Scanless::R->new( { grammar => $grammar } );
     $self->{recce} = $recce;
     my ( $parse_value, $parse_status, $last_expression );
 

@@ -25,7 +25,7 @@ use warnings;
 
 use Test::More tests => 70;
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 ## no critic (Subroutines::RequireArgUnpacking)
@@ -53,7 +53,7 @@ sub run_sequence_test {
         push @separation_args, proper => 1;
     }
 
-    my $grammar = Marpa::R2::Grammar->new(
+    my $grammar = Marpa::R3::Grammar->new(
         {   start => 'TOP',
             rules => [
                 {   lhs  => 'TOP',
@@ -83,7 +83,7 @@ sub run_sequence_test {
             . ( $keep ? 'keep;' : q{} )
             . ( $separation ne 'none' ? "$separation;" : q{} )
             . ";count=$symbol_count";
-        my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+        my $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
 
         my @expected       = ();
         my $last_symbol_ix = $symbol_count - 1;

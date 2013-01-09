@@ -41,7 +41,7 @@ use English qw( -no_match_vars );
 
 use Test::More tests => 1;
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 ## no critic (Subroutines::RequireArgUnpacking)
@@ -60,7 +60,7 @@ sub do_preposition       { return "pr($_[1])" }
 
 ## use critic
 
-my $grammar = Marpa::R2::Grammar->new(
+my $grammar = Marpa::R3::Grammar->new(
     {   start   => 'sentence',
         actions => 'main',
         rules   => [
@@ -104,7 +104,7 @@ while ( my ( $lexical_class, $words ) = each %lexical_class ) {
 
 for my $data ( 'time flies like an arrow', 'fruit flies like a banana' ) {
 
-    my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+    my $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
     die 'Failed to create recognizer' if not $recce;
 
     for my $word ( split q{ }, $data ) {
@@ -136,7 +136,7 @@ for my $data ( 'time flies like an arrow', 'fruit flies like a banana' ) {
     }
 } ## end for my $data ( 'time flies like an arrow', ...)
 
-Marpa::R2::Test::is( ( join "\n", sort @actual ) . "\n",
+Marpa::R3::Test::is( ( join "\n", sort @actual ) . "\n",
     $expected, 'Ambiguous English sentences' );
 
 1;    # In case used as "do" file

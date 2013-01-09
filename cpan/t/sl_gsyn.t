@@ -23,7 +23,7 @@ use Test::More tests => 4;
 use English qw( -no_match_vars );
 
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 
 ## no critic (ErrorHandling::RequireCarping);
 
@@ -32,7 +32,7 @@ use Marpa::R2::Test;
 
 use Marpa::R2;
 
-my $grammar = Marpa::R2::Scanless::G->new(
+my $grammar = Marpa::R3::Scanless::G->new(
     {   
         action_object  => 'My_Actions',
         default_action => 'do_first_arg',
@@ -74,7 +74,7 @@ my $show_rules_output = $grammar->show_rules();
 
 # Marpa::R3::Display::End
 
-Marpa::R2::Test::is( $show_rules_output,
+Marpa::R3::Test::is( $show_rules_output,
     <<'END_OF_SHOW_RULES_OUTPUT', 'Scanless show_rules()' );
 Lex (G0) Rules:
 0: comma -> [[,]]
@@ -128,7 +128,7 @@ sub my_parser {
 # Marpa::R3::Display
 # name: Scanless recognizer synopsis
 
-    my $recce = Marpa::R2::Scanless::R->new( { grammar => $grammar } );
+    my $recce = Marpa::R3::Scanless::R->new( { grammar => $grammar } );
     my $self = bless { grammar => $grammar }, 'My_Actions';
     $self->{recce} = $recce;
     local $My_Actions::SELF = $self;

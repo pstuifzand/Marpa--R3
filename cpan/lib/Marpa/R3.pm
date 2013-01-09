@@ -94,21 +94,21 @@ require Marpa::R3::Internal;
 ( $version_result = version_ok($Marpa::R3::Internal::VERSION) )
     and die 'Marpa::R3::Internal::VERSION ', $version_result;
 
-require Marpa::R2::Grammar;
-( $version_result = version_ok($Marpa::R2::Grammar::VERSION) )
-    and die 'Marpa::R2::Grammar::VERSION ', $version_result;
+require Marpa::R3::Grammar;
+( $version_result = version_ok($Marpa::R3::Grammar::VERSION) )
+    and die 'Marpa::R3::Grammar::VERSION ', $version_result;
 
-require Marpa::R2::Recognizer;
-( $version_result = version_ok($Marpa::R2::Recognizer::VERSION) )
-    and die 'Marpa::R2::Recognizer::VERSION ', $version_result;
+require Marpa::R3::Recognizer;
+( $version_result = version_ok($Marpa::R3::Recognizer::VERSION) )
+    and die 'Marpa::R3::Recognizer::VERSION ', $version_result;
 
 require Marpa::R2::Value;
 ( $version_result = version_ok($Marpa::R2::Value::VERSION) )
     and die 'Marpa::R2::Value::VERSION ', $version_result;
 
-require Marpa::R2::Scanless;
-( $version_result = version_ok($Marpa::R2::Scanless::VERSION) )
-    and die 'Marpa::R2::Scanless::VERSION ', $version_result;
+require Marpa::R3::Scanless;
+( $version_result = version_ok($Marpa::R3::Scanless::VERSION) )
+    and die 'Marpa::R3::Scanless::VERSION ', $version_result;
 
 require Marpa::R2::Stuifzand;
 ( $version_result = version_ok($Marpa::R2::Stuifzand::VERSION) )

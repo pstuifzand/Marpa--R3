@@ -22,7 +22,7 @@ use warnings;
 use Test::More tests => 9;
 
 use lib 'inc';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 use Marpa::R2;
 
 ## no critic (Subroutines::RequireArgUnpacking)
@@ -38,7 +38,7 @@ sub default_action {
 
 ## use critic
 
-my $grammar = Marpa::R2::Grammar->new(
+my $grammar = Marpa::R3::Grammar->new(
     {   start => 'S',
 
         rules => [
@@ -84,7 +84,7 @@ $expected_count[8] = 8;     # 0 w/o r2; 8 with an r2
 $expected_count[9] = 1;     # 0 w/o r2; 1 with an r2
 
 for my $input_length ( 1 .. 9 ) {
-    my $recce = Marpa::R2::Recognizer->new(
+    my $recce = Marpa::R3::Recognizer->new(
         { grammar => $grammar, max_parses => 100 } );
     for ( 1 .. $input_length ) { $recce->read( 't', 't' ); }
     my $expected = 1;
