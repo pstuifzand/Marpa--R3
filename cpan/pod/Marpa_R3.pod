@@ -15,7 +15,12 @@
 
 =head1 NAME
 
-Marpa::R3 - Release 2 of Marpa
+Marpa::R3 - Release 3 of Marpa
+
+=head1 THIS IS BETA SOFTWARE
+
+Marpa::R2 is beta software.
+The interface is subject to change.
 
 =head1 Synopsis
 
