@@ -45,7 +45,7 @@ use Marpa::R3::HTML;
 use Marpa::R3::HTML::Config::Default;
 
 my $current_file = do {
-  my $filename = $INC{'Marpa/R2/HTML/Config/Default.pm'};
+  my $filename = $INC{'Marpa/R3/HTML/Config/Default.pm'};
   open my $fh, q{<}, $filename;
   join q{}, <$fh>;
 };
