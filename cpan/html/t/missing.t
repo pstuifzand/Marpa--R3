@@ -27,22 +27,22 @@ use Test::More;
 
 BEGIN {
     use lib 'html/tool/lib';
-    my $eval_result = eval { require Marpa::R2::HTML::Test::Util; 1 };
+    my $eval_result = eval { require Marpa::R3::HTML::Test::Util; 1 };
     if ( !$eval_result ) {
         Test::More::plan tests => 1;
         Test::More::fail(
-            "Could not load Marpa::R2::HTML::Test::Util; $EVAL_ERROR");
+            "Could not load Marpa::R3::HTML::Test::Util; $EVAL_ERROR");
         exit 0;
     } ## end if ( !$eval_result )
 } ## end BEGIN
 
-BEGIN { Marpa::R2::HTML::Test::Util::load_or_skip_all('HTML::Parser'); }
+BEGIN { Marpa::R3::HTML::Test::Util::load_or_skip_all('HTML::Parser'); }
 
 BEGIN { Test::More::plan tests => 1; }
 
-use Marpa::R2::HTML;
+use Marpa::R3::HTML;
 use lib 'tool/lib';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 
 my $html = <<'END_OF_HTML';
 <h1 title="h1_title">Header with title attribute</h2>
@@ -55,15 +55,15 @@ stuff
 END_OF_HTML
 
 sub handler {
-    my $offset = Marpa::R2::HTML::offset() // q{-};
-    my $title  = Marpa::R2::HTML::title()  // q{-};
-    my $element = Marpa::R2::HTML::tagname();
+    my $offset = Marpa::R3::HTML::offset() // q{-};
+    my $title  = Marpa::R3::HTML::title()  // q{-};
+    my $element = Marpa::R3::HTML::tagname();
     my $description =
         qq{element "$element", titled "$title", at offset $offset};
-    return join "\n", @{ Marpa::R2::HTML::values() }, $description;
+    return join "\n", @{ Marpa::R3::HTML::values() }, $description;
 } ## end sub handler
 
-my $result_ref = Marpa::R2::HTML::html( \$html, { q{*} => \&handler } );
+my $result_ref = Marpa::R3::HTML::html( \$html, { q{*} => \&handler } );
 my $result = ref $result_ref ? ${$result_ref} : 'Parse failed';
 $result .= "\n";
 
@@ -77,4 +77,4 @@ element "body", titled "-", at offset 0
 element "html", titled "-", at offset 0
 END_OF_TEXT
 
-Marpa::R2::Test::is( $result, $expected_result, qq{"missing" features test} );
+Marpa::R3::Test::is( $result, $expected_result, qq{"missing" features test} );

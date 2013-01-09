@@ -28,27 +28,27 @@ use Test::More;
 
 BEGIN {
     use lib 'html/tool/lib';
-    my $eval_result = eval { require Marpa::R2::HTML::Test::Util; 1 };
+    my $eval_result = eval { require Marpa::R3::HTML::Test::Util; 1 };
     if ( !$eval_result ) {
         Test::More::plan tests => 1;
         Test::More::fail(
-            "Could not load Marpa::R2::HTML::Test::Util; $EVAL_ERROR");
+            "Could not load Marpa::R3::HTML::Test::Util; $EVAL_ERROR");
         exit 0;
     } ## end if ( !$eval_result )
 } ## end BEGIN
 
-BEGIN { Marpa::R2::HTML::Test::Util::load_or_skip_all('HTML::Parser'); }
+BEGIN { Marpa::R3::HTML::Test::Util::load_or_skip_all('HTML::Parser'); }
 
 Test::More::plan tests => 1;
 
-use Marpa::R2::HTML;
+use Marpa::R3::HTML;
 
-Test::More::diag( 'Using Marpa::R2::HTML ', $Marpa::R2::HTML::VERSION );
+Test::More::diag( 'Using Marpa::R3::HTML ', $Marpa::R3::HTML::VERSION );
 
-Test::More::ok( defined $Marpa::R2::TIMESTAMP,
+Test::More::ok( defined $Marpa::R3::TIMESTAMP,
     'Marpa::XS Timestamp defined' );
-Test::More::diag( 'Using Marpa::R2 ',
-    $Marpa::R2::VERSION, q{ }, $Marpa::R2::TIMESTAMP );
+Test::More::diag( 'Using Marpa::R3 ',
+    $Marpa::R3::VERSION, q{ }, $Marpa::R3::TIMESTAMP );
 
 1;    # In case used as "do" file
 

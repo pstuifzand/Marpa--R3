@@ -13,7 +13,7 @@
 # General Public License along with Marpa::R3.  If not, see
 # http://www.gnu.org/licenses/.
 
-package Marpa::R2::HTML::Test::Util;
+package Marpa::R3::HTML::Test::Util;
 
 # The original of this code was copied from Andy Lester's Ack
 # package
@@ -103,17 +103,17 @@ sub load_or_skip_all {
         exit 0;
     } ## end if ( !$eval_result )
     use lib 'config';
-    $eval_result = eval { require Marpa::R2::Config; 1 };
+    $eval_result = eval { require Marpa::R3::Config; 1 };
     if ( !$eval_result ) {
 	Test::More::plan tests => 1;
 	Test::More::diag($EVAL_ERROR);
-	Test::More::fail("Could not load Marpa::R2::Config\n");
+	Test::More::fail("Could not load Marpa::R3::Config\n");
         exit 0;
     } ## end if ( !$eval_result )
-    my $version_wanted = $Marpa::R2::VERSION_FOR_CONFIG{$module_name};
+    my $version_wanted = $Marpa::R3::VERSION_FOR_CONFIG{$module_name};
     if ( not defined $version_wanted ) {
 	Test::More::plan tests => 1;
-	Test::More::fail("$module_name is not known to Marpa::R2");
+	Test::More::fail("$module_name is not known to Marpa::R3");
         exit 0;
     }
     my $module_version = eval q{$} . $module_name . '::VERSION';

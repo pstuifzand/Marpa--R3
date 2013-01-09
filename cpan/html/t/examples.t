@@ -23,22 +23,22 @@ use Test::More;
 
 BEGIN {
     use lib 'html/tool/lib';
-    my $eval_result = eval { require Marpa::R2::HTML::Test::Util; 1 };
+    my $eval_result = eval { require Marpa::R3::HTML::Test::Util; 1 };
     if ( !$eval_result ) {
         Test::More::plan tests => 1;
         Test::More::fail(
-            "Could not load Marpa::R2::HTML::Test::Util; $EVAL_ERROR");
+            "Could not load Marpa::R3::HTML::Test::Util; $EVAL_ERROR");
         exit 0;
     } ## end if ( !$eval_result )
 } ## end BEGIN
 
-BEGIN { Marpa::R2::HTML::Test::Util::load_or_skip_all('HTML::Parser'); }
+BEGIN { Marpa::R3::HTML::Test::Util::load_or_skip_all('HTML::Parser'); }
 
 BEGIN { Test::More::plan tests => 2; }
 
-use Marpa::R2::HTML;
+use Marpa::R3::HTML;
 use lib 'tool/lib';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 
 # Non-synopsis example in HTML.pod
 
@@ -54,24 +54,24 @@ my $html = <<'END_OF_HTML';
 END_OF_HTML
 
 our @RESULTS = ();
-Marpa::R2::HTML::html(
+Marpa::R3::HTML::html(
     \$html,
     {   q{*} => sub {
-            push @RESULTS, 'wildcard handler: ' . Marpa::R2::HTML::contents();
+            push @RESULTS, 'wildcard handler: ' . Marpa::R3::HTML::contents();
         },
         'div' => sub {
-            push @RESULTS, '"div" handler: ' . Marpa::R2::HTML::contents();
+            push @RESULTS, '"div" handler: ' . Marpa::R3::HTML::contents();
         },
         '.high' => sub {
-            push @RESULTS, '".high" handler: ' . Marpa::R2::HTML::contents();
+            push @RESULTS, '".high" handler: ' . Marpa::R3::HTML::contents();
         },
         'div.high' => sub {
             push @RESULTS,
-                '"div.high" handler: ' . Marpa::R2::HTML::contents();
+                '"div.high" handler: ' . Marpa::R3::HTML::contents();
         },
         '.oddball' => sub {
             push @RESULTS,
-                '".oddball" handler: ' . Marpa::R2::HTML::contents();
+                '".oddball" handler: ' . Marpa::R3::HTML::contents();
         },
         'body' => sub {undef},
         'head' => sub {undef},
@@ -98,7 +98,7 @@ EXPECTED_RESULT
 # Marpa::R3::Display::End
 
 my $result = join "\n", @RESULTS;
-Marpa::R2::Test::is( "$result\n", $expected_result,
+Marpa::R3::Test::is( "$result\n", $expected_result,
     'handler precedence example' );
 
 # Marpa::R3::Display
@@ -124,16 +124,16 @@ my $expected_structured_result = <<'END_OF_EXPECTED';
 END_OF_EXPECTED
 
 sub supply_missing_tags {
-    my $tagname = Marpa::R2::HTML::tagname();
+    my $tagname = Marpa::R3::HTML::tagname();
     return
-          ( Marpa::R2::HTML::start_tag() // "<$tagname>\n" )
-        . Marpa::R2::HTML::contents()
-        . ( Marpa::R2::HTML::end_tag() // "</$tagname>\n" );
+          ( Marpa::R3::HTML::start_tag() // "<$tagname>\n" )
+        . Marpa::R3::HTML::contents()
+        . ( Marpa::R3::HTML::end_tag() // "</$tagname>\n" );
 } ## end sub supply_missing_tags
 my $structured_html_ref =
-    Marpa::R2::HTML::html( \$tagged_html_example,
+    Marpa::R3::HTML::html( \$tagged_html_example,
     { q{*} => \&supply_missing_tags } );
 
-Marpa::R2::Test::is( ${$structured_html_ref}, $expected_structured_result,
+Marpa::R3::Test::is( ${$structured_html_ref}, $expected_structured_result,
     'structure vs. tags example' );
 

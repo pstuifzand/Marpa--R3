@@ -121,11 +121,11 @@ complexity is being used to serve the site's mission.
 
 This program is a demo of a demo.
 It purpose is to show how easy it is to write applications which look
-at the structure of web pages using L<Marpa::R2::HTML>.
-And the purpose of L<Marpa::R2::HTML>
+at the structure of web pages using L<Marpa::R3::HTML>.
+And the purpose of L<Marpa::R3::HTML>
 is to demonstrate the power of its parse engine,
-L<Marpa::R2>.
-L<Marpa::R2::HTML> was written in a few days,
+L<Marpa::R3>.
+L<Marpa::R3::HTML> was written in a few days,
 and its logic 
 is a straightforward,
 natural expression of the structure of HTML.

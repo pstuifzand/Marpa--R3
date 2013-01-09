@@ -25,22 +25,22 @@ use Test::More;
 
 BEGIN {
     use lib 'html/tool/lib';
-    my $eval_result = eval { require Marpa::R2::HTML::Test::Util; 1 };
+    my $eval_result = eval { require Marpa::R3::HTML::Test::Util; 1 };
     if ( !$eval_result ) {
         Test::More::plan tests => 1;
         Test::More::fail(
-            "Could not load Marpa::R2::HTML::Test::Util; $EVAL_ERROR");
+            "Could not load Marpa::R3::HTML::Test::Util; $EVAL_ERROR");
         exit 0;
     } ## end if ( !$eval_result )
 } ## end BEGIN
 
-BEGIN { Marpa::R2::HTML::Test::Util::load_or_skip_all('HTML::Parser'); }
+BEGIN { Marpa::R3::HTML::Test::Util::load_or_skip_all('HTML::Parser'); }
 
 
 BEGIN { Test::More::plan tests => 1; }
 
-use Marpa::R2::Test;
-use Marpa::R2::HTML;
+use Marpa::R3::Test;
+use Marpa::R3::HTML;
 
 use Carp;
 use Data::Dumper;
@@ -63,10 +63,10 @@ my $no_tang_document;
     close $fh;
 };
 
-my $value = Marpa::R2::HTML::html(
+my $value = Marpa::R3::HTML::html(
     \$document,
     {   '.kTang' => sub { return q{}; }
     }
 );
 
-Marpa::R2::Test::is( ${$value}, $no_tang_document, 'remove kTang class' );
+Marpa::R3::Test::is( ${$value}, $no_tang_document, 'remove kTang class' );

@@ -13,7 +13,7 @@
 # General Public License along with Marpa::R3.  If not, see
 # http://www.gnu.org/licenses/.
 
-package Marpa::R2::HTML::Config;
+package Marpa::R3::HTML::Config;
 
 use 5.010;
 use strict;
@@ -24,25 +24,25 @@ use English qw( -no_match_vars );
 # Generate the default configuration
 sub new {
     my ($class) = @_;
-    require Marpa::R2::HTML::Config::Default;
+    require Marpa::R3::HTML::Config::Default;
     my $self = {
-        rules => $Marpa::R2::HTML::Internal::Config::Default::CORE_RULES,
+        rules => $Marpa::R3::HTML::Internal::Config::Default::CORE_RULES,
         runtime_tag =>
-            $Marpa::R2::HTML::Internal::Config::Default::RUNTIME_TAG,
+            $Marpa::R3::HTML::Internal::Config::Default::RUNTIME_TAG,
         ruby_slippers_rank_by_name =>
-            $Marpa::R2::HTML::Internal::Config::Default::RUBY_SLIPPERS_RANK_BY_NAME,
+            $Marpa::R3::HTML::Internal::Config::Default::RUBY_SLIPPERS_RANK_BY_NAME,
         is_empty_element =>
-            $Marpa::R2::HTML::Internal::Config::Default::IS_EMPTY_ELEMENT,
+            $Marpa::R3::HTML::Internal::Config::Default::IS_EMPTY_ELEMENT,
         primary_group_by_tag =>
-            $Marpa::R2::HTML::Internal::Config::Default::PRIMARY_GROUP_BY_TAG
+            $Marpa::R3::HTML::Internal::Config::Default::PRIMARY_GROUP_BY_TAG
     };
     return bless $self, $class;
 } ## end sub new
 
 sub new_from_compile {
     my ( $class, $source_ref ) = @_;
-    require Marpa::R2::HTML::Config::Compile;
-    return bless Marpa::R2::HTML::Config::Compile::compile($source_ref), $class;
+    require Marpa::R3::HTML::Config::Compile;
+    return bless Marpa::R3::HTML::Config::Compile::compile($source_ref), $class;
 } ## end sub new_from_compile
 
 sub contents {
@@ -91,7 +91,7 @@ sub as_string {
     my ($self) = @_;
 
     require Data::Dumper;
-    require Marpa::R2::HTML::Config::Default;
+    require Marpa::R3::HTML::Config::Default;
 
     local $Data::Dumper::Purity   = 1;
     local $Data::Dumper::Sortkeys = 1;
@@ -106,7 +106,7 @@ sub as_string {
             . __PACKAGE__ . "\n"
             . '# The date of generation was '
             . ( scalar localtime() ) . "\n" . "\n"
-            . "package Marpa::R2::HTML::Internal::Config::Default;\n" . "\n"
+            . "package Marpa::R3::HTML::Internal::Config::Default;\n" . "\n"
             . Data::Dumper->Dump(
             \@contents,
             [   qw( CORE_RULES RUNTIME_TAG

@@ -25,28 +25,28 @@ use Test::More;
 
 BEGIN {
     use lib 'html/tool/lib';
-    my $eval_result = eval { require Marpa::R2::HTML::Test::Util; 1 };
+    my $eval_result = eval { require Marpa::R3::HTML::Test::Util; 1 };
     if ( !$eval_result ) {
         Test::More::plan tests => 1;
         Test::More::fail(
-            "Could not load Marpa::R2::HTML::Test::Util; $EVAL_ERROR");
+            "Could not load Marpa::R3::HTML::Test::Util; $EVAL_ERROR");
         exit 0;
     } ## end if ( !$eval_result )
 } ## end BEGIN
 
-BEGIN { Marpa::R2::HTML::Test::Util::load_or_skip_all('HTML::Parser'); }
+BEGIN { Marpa::R3::HTML::Test::Util::load_or_skip_all('HTML::Parser'); }
 
 BEGIN { Test::More::plan tests => 4; }
 
 use lib 'tool/lib';
-use Marpa::R2::Test;
+use Marpa::R3::Test;
 
 my @script_dir = qw( blib script );
 my @data_dir   = qw( html t fmt_t_data );
 
 for my $test (qw(1 2)) {
     my $expected;
-    my $output = Marpa::R2::HTML::Test::Util::run_command(
+    my $output = Marpa::R3::HTML::Test::Util::run_command(
         File::Spec->catfile( @script_dir, 'marpa_r2_html_fmt' ),
         File::Spec->catfile( @data_dir, ( 'input' . $test . '.html' ) )
     );
@@ -55,6 +55,6 @@ for my $test (qw(1 2)) {
         File::Spec->catfile( @data_dir, ( 'expected' . $test . '.html' ) );
     $expected = <$fh>;
     close $fh;
-    Marpa::R2::Test::is( $output, $expected, 'marpa_r2_html_fmt test' );
+    Marpa::R3::Test::is( $output, $expected, 'marpa_r2_html_fmt test' );
 } ## end for my $test (qw(1 2))
 
