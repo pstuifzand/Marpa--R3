@@ -51,7 +51,7 @@ my @data_dir   = qw( html t fmt_t_data );
 for my $test (qw(1 2)) {
     my $expected;
     my $output = Marpa::R3::HTML::Test::Util::run_command(
-        File::Spec->catfile( @script_dir, 'marpa_r2_html_score' ),
+        File::Spec->catfile( @script_dir, 'marpa_r3_html_score' ),
         File::Spec->catfile( @data_dir, ( 'input' . $test . '.html' ) )
     );
     $output =~ s/\A [^\n]* \n//xms;
@@ -62,6 +62,6 @@ for my $test (qw(1 2)) {
     local $RS = undef;
     $expected = <$fh>;
     close $fh;
-    Marpa::R3::Test::is( $output, $expected, 'marpa_r2_html_score test' );
+    Marpa::R3::Test::is( $output, $expected, 'marpa_r3_html_score test' );
 } ## end for my $test (qw(1 2))
 
