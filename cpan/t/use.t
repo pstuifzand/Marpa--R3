@@ -44,7 +44,7 @@ BEGIN {
 } ## end BEGIN
 
 use Marpa::R2;
-use Marpa::R2::Perl;
+use Marpa::R3::Perl;
 use lib 'inc';
 use Marpa::R3::Test;
 
@@ -99,7 +99,7 @@ sub gen_closure {
     };
 } ## end sub gen_closure
 
-my $parser = Marpa::R2::Perl->new( { closures => \&gen_closure } );
+my $parser = Marpa::R3::Perl->new( { closures => \&gen_closure } );
 
 my $default_input = <<'END_OF_TEST_DATA';
 use v5;

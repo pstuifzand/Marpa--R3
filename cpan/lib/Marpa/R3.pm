@@ -83,9 +83,9 @@ for ( my $error = 0; $error <= $#error_names; ) {
     my $current_error = $error;
     (my $name = $error_names[$error] ) =~ s/\A MARPA_ERR_//xms;
     no strict 'refs';
-    *{ "Marpa::R2::Error::$name" } = \$current_error;
+    *{ "Marpa::R3::Error::$name" } = \$current_error;
     # This shuts up the "used only once" warning
-    my $dummy = eval q{$} . 'Marpa::R2::Error::' . $name;
+    my $dummy = eval q{$} . 'Marpa::R3::Error::' . $name;
     $error++;
 }
 

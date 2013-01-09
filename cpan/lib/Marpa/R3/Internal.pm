@@ -46,7 +46,7 @@ use constant N_FORMAT_HIGH_BIT => 0x8000_0000;
 # in hex numbers
 use constant N_FORMAT_MAX => 0x7fff_ffff;
 
-sub Marpa::R2::offset {
+sub Marpa::R3::offset {
     my (@desc) = @_;
     my @fields = ();
     for my $desc (@desc) {
@@ -92,6 +92,6 @@ sub Marpa::R2::offset {
         *{$field_name} = sub () {$offset};
     } ## end for my $field (@fields)
     return 1;
-} ## end sub Marpa::R2::offset
+} ## end sub Marpa::R3::offset
 
 1;

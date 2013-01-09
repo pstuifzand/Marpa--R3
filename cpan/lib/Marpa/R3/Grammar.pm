@@ -42,7 +42,7 @@ BEGIN {
     :package=Marpa::R3::Internal::Symbol
     ID { Unique ID }
 END_OF_STRUCTURE
-    Marpa::R2::offset($structure);
+    Marpa::R3::offset($structure);
 } ## end BEGIN
 
 BEGIN {
@@ -56,7 +56,7 @@ BEGIN {
     MASK { Semantic mask of RHS symbols }
 
 END_OF_STRUCTURE
-    Marpa::R2::offset($structure);
+    Marpa::R3::offset($structure);
 } ## end BEGIN
 
 BEGIN {
@@ -110,7 +110,7 @@ BEGIN {
     =LAST_FIELD
 
 END_OF_STRUCTURE
-    Marpa::R2::offset($structure);
+    Marpa::R3::offset($structure);
 } ## end BEGIN
 
 package Marpa::R3::Internal::Grammar;
@@ -511,7 +511,7 @@ sub Marpa::R3::Grammar::precompute {
     set_start_symbol($grammar);
 
     # Catch errors in precomputation
-    my $precompute_error_code = $Marpa::R2::Error::NONE;
+    my $precompute_error_code = $Marpa::R3::Error::NONE;
     $grammar_c->throw_set(0);
     my $precompute_result = $grammar_c->precompute();
     $grammar_c->throw_set(1);
@@ -525,24 +525,24 @@ sub Marpa::R3::Grammar::precompute {
 
         # If already precomputed, just return success
         return $grammar
-            if $precompute_error_code == $Marpa::R2::Error::PRECOMPUTED;
+            if $precompute_error_code == $Marpa::R3::Error::PRECOMPUTED;
 
         # Cycles are not necessarily errors,
         # and get special handling
-        $precompute_error_code = $Marpa::R2::Error::NONE
-            if $precompute_error_code == $Marpa::R2::Error::GRAMMAR_HAS_CYCLE;
+        $precompute_error_code = $Marpa::R3::Error::NONE
+            if $precompute_error_code == $Marpa::R3::Error::GRAMMAR_HAS_CYCLE;
 
     } ## end if ( $precompute_result < 0 )
 
-    if ( $precompute_error_code != $Marpa::R2::Error::NONE ) {
+    if ( $precompute_error_code != $Marpa::R3::Error::NONE ) {
 
         # Report the errors, then return failure
 
-        if ( $precompute_error_code == $Marpa::R2::Error::NO_RULES ) {
+        if ( $precompute_error_code == $Marpa::R3::Error::NO_RULES ) {
             Marpa::R3::exception(
                 'Attempted to precompute grammar with no rules');
         }
-        if ( $precompute_error_code == $Marpa::R2::Error::NULLING_TERMINAL ) {
+        if ( $precompute_error_code == $Marpa::R3::Error::NULLING_TERMINAL ) {
             my @nulling_terminals = ();
             my $event_count       = $grammar_c->event_count();
             EVENT:
@@ -558,7 +558,7 @@ sub Marpa::R3::Grammar::precompute {
             Marpa::R3::exception( @nulling_terminal_messages,
                 'A terminal symbol cannot also be a nulling symbol' );
         } ## end if ( $precompute_error_code == ...)
-        if ( $precompute_error_code == $Marpa::R2::Error::COUNTED_NULLABLE ) {
+        if ( $precompute_error_code == $Marpa::R3::Error::COUNTED_NULLABLE ) {
             my @counted_nullables = ();
             my $event_count       = $grammar_c->event_count();
             EVENT:
@@ -578,15 +578,15 @@ sub Marpa::R3::Grammar::precompute {
             );
         } ## end if ( $precompute_error_code == ...)
 
-        if ( $precompute_error_code == $Marpa::R2::Error::NO_START_SYMBOL ) {
+        if ( $precompute_error_code == $Marpa::R3::Error::NO_START_SYMBOL ) {
             Marpa::R3::exception('No start symbol');
         }
-        if ( $precompute_error_code == $Marpa::R2::Error::START_NOT_LHS ) {
+        if ( $precompute_error_code == $Marpa::R3::Error::START_NOT_LHS ) {
             my $name = $grammar->[Marpa::R3::Internal::Grammar::START_NAME];
             Marpa::R3::exception(
                 qq{Start symbol "$name" not on LHS of any rule});
         }
-        if ( $precompute_error_code == $Marpa::R2::Error::UNPRODUCTIVE_START )
+        if ( $precompute_error_code == $Marpa::R3::Error::UNPRODUCTIVE_START )
         {
             my $name = $grammar->[Marpa::R3::Internal::Grammar::START_NAME];
             Marpa::R3::exception(qq{Unproductive start symbol: "$name"});
@@ -594,7 +594,7 @@ sub Marpa::R3::Grammar::precompute {
 
         Marpa::R2::uncaught_error( scalar $grammar_c->error() );
 
-    } ## end if ( $precompute_error_code != $Marpa::R2::Error::NONE)
+    } ## end if ( $precompute_error_code != $Marpa::R3::Error::NONE)
 
     # Shadow all the new rules
     {
@@ -1221,7 +1221,7 @@ sub add_user_rule {
             my ( $error_code, $error_string ) = $grammar_c->error();
             $error_code //= -1;
             my $problem_description =
-                $error_code == $Marpa::R2::Error::DUPLICATE_RULE
+                $error_code == $Marpa::R3::Error::DUPLICATE_RULE
                 ? 'Duplicate rule'
                 : $error_string;
             Marpa::R3::exception("$problem_description: $rule_description");
@@ -1275,7 +1275,7 @@ sub add_user_rule {
         my ( $error_code, $error_string ) = $grammar_c->error();
         $error_code //= -1;
         my $problem_description =
-            $error_code == $Marpa::R2::Error::DUPLICATE_RULE
+            $error_code == $Marpa::R3::Error::DUPLICATE_RULE
             ? 'Duplicate rule'
             : $error_string;
         Marpa::R3::exception("$problem_description: $rule_description");

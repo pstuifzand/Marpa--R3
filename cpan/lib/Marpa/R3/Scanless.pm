@@ -50,7 +50,7 @@ BEGIN {
     ACTION_OBJECT
 
 END_OF_STRUCTURE
-    Marpa::R2::offset($structure);
+    Marpa::R3::offset($structure);
 } ## end BEGIN
 
 BEGIN {
@@ -70,7 +70,7 @@ BEGIN {
     READ_STRING_ERROR
 
 END_OF_STRUCTURE
-    Marpa::R2::offset($structure);
+    Marpa::R3::offset($structure);
 } ## end BEGIN
 
 
@@ -2856,9 +2856,9 @@ sub Marpa::R3::Scanless::R::read {
             map { $lex_tracer->symbol_name($_) } @found_lexemes )
             . "\n"
             . "* String before error:\n"
-            . Marpa::R2::escape_string( $prefix, -72 ) . "\n"
+            . Marpa::R3::escape_string( $prefix, -72 ) . "\n"
             . "* String after error:\n"
-            . Marpa::R2::escape_string( ( substr ${$p_string}, $pos, 72 ), 72 )
+            . Marpa::R3::escape_string( ( substr ${$p_string}, $pos, 72 ), 72 )
             . "\n";
     } ## end if ($g1_status)
     elsif ( $pos < $length_of_string ) {
@@ -2873,9 +2873,9 @@ sub Marpa::R3::Scanless::R::read {
               "Error in Scanless read: G1 $desc\n"
             . "* Error was at string position: $pos, and at character $char_desc\n"
             . "* String before error:\n"
-            . Marpa::R2::escape_string( $prefix, -72 ) . "\n"
+            . Marpa::R3::escape_string( $prefix, -72 ) . "\n"
             . "* String after error:\n"
-            . Marpa::R2::escape_string( ( substr ${$p_string}, $pos, 72 ), 72 )
+            . Marpa::R3::escape_string( ( substr ${$p_string}, $pos, 72 ), 72 )
             . "\n";
     } ## end elsif ( $pos < $length_of_string )
     else {
@@ -2883,7 +2883,7 @@ sub Marpa::R3::Scanless::R::read {
               "Error in Scanless read: G1 $desc\n"
             . "* Error was at end of string\n"
             . "* String before error:\n"
-            . Marpa::R2::escape_string( ${$p_string}, -72 ) . "\n";
+            . Marpa::R3::escape_string( ${$p_string}, -72 ) . "\n";
     } ## end else [ if ($g1_status) ]
     $self->[Marpa::R3::Inner::Scanless::R::READ_STRING_ERROR] =
         $read_string_error;

@@ -44,7 +44,7 @@ BEGIN {
 } ## end BEGIN
 
 use Marpa::R2;
-use Marpa::R2::Perl;
+use Marpa::R3::Perl;
 use lib 'inc';
 use Marpa::R3::Test;
 
@@ -86,7 +86,7 @@ END_OF_RESULT
     );
 } ## end else [ if ($utility) ]
 
-my $parser = Marpa::R2::Perl->new( { closures => {} } );
+my $parser = Marpa::R3::Perl->new( { closures => {} } );
 
 TEST: for my $test (@tests) {
 

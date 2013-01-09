@@ -43,7 +43,7 @@ BEGIN {
 } ## end BEGIN
 
 use Marpa::R2;
-use Marpa::R2::Perl;
+use Marpa::R3::Perl;
 use lib 'inc';
 use Marpa::R3::Test;
 
@@ -68,8 +68,8 @@ Hash from 16:6 to 16:14
 Code block from 15:33 to 16:15
 END_OF_INPUT
 
-my $finder = Marpa::R2::Perl->new( { embedded => 1, closures => {} } );
-my $main_parser = Marpa::R2::Perl->new( { closures => {} } );
+my $finder = Marpa::R3::Perl->new( { embedded => 1, closures => {} } );
+my $main_parser = Marpa::R3::Perl->new( { closures => {} } );
 
 sub linecol {
     my ($token) = @_;

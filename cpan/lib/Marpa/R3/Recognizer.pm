@@ -74,7 +74,7 @@ BEGIN {
 
 
 END_OF_STRUCTURE
-    Marpa::R2::offset($structure);
+    Marpa::R3::offset($structure);
 } ## end BEGIN
 
 package Marpa::R3::Internal::Recognizer;
@@ -125,7 +125,7 @@ sub Marpa::R3::Recognizer::new {
         Marpa::R3::Thin::R->new($grammar_c);
     if ( not defined $recce_c ) {
         my $error_code = $grammar_c->error_code() // -1;
-        if ( $error_code == $Marpa::R2::Error::NOT_PRECOMPUTED ) {
+        if ( $error_code == $Marpa::R3::Error::NOT_PRECOMPUTED ) {
             Marpa::R3::exception(
                 'Attempt to parse grammar which is not precomputed');
         }
@@ -496,7 +496,7 @@ BEGIN {
     CURRENT
 
 END_OF_STRUCTURE
-    Marpa::R2::offset($structure);
+    Marpa::R3::offset($structure);
 } ## end BEGIN
 
 sub Marpa::R3::Recognizer::progress {
@@ -668,21 +668,21 @@ sub Marpa::R3::Recognizer::alternative {
         $recce->[Marpa::R3::Internal::Recognizer::TRACE_TERMINALS];
     if ($trace_terminals) {
         my $verb =
-            $result == $Marpa::R2::Error::NONE ? 'Accepted' : 'Rejected';
+            $result == $Marpa::R3::Error::NONE ? 'Accepted' : 'Rejected';
         my $current_earleme = $recce_c->current_earleme();
         say {$trace_fh} qq{$verb "$symbol_name" at $current_earleme-}
             . ( $length + $current_earleme )
             or Marpa::R3::exception("Cannot print: $ERRNO");
     } ## end if ($trace_terminals)
 
-    return 1 if $result == $Marpa::R2::Error::NONE;
+    return 1 if $result == $Marpa::R3::Error::NONE;
 
     # The last two are perhaps unnecessary or arguable,
     # but they preserve compatibility with Marpa::XS
     return
-        if $result == $Marpa::R2::Error::UNEXPECTED_TOKEN_ID
-            || $result == $Marpa::R2::Error::NO_TOKEN_EXPECTED_HERE
-            || $result == $Marpa::R2::Error::INACCESSIBLE_TOKEN;
+        if $result == $Marpa::R3::Error::UNEXPECTED_TOKEN_ID
+            || $result == $Marpa::R3::Error::NO_TOKEN_EXPECTED_HERE
+            || $result == $Marpa::R3::Error::INACCESSIBLE_TOKEN;
 
     my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
     Marpa::R3::exception( $grammar_c->error() );
@@ -792,7 +792,7 @@ $escape_by_ord[0xa] = '\\n';
 $escape_by_ord[$_] //= chr $_ for 32 .. 126;
 $escape_by_ord[$_] //= sprintf( "\\x%02x", $_ ) for 0 .. 255;
 
-sub Marpa::R2::escape_string {
+sub Marpa::R3::escape_string {
     my ( $string, $length ) = @_;
     my $reversed = $length < 0;
     if ($reversed) {
