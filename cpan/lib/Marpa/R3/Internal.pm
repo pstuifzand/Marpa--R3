@@ -27,7 +27,7 @@ $STRING_VERSION = $VERSION;
 $VERSION = eval $VERSION;
 ## use critic
 
-*Marpa::R2::exception = \&Carp::croak;
+*Marpa::R3::exception = \&Carp::croak;
 
 sub Marpa::R2::internal_error {
     Carp::confess(
@@ -86,7 +86,7 @@ sub Marpa::R2::offset {
             $offset = $2 + 0;
         }
 
-        Marpa::R2::exception("Unacceptable field name: $field")
+        Marpa::R3::exception("Unacceptable field name: $field")
             if $field =~ /[^A-Z0-9_]/xms;
         my $field_name = $prefix . $field;
         *{$field_name} = sub () {$offset};

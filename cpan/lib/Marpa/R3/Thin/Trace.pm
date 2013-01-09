@@ -13,7 +13,7 @@
 # General Public License along with Marpa::R3.  If not, see
 # http://www.gnu.org/licenses/.
 
-package Marpa::R2::Thin::Trace;
+package Marpa::R3::Thin::Trace;
 
 use 5.010;
 use warnings;

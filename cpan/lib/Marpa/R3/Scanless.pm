@@ -209,7 +209,7 @@ sub do_priority_rule {
             my @rhs_names = $rhs->names();
             my @mask      = $rhs->mask();
             if ( $GRAMMAR_LEVEL <= 0 and grep { !$_ } @mask ) {
-                Marpa::R2::exception(
+                Marpa::R3::exception(
                     'hidden symbols are not allowed in lexical rules (rules LHS was "',
                     $lhs->name(), '")'
                 );
@@ -218,7 +218,7 @@ sub do_priority_rule {
                 ( lhs => $lhs, rhs => \@rhs_names, mask => \@mask );
             my $action = $adverb_list->{action};
             if ( defined $action ) {
-                Marpa::R2::exception(
+                Marpa::R3::exception(
                     'actions not allowed in lexical rules (rules LHS was "',
                     $lhs, '")' )
                     if $GRAMMAR_LEVEL <= 0;
@@ -265,7 +265,7 @@ sub do_priority_rule {
         my $current_exp = $lhs . '[prec' . $priority . ']';
         my @mask        = $rhs->mask();
         if ( $GRAMMAR_LEVEL <= 0 and grep { !$_ } @mask ) {
-            Marpa::R2::exception(
+            Marpa::R3::exception(
                 'hidden symbols are not allowed in lexical rules (rules LHS was "',
                 $lhs, '")'
             );
@@ -275,7 +275,7 @@ sub do_priority_rule {
 
         my $action = $adverb_list->{action};
         if ( defined $action ) {
-            Marpa::R2::exception(
+            Marpa::R3::exception(
                 'actions not allowed in lexical rules (rules LHS was "',
                 $lhs, '")' )
                 if $GRAMMAR_LEVEL <= 0;
@@ -331,7 +331,7 @@ sub do_empty_rule {
     my %rule = ( lhs => $lhs, rhs => [] );
     my $action = $adverb_list->{action};
     if ( defined $action ) {
-        Marpa::R2::exception(
+        Marpa::R3::exception(
             'actions not allowed in lexical rules (rules LHS was "',
             $lhs, '")' )
             if $GRAMMAR_LEVEL <= 0;
@@ -359,7 +359,7 @@ sub do_quantified_rule {
     );
     my $action = $adverb_list->{action};
     if ( defined $action ) {
-        Marpa::R2::exception(
+        Marpa::R3::exception(
             'actions not allowed in lexical rules (rules LHS was "',
             $lhs, '")' )
             if $GRAMMAR_LEVEL <= 0;
@@ -515,7 +515,7 @@ sub Marpa::R2::Scanless::R::last_completed_range {
     my $g1_tracer       = $thick_g1_grammar->tracer();
     my $thin_g1_grammar = $thick_g1_grammar->thin();
     my $symbol_id       = $g1_tracer->symbol_by_name($symbol_name);
-    Marpa::R2::exception("Bad symbol in last_completed_range(): $symbol_name")
+    Marpa::R3::exception("Bad symbol in last_completed_range(): $symbol_name")
         if not defined $symbol_id;
     my @sought_rules =
         grep { $thin_g1_grammar->rule_lhs($_) == $symbol_id; }
@@ -2043,14 +2043,14 @@ sub Marpa::R2::Scanless::G::new {
 
     my $rules_source = $args->{'source'};
     if ( not defined $rules_source ) {
-        Marpa::R2::exception(
+        Marpa::R3::exception(
             'Marpa::R2::Scanless::G::new() called without a "source" argument'
         );
     }
 
     $ref_type = ref $rules_source;
     if ( $ref_type ne 'SCALAR' ) {
-        Marpa::R2::exception(
+        Marpa::R3::exception(
             qq{Marpa::R2::Scanless::G::new() type of "source" argument is "$ref_type"},
             "  It must be a ref to a string\n"
         );
@@ -2117,7 +2117,7 @@ sub Marpa::R2::Scanless::G::_hash_to_runtime {
     {
         my $g1_symbol_id = $g1_tracer->symbol_by_name($lexeme_name);
         if ( not defined $g1_symbol_id ) {
-            Marpa::R2::exception(
+            Marpa::R3::exception(
                 "A lexeme is not accessible from the start symbol: ",
                 $lexeme_name );
         }
@@ -2131,7 +2131,7 @@ sub Marpa::R2::Scanless::G::_hash_to_runtime {
             and not $g1_symbol_is_lexeme[$symbol_id]
             )
         {
-            Marpa::R2::exception( "Unproductive symbol: ",
+            Marpa::R3::exception( "Unproductive symbol: ",
                 $g1_tracer->symbol_name($symbol_id) );
         } ## end if ( $g1_thin->symbol_is_terminal($symbol_id); and not...)
     } ## end SYMBOL_ID: for my $symbol_id ( 0 .. $g1_thin->highest_symbol_id(...))
@@ -2225,7 +2225,7 @@ sub Marpa::R2::Scanless::G::_source_to_hash {
 
     $thin_meta_g1_grammar->throw_set(0);
     my $latest_earley_set_id = $thin_meta_g1_recce->latest_earley_set();
-    my $bocage = Marpa::R2::Thin::B->new( $thin_meta_g1_recce, $latest_earley_set_id );
+    my $bocage = Marpa::R3::Thin::B->new( $thin_meta_g1_recce, $latest_earley_set_id );
     $thin_meta_g1_grammar->throw_set(1);
     if ( !defined $bocage ) {
         die qq{Last rule successfully parsed was: },
@@ -2233,10 +2233,10 @@ sub Marpa::R2::Scanless::G::_source_to_hash {
             'Parse failed';
     }
 
-    my $order = Marpa::R2::Thin::O->new($bocage);
-    my $tree  = Marpa::R2::Thin::T->new($order);
+    my $order = Marpa::R3::Thin::O->new($bocage);
+    my $tree  = Marpa::R3::Thin::T->new($order);
     $tree->next();
-    my $valuator = Marpa::R2::Thin::V->new($tree);
+    my $valuator = Marpa::R3::Thin::V->new($tree);
     my @actions_by_rule_id;
 
     RULE:
@@ -2426,7 +2426,7 @@ sub Marpa::R2::Scanless::G::_source_to_hash {
     $inner_self->{is_lexeme} = \%lexemes;
     my @unproductive = grep { not $lex_lhs{$_} and not $_ =~ /\A \[\[ /xms } keys %lex_rhs;
     if (@unproductive) {
-        Marpa::R2::exception("Unproductive lexical symbols: ", join q{ }, @unproductive);
+        Marpa::R3::exception("Unproductive lexical symbols: ", join q{ }, @unproductive);
     }
     push @{ $inner_self->{lex_rules} },
         map { ; { lhs => '[:start_lex]', rhs => [$_] } } sort keys %lexemes;
@@ -2465,10 +2465,10 @@ sub Marpa::R2::Scanless::R::new {
             my $ref_type = ref $grammar;
             $desc = $ref_type ? "a ref to $ref_type" : 'not a ref';
         }
-        Marpa::R2::exception(
+        Marpa::R3::exception(
             qq{'grammar' name argument to scanless_r->new() is $desc\n},
             "  It should be a ref to $grammar_class\n" );
-        Marpa::R2::exception(
+        Marpa::R3::exception(
             'Marpa::R2::Scanless::R::new() called without a "grammar" argument'
         );
     } ## end if ( not blessed $grammar or not $grammar->isa(...))
@@ -2480,7 +2480,7 @@ sub Marpa::R2::Scanless::R::new {
         grep { not defined $recce_options{$_} } keys %{$args}
         )
     {
-        Marpa::R2::exception(
+        Marpa::R3::exception(
             "$G_PACKAGE does not know some of option(s) given to it:\n",
             "   The option(s) not recognized were ",
             ( join q{ }, map { q{"} . $_ . q{"} } @bad_options ),
@@ -2501,7 +2501,7 @@ sub Marpa::R2::Scanless::R::new {
     my $lex_tracer       = $thick_lex_grammar->tracer();
     my $thin_lex_grammar = $lex_tracer->grammar();
     my $lex_r            = $self->[Marpa::R2::Inner::Scanless::R::THIN_LEX_RECCE] =
-        Marpa::R2::Thin::R->new($thin_lex_grammar);
+        Marpa::R3::Thin::R->new($thin_lex_grammar);
     $lex_r->start_input();
 
     my $thick_g1_grammar =
@@ -2514,7 +2514,7 @@ sub Marpa::R2::Scanless::R::new {
         Marpa::R2::Recognizer->new( \%g1_recce_args );
 
     my $stream = $self->[Marpa::R2::Inner::Scanless::R::STREAM] =
-        Marpa::R2::Thin::U->new($lex_r);
+        Marpa::R3::Thin::U->new($lex_r);
     return $self;
 } ## end sub Marpa::R2::Scanless::R::new
 
@@ -2533,14 +2533,14 @@ sub Marpa::R2::Scanless::R::error {
 sub Marpa::R2::Scanless::R::read {
     my ( $self, $p_string ) = @_;
 
-    Marpa::R2::exception(
+    Marpa::R3::exception(
         "Multiple read()'s tried on a scannerless recognizer\n",
         "  Currently only a single scannerless read is allowed"
     ) if defined $self->[Marpa::R2::Inner::Scanless::R::P_INPUT_STRING];
 
     if ( ( my $ref_type = ref $p_string ) ne 'SCALAR' ) {
         my $desc = $ref_type ? "a ref to $ref_type" : 'not a ref';
-        Marpa::R2::exception(
+        Marpa::R3::exception(
             qq{Arg to scanless_r->read() is $desc\n"},
             '  It should be a ref to scalar'
         );
@@ -2597,12 +2597,12 @@ sub Marpa::R2::Scanless::R::read {
 
     READ: while ( $start_of_next_lexeme < $length_of_string ) {
 
-        state $op_alternative = Marpa::R2::Thin::U::op('alternative');
+        state $op_alternative = Marpa::R3::Thin::U::op('alternative');
         state $op_earleme_complete =
-            Marpa::R2::Thin::U::op('earleme_complete');
+            Marpa::R3::Thin::U::op('earleme_complete');
 
         if ( not defined $thin_lex_recce ) {
-            $thin_lex_recce = Marpa::R2::Thin::R->new($thin_lex_grammar);
+            $thin_lex_recce = Marpa::R3::Thin::R->new($thin_lex_grammar);
             $thin_lex_recce->start_input();
             $stream->recce_set($thin_lex_recce);
             $stream->pos_set($start_of_next_lexeme);
@@ -2747,7 +2747,7 @@ sub Marpa::R2::Scanless::R::read {
                     push @ops, $op_alternative, $symbol_id, 0, 1;
                 } ## end if ( chr($codepoint) =~ $re )
             } ## end for my $entry ( @{$class_table} )
-            Marpa::R2::exception(
+            Marpa::R3::exception(
                 "Lexing failed at unacceptable character ",
                 character_describe( chr $codepoint )
             ) if not @ops;
@@ -2887,7 +2887,7 @@ sub Marpa::R2::Scanless::R::read {
     } ## end else [ if ($g1_status) ]
     $self->[Marpa::R2::Inner::Scanless::R::READ_STRING_ERROR] =
         $read_string_error;
-    Marpa::R2::exception($read_string_error);
+    Marpa::R3::exception($read_string_error);
 
     # Never reached
     # Fall through to return undef

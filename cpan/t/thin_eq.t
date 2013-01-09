@@ -32,7 +32,7 @@ use Marpa::R2;
 # Marpa::R3::Display
 # name: Thin example
 
-my $grammar = Marpa::R2::Thin::G->new( { if => 1 } );
+my $grammar = Marpa::R3::Thin::G->new( { if => 1 } );
 my $symbol_S = $grammar->symbol_new();
 my $symbol_E = $grammar->symbol_new();
 $grammar->start_symbol_set($symbol_S);
@@ -44,7 +44,7 @@ my $op_rule_id =
 my $number_rule_id = $grammar->rule_new( $symbol_E, [$symbol_number] );
 $grammar->precompute();
 
-my $recce = Marpa::R2::Thin::R->new($grammar);
+my $recce = Marpa::R3::Thin::R->new($grammar);
 $recce->start_input();
 
 # The numbers from 1 to 3 are themselves --
@@ -73,12 +73,12 @@ $recce->alternative( $symbol_number, 1, 1 );
 $recce->earleme_complete();
 
 my $latest_earley_set_ID = $recce->latest_earley_set();
-my $bocage        = Marpa::R2::Thin::B->new( $recce, $latest_earley_set_ID );
-my $order         = Marpa::R2::Thin::O->new($bocage);
-my $tree          = Marpa::R2::Thin::T->new($order);
+my $bocage        = Marpa::R3::Thin::B->new( $recce, $latest_earley_set_ID );
+my $order         = Marpa::R3::Thin::O->new($bocage);
+my $tree          = Marpa::R3::Thin::T->new($order);
 my @actual_values = ();
 while ( $tree->next() ) {
-    my $valuator = Marpa::R2::Thin::V->new($tree);
+    my $valuator = Marpa::R3::Thin::V->new($tree);
     $valuator->rule_is_valued_set( $op_rule_id,     1 );
     $valuator->rule_is_valued_set( $start_rule_id,  1 );
     $valuator->rule_is_valued_set( $number_rule_id, 1 );
@@ -155,7 +155,7 @@ for my $actual_value (@actual_values) {
 # For the error methods, start clean,
 # with a new, trivial grammar
 $grammar = $recce = $bocage = $order = $tree = undef;
-$grammar = Marpa::R2::Thin::G->new( { if => 1 } );
+$grammar = Marpa::R3::Thin::G->new( { if => 1 } );
 
 # Marpa::R3::Display
 # name: Thin throw_set() example
@@ -171,7 +171,7 @@ $grammar->throw_set(0);
 # name: Thin grammar error methods
 
 my ( $error_code, $error_description ) = $grammar->error();
-my @error_names = Marpa::R2::Thin::error_names();
+my @error_names = Marpa::R3::Thin::error_names();
 my $error_name = $error_names[$error_code];
 
 # Marpa::R3::Display::End
@@ -213,7 +213,7 @@ while ( $event_ix-- ) {
 
 }
 
-$recce = Marpa::R2::Thin::R->new($grammar);
+$recce = Marpa::R3::Thin::R->new($grammar);
 
 # Marpa::R3::Display
 # name: Thin ruby_slippers_set() example
@@ -264,11 +264,11 @@ $recce->earleme_complete();
 $recce->alternative( $symbol_a, 1, 1 );
 $recce->earleme_complete();
 $latest_earley_set_ID = $recce->latest_earley_set();
-$bocage        = Marpa::R2::Thin::B->new( $recce, $latest_earley_set_ID );
-$order         = Marpa::R2::Thin::O->new($bocage);
-$tree          = Marpa::R2::Thin::T->new($order);
+$bocage        = Marpa::R3::Thin::B->new( $recce, $latest_earley_set_ID );
+$order         = Marpa::R3::Thin::O->new($bocage);
+$tree          = Marpa::R3::Thin::T->new($order);
 $tree->next();
-my $valuator = Marpa::R2::Thin::V->new($tree);
+my $valuator = Marpa::R3::Thin::V->new($tree);
 $valuator->rule_is_valued_set( $sequence_rule_id, 1 );
 my $locations_report = q{};
 STEP: for ( ;; ) {

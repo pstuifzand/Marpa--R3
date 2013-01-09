@@ -33,7 +33,7 @@ use Marpa::R2;
 
 # Test the deprecated, zero-argument form
 # of the thin grammar constructor.
-my $grammar = Marpa::R2::Thin::G->new();
+my $grammar = Marpa::R3::Thin::G->new();
 
 # Carry on with it a little ways,
 # just to show that the recognizer starts out
@@ -47,7 +47,7 @@ $grammar->rule_new( $symbol_S, [ $symbol_a, $symbol_a ] );
 
 $grammar->precompute();
 
-my $recce = Marpa::R2::Thin::R->new($grammar);
+my $recce = Marpa::R3::Thin::R->new($grammar);
 $recce->start_input();
 $recce->alternative( $symbol_a, 1, 1 );
 $recce->earleme_complete();

@@ -95,12 +95,12 @@ sub Marpa::R2::Recognizer::new {
             last ARG_HASH;
         }
     } ## end ARG_HASH: for my $arg_hash (@arg_hashes)
-    Marpa::R2::exception('No grammar specified') if not defined $grammar;
+    Marpa::R3::exception('No grammar specified') if not defined $grammar;
 
     $recce->[Marpa::R3::Internal::Recognizer::GRAMMAR] = $grammar;
 
     my $grammar_class = ref $grammar;
-    Marpa::R2::exception(
+    Marpa::R3::exception(
         "${class}::new() grammar arg has wrong class: $grammar_class")
         if not $grammar_class eq 'Marpa::R2::Grammar';
 
@@ -109,7 +109,7 @@ sub Marpa::R2::Recognizer::new {
 
     my $problems = $grammar->[Marpa::R3::Internal::Grammar::PROBLEMS];
     if ($problems) {
-        Marpa::R2::exception(
+        Marpa::R3::exception(
             Marpa::R2::Grammar::show_problems($grammar),
             "Attempt to parse grammar with fatal problems\n",
             'Marpa::R2 cannot proceed',
@@ -122,14 +122,14 @@ sub Marpa::R2::Recognizer::new {
         $grammar->[Marpa::R3::Internal::Grammar::TRACE_FILE_HANDLE];
 
     my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C] =
-        Marpa::R2::Thin::R->new($grammar_c);
+        Marpa::R3::Thin::R->new($grammar_c);
     if ( not defined $recce_c ) {
         my $error_code = $grammar_c->error_code() // -1;
         if ( $error_code == $Marpa::R2::Error::NOT_PRECOMPUTED ) {
-            Marpa::R2::exception(
+            Marpa::R3::exception(
                 'Attempt to parse grammar which is not precomputed');
         }
-        Marpa::R2::exception( $grammar_c->error() );
+        Marpa::R3::exception( $grammar_c->error() );
     } ## end if ( not defined $recce_c )
 
     $recce_c->ruby_slippers_set(1);
@@ -145,7 +145,7 @@ sub Marpa::R2::Recognizer::new {
 
     ARG_HASH: for my $arg_hash (@arg_hashes) {
         if ( defined( my $value = $arg_hash->{'event_if_expected'} ) ) {
-            Marpa::R2::exception(
+            Marpa::R3::exception(
                 'value of "event_if_expected" must be a REF to an array of symbol names'
             ) if ref $value ne 'ARRAY';
             for my $symbol_name ( @{$value} ) {
@@ -170,7 +170,7 @@ sub Marpa::R2::Recognizer::new {
 
     if ( not $recce_c->start_input() ) {
         my $error = $grammar_c->error();
-        Marpa::R2::exception( 'Recognizer start of input failed: ', $error );
+        Marpa::R3::exception( 'Recognizer start of input failed: ', $error );
     }
     $recce->[Marpa::R3::Internal::Recognizer::EVENTS] = cook_events($recce);
 
@@ -186,7 +186,7 @@ sub Marpa::R2::Recognizer::new {
         for my $terminal ( sort @terminals_expected ) {
             say {$Marpa::R3::Internal::TRACE_FH}
                 qq{Expecting "$terminal" at earleme 0}
-                or Marpa::R2::exception("Cannot print: $ERRNO");
+                or Marpa::R3::exception("Cannot print: $ERRNO");
         }
     } ## end if ( $trace_terminals > 1 )
 
@@ -272,12 +272,12 @@ sub Marpa::R2::Recognizer::set {
 
         if ( defined( my $value = $args->{'event_if_expected'} ) ) {
             ## It could be allowed, but it is not needed and this is simpler
-            Marpa::R2::exception(
+            Marpa::R3::exception(
                 q{'event_if_expected' not allowed once input has started});
         }
 
         if ( defined( my $value = $args->{'leo'} ) ) {
-            Marpa::R2::exception(
+            Marpa::R3::exception(
                 q{Cannot reset 'leo' once input has started});
         }
 
@@ -289,11 +289,11 @@ sub Marpa::R2::Recognizer::set {
 
             # Not allowed once parsing is started
             if ( defined $recce->[Marpa::R3::Internal::Recognizer::B_C] ) {
-                Marpa::R2::exception(
+                Marpa::R3::exception(
                     q{Cannot change ranking method once parsing has started});
             }
             my @ranking_methods = qw(high_rule_only rule none);
-            Marpa::R2::exception(
+            Marpa::R3::exception(
                 qq{ranking_method value is $value (should be one of },
                 ( join q{, }, map { q{'} . $_ . q{'} } @ranking_methods ),
                 ')' )
@@ -318,53 +318,53 @@ sub Marpa::R2::Recognizer::set {
             $recce->[Marpa::R3::Internal::Recognizer::TRACE_ACTIONS] = $value;
             if ($value) {
                 say {$trace_fh} 'Setting trace_actions option'
-                    or Marpa::R2::exception("Cannot print: $ERRNO");
+                    or Marpa::R3::exception("Cannot print: $ERRNO");
             }
         } ## end if ( defined( my $value = $args->{'trace_actions'} ))
 
         if ( defined( my $value = $args->{'trace_and_nodes'} ) ) {
-            Marpa::R2::exception(
+            Marpa::R3::exception(
                 'trace_and_nodes must be set to a number >= 0')
                 if $value !~ /\A\d+\z/xms;
             $recce->[Marpa::R3::Internal::Recognizer::TRACE_AND_NODES] =
                 $value + 0;
             if ($value) {
                 say {$trace_fh} "Setting trace_and_nodes option to $value"
-                    or Marpa::R2::exception("Cannot print: $ERRNO");
+                    or Marpa::R3::exception("Cannot print: $ERRNO");
             }
         } ## end if ( defined( my $value = $args->{'trace_and_nodes'}...))
 
         if ( defined( my $value = $args->{'trace_bocage'} ) ) {
-            Marpa::R2::exception('trace_bocage must be set to a number >= 0')
+            Marpa::R3::exception('trace_bocage must be set to a number >= 0')
                 if $value !~ /\A\d+\z/xms;
             $recce->[Marpa::R3::Internal::Recognizer::TRACE_BOCAGE] =
                 $value + 0;
             if ($value) {
                 say {$trace_fh} "Setting trace_bocage option to $value"
-                    or Marpa::R2::exception("Cannot print: $ERRNO");
+                    or Marpa::R3::exception("Cannot print: $ERRNO");
             }
         } ## end if ( defined( my $value = $args->{'trace_bocage'} ) )
 
         if ( defined( my $value = $args->{'trace_or_nodes'} ) ) {
-            Marpa::R2::exception(
+            Marpa::R3::exception(
                 'trace_or_nodes must be set to a number >= 0')
                 if $value !~ /\A\d+\z/xms;
             $recce->[Marpa::R3::Internal::Recognizer::TRACE_OR_NODES] =
                 $value + 0;
             if ($value) {
                 say {$trace_fh} "Setting trace_or_nodes option to $value"
-                    or Marpa::R2::exception("Cannot print: $ERRNO");
+                    or Marpa::R3::exception("Cannot print: $ERRNO");
             }
         } ## end if ( defined( my $value = $args->{'trace_or_nodes'} ...))
 
         if ( defined( my $value = $args->{'trace_tasks'} ) ) {
-            Marpa::R2::exception('trace_tasks must be set to a number >= 0')
+            Marpa::R3::exception('trace_tasks must be set to a number >= 0')
                 if $value !~ /\A\d+\z/xms;
             $recce->[Marpa::R3::Internal::Recognizer::TRACE_TASKS] =
                 $value + 0;
             if ($value) {
                 say {$trace_fh} "Setting trace_tasks option to $value"
-                    or Marpa::R2::exception("Cannot print: $ERRNO");
+                    or Marpa::R3::exception("Cannot print: $ERRNO");
             }
         } ## end if ( defined( my $value = $args->{'trace_tasks'} ) )
 
@@ -373,7 +373,7 @@ sub Marpa::R2::Recognizer::set {
                 $value;
             if ($value) {
                 say {$trace_fh} 'Setting trace_terminals option'
-                    or Marpa::R2::exception("Cannot print: $ERRNO");
+                    or Marpa::R3::exception("Cannot print: $ERRNO");
             }
         } ## end if ( defined( my $value = $args->{'trace_terminals'}...))
 
@@ -382,7 +382,7 @@ sub Marpa::R2::Recognizer::set {
                 $value;
             if ($value) {
                 say {$trace_fh} 'Setting trace_earley_sets option'
-                    or Marpa::R2::exception("Cannot print: $ERRNO");
+                    or Marpa::R3::exception("Cannot print: $ERRNO");
             }
         } ## end if ( defined( my $value = $args->{'trace_earley_sets'...}))
 
@@ -390,7 +390,7 @@ sub Marpa::R2::Recognizer::set {
             $recce->[Marpa::R3::Internal::Recognizer::TRACE_VALUES] = $value;
             if ($value) {
                 say {$trace_fh} 'Setting trace_values option'
-                    or Marpa::R2::exception("Cannot print: $ERRNO");
+                    or Marpa::R3::exception("Cannot print: $ERRNO");
             }
         } ## end if ( defined( my $value = $args->{'trace_values'} ) )
 
@@ -398,7 +398,7 @@ sub Marpa::R2::Recognizer::set {
 
             # Not allowed once evaluation is started
             if ( defined $recce->[Marpa::R3::Internal::Recognizer::B_C] ) {
-                Marpa::R2::exception(
+                Marpa::R3::exception(
                     q{Cannot reset end once evaluation has started});
             }
             $recce->[Marpa::R3::Internal::Recognizer::END] = $value;
@@ -408,13 +408,13 @@ sub Marpa::R2::Recognizer::set {
 
             # Not allowed once evaluation is started
             if ( defined $recce->[Marpa::R3::Internal::Recognizer::B_C] ) {
-                Marpa::R2::exception(
+                Marpa::R3::exception(
                     q{Cannot reset closures once evaluation has started});
             }
             my $closures =
                 $recce->[Marpa::R3::Internal::Recognizer::CLOSURES] = $value;
             while ( my ( $action, $closure ) = each %{$closures} ) {
-                Marpa::R2::exception(qq{Bad closure for action "$action"})
+                Marpa::R3::exception(qq{Bad closure for action "$action"})
                     if ref $closure ne 'CODE';
             }
         } ## end if ( defined( my $value = $args->{'closures'} ) )
@@ -619,17 +619,17 @@ sub Marpa::R2::Recognizer::alternative {
 
     my ( $recce, $symbol_name, $value_ref, $length ) = @_;
 
-    Marpa::R2::exception(
+    Marpa::R3::exception(
         'No recognizer object for Marpa::R2::Recognizer::tokens')
         if not defined $recce
             or ref $recce ne 'Marpa::R2::Recognizer';
 
-    Marpa::R2::exception(
+    Marpa::R3::exception(
         "recce->alternative(): symbol name is undefined\n",
         "    The symbol name cannot be undefined\n"
     ) if not defined $symbol_name;
 
-    Marpa::R2::exception('Attempt to read token after parsing is finished')
+    Marpa::R3::exception('Attempt to read token after parsing is finished')
         if $recce->[Marpa::R3::Internal::Recognizer::FINISHED];
 
     my $recce_c = $recce->[Marpa::R3::Internal::Recognizer::C];
@@ -643,7 +643,7 @@ sub Marpa::R2::Recognizer::alternative {
         ->symbol_by_name($symbol_name);
 
     if ( not defined $symbol_id ) {
-        Marpa::R2::exception(
+        Marpa::R3::exception(
             qq{alternative(): symbol "$symbol_name" does not exist});
     }
 
@@ -655,7 +655,7 @@ sub Marpa::R2::Recognizer::alternative {
             and $ref_type ne 'REF'
             and $ref_type ne 'VSTRING' )
         {
-            Marpa::R2::exception('alternative(): value must be undef or ref');
+            Marpa::R3::exception('alternative(): value must be undef or ref');
         } ## end if ( $ref_type ne 'SCALAR' and $ref_type ne 'REF' and...)
         $value_ix = scalar @{$token_values};
         push @{$token_values}, ${$value_ref};
@@ -672,7 +672,7 @@ sub Marpa::R2::Recognizer::alternative {
         my $current_earleme = $recce_c->current_earleme();
         say {$trace_fh} qq{$verb "$symbol_name" at $current_earleme-}
             . ( $length + $current_earleme )
-            or Marpa::R2::exception("Cannot print: $ERRNO");
+            or Marpa::R3::exception("Cannot print: $ERRNO");
     } ## end if ($trace_terminals)
 
     return 1 if $result == $Marpa::R2::Error::NONE;
@@ -685,7 +685,7 @@ sub Marpa::R2::Recognizer::alternative {
             || $result == $Marpa::R2::Error::INACCESSIBLE_TOKEN;
 
     my $grammar_c = $grammar->[Marpa::R3::Internal::Grammar::C];
-    Marpa::R2::exception( $grammar_c->error() );
+    Marpa::R3::exception( $grammar_c->error() );
 
 } ## end sub Marpa::R2::Recognizer::alternative
 
@@ -757,10 +757,10 @@ sub Marpa::R2::Recognizer::earleme_complete {
     if ( $recce->[Marpa::R3::Internal::Recognizer::TRACE_EARLEY_SETS] ) {
         my $latest_set = $recce_c->latest_earley_set();
         print {$Marpa::R3::Internal::TRACE_FH} "=== Earley set $latest_set\n"
-            or Marpa::R2::exception("Cannot print: $ERRNO");
+            or Marpa::R3::exception("Cannot print: $ERRNO");
         print {$Marpa::R3::Internal::TRACE_FH}
             Marpa::R2::show_earley_set($latest_set)
-            or Marpa::R2::exception("Cannot print: $ERRNO");
+            or Marpa::R3::exception("Cannot print: $ERRNO");
     } ## end if ( $recce->[Marpa::R3::Internal::Recognizer::TRACE_EARLEY_SETS...])
 
     my $trace_terminals =
@@ -771,7 +771,7 @@ sub Marpa::R2::Recognizer::earleme_complete {
         for my $terminal ( @{$terminals_expected} ) {
             say {$Marpa::R3::Internal::TRACE_FH}
                 qq{Expecting "$terminal" at $current_earleme}
-                or Marpa::R2::exception("Cannot print: $ERRNO");
+                or Marpa::R3::exception("Cannot print: $ERRNO");
         }
     } ## end if ( $trace_terminals > 1 )
 

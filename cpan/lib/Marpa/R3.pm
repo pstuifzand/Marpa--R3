@@ -65,7 +65,7 @@ if ( not $ENV{'MARPA_AUTHOR_TEST'} ) {
     $Marpa::R2::DEBUG = 0;
 }
 else {
-    Marpa::R2::Thin::debug_level_set(1);
+    Marpa::R3::Thin::debug_level_set(1);
     $Marpa::R2::DEBUG = 1;
 }
 
@@ -78,7 +78,7 @@ sub version_ok {
 } ## end sub version_ok
 
 # Set up the error values
-my @error_names = Marpa::R2::Thin::error_names();
+my @error_names = Marpa::R3::Thin::error_names();
 for ( my $error = 0; $error <= $#error_names; ) {
     my $current_error = $error;
     (my $name = $error_names[$error] ) =~ s/\A MARPA_ERR_//xms;

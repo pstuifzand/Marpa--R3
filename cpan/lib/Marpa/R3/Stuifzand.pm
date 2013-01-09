@@ -129,7 +129,7 @@ sub do_start_rule {
 sub do_discard_rule {
     my ( $self, $rhs ) = @_;
     my $thick_grammar = $self->{thick_grammar};
-    Marpa::R2::exception( ':discard not allowed unless grammar is scannerless');
+    Marpa::R3::exception( ':discard not allowed unless grammar is scannerless');
 } ## end sub do_discard_rule
 
 sub do_priority_rule {
@@ -277,17 +277,17 @@ sub create_hidden_internal_symbol {
 }
 
 sub do_any {
-    Marpa::R2::exception( ':any not allowed unless grammar is scannerless');
+    Marpa::R3::exception( ':any not allowed unless grammar is scannerless');
 }
 
 sub do_ws {
-    Marpa::R2::exception( ':ws not allowed unless grammar is scannerless');
+    Marpa::R3::exception( ':ws not allowed unless grammar is scannerless');
 }
 sub do_ws_star {
-    Marpa::R2::exception( ':ws* not allowed unless grammar is scannerless');
+    Marpa::R3::exception( ':ws* not allowed unless grammar is scannerless');
 }
 sub do_ws_plus {
-    Marpa::R2::exception( ':ws+ not allowed unless grammar is scannerless');
+    Marpa::R3::exception( ':ws+ not allowed unless grammar is scannerless');
 }
 
 sub do_symbol {
@@ -296,7 +296,7 @@ sub do_symbol {
 }
 
 sub do_character_class {
-    Marpa::R2::exception( 'character classes not allowed unless grammar is scannerless');
+    Marpa::R3::exception( 'character classes not allowed unless grammar is scannerless');
 } ## end sub do_character_class
 
 sub do_rhs_primary_list { shift; return Marpa::R3::Internal::Stuifzand::Symbol_List->new(@_) }
@@ -320,7 +320,7 @@ sub do_separator_specification {
 }
 
 sub do_single_quoted_string {
-    Marpa::R2::exception( 'quoted strings not allowed unless grammar is scannerless');
+    Marpa::R3::exception( 'quoted strings not allowed unless grammar is scannerless');
 }
 
 sub do_op_declare_bnf     { return q{::=} }
@@ -1838,7 +1838,7 @@ sub parse_rules {
 
     $thin_meta_g1_grammar->throw_set(0);
     my $latest_earley_set_id = $thin_meta_g1_recce->latest_earley_set();
-    my $bocage = Marpa::R2::Thin::B->new( $thin_meta_g1_recce, $latest_earley_set_id );
+    my $bocage = Marpa::R3::Thin::B->new( $thin_meta_g1_recce, $latest_earley_set_id );
     $thin_meta_g1_grammar->throw_set(1);
     if ( !defined $bocage ) {
         die qq{Last rule successfully parsed was: },
@@ -1846,10 +1846,10 @@ sub parse_rules {
             'Parse failed';
     }
 
-    my $order = Marpa::R2::Thin::O->new($bocage);
-    my $tree  = Marpa::R2::Thin::T->new($order);
+    my $order = Marpa::R3::Thin::O->new($bocage);
+    my $tree  = Marpa::R3::Thin::T->new($order);
     $tree->next();
-    my $valuator = Marpa::R2::Thin::V->new($tree);
+    my $valuator = Marpa::R3::Thin::V->new($tree);
     my @actions_by_rule_id;
 
     RULE:
