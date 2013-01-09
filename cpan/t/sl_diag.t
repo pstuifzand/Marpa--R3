@@ -123,12 +123,12 @@ for my $test_data (@tests_data) {
     my ( $recce, $actual_value, $trace_output ) =
         my_parser( $prefix_grammar, $test_string );
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: Scanless show_progress() synopsis
 
     my $show_progress_output = $recce->show_progress();
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
     Marpa::R2::Test::is( $show_progress_output,
         <<'END_OF_EXPECTED_OUTPUT', qq{Scanless show_progess()} );

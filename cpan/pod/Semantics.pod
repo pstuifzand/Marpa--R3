@@ -19,7 +19,7 @@ Marpa::R2::Semantics - How Marpa evaluates parses
 
 =head1 Synopsis
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
@@ -41,9 +41,9 @@ normalize-whitespace: 1
         }
     );
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
@@ -63,7 +63,7 @@ normalize-whitespace: 1
     my $value_ref = $recce->value;
     my $value = $value_ref ? ${$value_ref} : 'No Parse';
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 =head1 Overview
 
@@ -294,7 +294,7 @@ null semantics|Marpa::R2::Semantics::Null>.
 
 =head1 Action context
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Action context synopsis
 normalize-whitespace: 1
 
@@ -311,7 +311,7 @@ normalize-whitespace: 1
         return $action_object;
     } ## end sub do_S
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 In addition to the per-parse-tree variable
 and their child arguments,
@@ -336,7 +336,7 @@ and end locations of the current rule.
 
 =head1 Bailing out of parse evaluation
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Semantics bail synopsis
 normalize-whitespace: 1
 
@@ -352,7 +352,7 @@ normalize-whitespace: 1
         Marpa::R2::Context::bail([$bail_message]) if $terminal eq 'A';
     }
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 The C<Marpa::R2::Context::bail()> static method is used to
 "bail out" of the evaluation of a parse tree.
@@ -659,7 +659,7 @@ document|Marpa::R2::Semantics::Infinite>.
 
 =head1 Copyright and License
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 ignore: 1
 
   Copyright 2013 Jeffrey Kegler
@@ -677,7 +677,7 @@ ignore: 1
   General Public License along with Marpa::R3.  If not, see
   http://www.gnu.org/licenses/.
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 =cut
 

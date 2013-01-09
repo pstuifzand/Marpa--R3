@@ -29,7 +29,7 @@ use Marpa::R2;
 my $grammar = Marpa::R2::Scanless::G->new(
     {   action_object => 'My_Actions',
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: Scanless concept example
 
         source => \(<<'END_OF_SOURCE'),
@@ -41,7 +41,7 @@ digit ~ [0-9]
 whitespace ~ [\s]+
 END_OF_SOURCE
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
     }
 );

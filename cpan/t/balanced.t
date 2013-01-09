@@ -63,12 +63,12 @@ sub find_match {
 
     my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: Recognizer expected_symbol_event_set() Synopsis
 
     $recce->expected_symbol_event_set( 'endmark', 1 );
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
     my $location      = 0;
     my $string_length = length $s;

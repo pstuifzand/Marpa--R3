@@ -40,12 +40,12 @@ $grammar->precompute();
 
 my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: Recognizer check_terminal Synopsis
 
 my $is_symbol_a_terminal = $recce->check_terminal('Document');
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
 Test::More::ok( !$is_symbol_a_terminal, 'LHS terminal?' );
 

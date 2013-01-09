@@ -192,23 +192,23 @@ TEST: for my $test_data (@test_data) {
     pos $test_input = 0;
     my $terminals_expected_matches_events = 1;
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: Recognizer terminals_expected Synopsis
 
     my $terminals_expected = $recce->terminals_expected();
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
     for ( my $pos = 0; $pos < $input_length; $pos++ ) {
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: Recognizer events() Synopsis
 
         my @expected_symbols =
             map { $_->[1]; }
             grep { $_->[0] eq 'SYMBOL_EXPECTED' } @{ $recce->events() };
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
         TOKEN: for my $token ( @{$terminals_expected} ) {
             next TOKEN if $token ~~ @expected_symbols;

@@ -26,7 +26,7 @@ use Marpa::R2::Test;
 
 ## no critic (ErrorHandling::RequireCarping);
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: Stuifzand Synopsis
 
 use Marpa::R2;
@@ -50,7 +50,7 @@ END_OF_SOURCE
     }
 );
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
 sub My_Actions::do_parens    { shift; return $_[0] }
 sub My_Actions::do_add       { shift; return $_[0] + $_[1] }

@@ -25,7 +25,7 @@ called a B<cycle> or a B<loop>.)
 
 An example of an infinitely ambiguous grammar is the following:
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 ignore: 1
 
     S ::= A
@@ -33,12 +33,12 @@ ignore: 1
     B ::= A
     B :: 'x'
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 Given the input 'x', this grammar will produce
 these parses
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 ignore: 1
 
     S -> A -> B -> x
@@ -48,7 +48,7 @@ ignore: 1
     .
     .
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 Because of the two rules C<A ::= B> and C<B ::= A>,
 this list of parses could go on forever.
@@ -81,12 +81,12 @@ would return only
 the parse result corresponding to this
 derivation:
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 ignore: 1
 
     S -> A -> B -> x
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 More specifically, Marpa guarantees to eliminate
 all parse results that contain nulling-sensitive cycles.
@@ -131,7 +131,7 @@ nulling-indifferent rule instance.
 
 =head1 Copyright and License
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 ignore: 1
 
   Copyright 2013 Jeffrey Kegler
@@ -149,7 +149,7 @@ ignore: 1
   General Public License along with Marpa::R3.  If not, see
   http://www.gnu.org/licenses/.
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 =cut
 

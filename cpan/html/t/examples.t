@@ -42,7 +42,7 @@ use Marpa::R2::Test;
 
 # Non-synopsis example in HTML.pod
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: 'HTML Pod: Handler Precedence'
 
 my $html = <<'END_OF_HTML';
@@ -80,9 +80,9 @@ Marpa::R2::HTML::html(
     }
 );
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: 'HTML Pod: Handler Precedence Result'
 # start-after-line: EXPECTED_RESULT
 # end-before-line: '^EXPECTED_RESULT$'
@@ -95,13 +95,13 @@ wildcard handler: Low Span
 ".oddball" handler: Oddball Div
 EXPECTED_RESULT
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
 my $result = join "\n", @RESULTS;
 Marpa::R2::Test::is( "$result\n", $expected_result,
     'handler precedence example' );
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: 'HTML Pod: Structure vs. Element Example'
 # start-after-line: END_OF_EXAMPLE
 # end-before-line: '^END_OF_EXAMPLE$'
@@ -110,7 +110,7 @@ my $tagged_html_example = <<'END_OF_EXAMPLE';
     <title>Short</title><p>Text</head><head>
 END_OF_EXAMPLE
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
 my $expected_structured_result = <<'END_OF_EXPECTED';
     <html>

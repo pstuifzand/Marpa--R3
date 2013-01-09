@@ -45,12 +45,12 @@ The first level is structural.
 For example, here is how the Perl docs describe one of
 the forms that Perl's C<use> statement takes:
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 ignore: 1
 
     use Module VERSION LIST
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 and in Perl's source code (C<perly.y>) something similar
 drives the parser.
@@ -59,13 +59,13 @@ The second level is lexical.
 For example,
 Perl's L<perlpodspec> page has a number of statements like this:
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 ignore: 1
 
     [...] you can distinguish URL-links from anything else
     by the fact that they match m/\A\w+:[^:\s]\S*\z/.
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 The lexical level is character by character.
 The structural level is less well-defined,
@@ -99,14 +99,14 @@ The semantics will treat it as a series of integers to be added.
 
 Here are three strings in that language
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 ignore: 1
 
      8675311
      867 5311
      8 6 7 5 3 1 1
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 According to our semantics,
 the three strings contain respectively,
@@ -149,13 +149,13 @@ language standard and recasting it so that
 every rule takes into account whitespace.
 As one example, consider declarations in the C language.
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 ignore: 1
 
     unsigned int a;
     unsigned*b;
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 In the first of the two lines above the whitespace is necessary.
 In the second of the two lines whitespace would be allowed,
@@ -201,7 +201,7 @@ Here is full syntax of
 the example whitespace-and-digit language,
 described using Marpa::R2's scanless interface:
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Scanless concept example
 partial: 1
 normalize-whitespace: 1
@@ -213,7 +213,7 @@ normalize-whitespace: 1
     :discard ~ whitespace
     whitespace ~ [\s]+
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 =head2 A new operator
 
@@ -320,7 +320,7 @@ before changing to the dual grammar implementation.
 
 =head1 Copyright and License
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 ignore: 1
 
   Copyright 2013 Jeffrey Kegler
@@ -338,7 +338,7 @@ ignore: 1
   General Public License along with Marpa::R3.  If not, see
   http://www.gnu.org/licenses/.
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 =cut
 

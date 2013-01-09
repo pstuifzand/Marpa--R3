@@ -27,7 +27,7 @@ use Marpa::R2::Test;
 
 ## no critic (ErrorHandling::RequireCarping);
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: Engine Synopsis Unambiguous Parse
 
 use Marpa::R2;
@@ -74,11 +74,11 @@ sub My_Actions::first_arg { shift; return shift; }
 my $value_ref = $recce->value;
 my $value = $value_ref ? ${$value_ref} : 'No Parse';
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
 # Ambiguous, Array Form Rules
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: Engine Synopsis Ambiguous Parse
 
 use Marpa::R2;
@@ -111,7 +111,7 @@ while ( defined( my $ambiguous_value_ref = $ambiguous_recce->value() ) ) {
     push @values, ${$ambiguous_value_ref};
 }
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
 Test::More::is( $value, 49, 'Unambiguous Value' );
 Test::More::is_deeply( [ sort @values ], [ 336, 49 ], 'Ambiguous Values' );
@@ -124,7 +124,7 @@ sub fix_things {
     die qq{Don't know how to fix things at $token_ix};
 }
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: Engine Synopsis Interactive Parse
 
 $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
@@ -141,7 +141,7 @@ TOKEN: for ( my $token_ix = 0; $token_ix <= $#tokens; $token_ix++ ) {
         or die q{Don't know how to fix things};
 }
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
 $value_ref = $recce->value;
 $value = $value_ref ? ${$value_ref} : 'No Parse';

@@ -109,12 +109,12 @@ for my $data ( 'time flies like an arrow', 'fruit flies like a banana' ) {
 
     for my $word ( split q{ }, $data ) {
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: Recognizer exhausted Synopsis
 
         $recce->exhausted() and die 'Recognizer exhausted';
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
         for my $type ( @{ $vocabulary{$word} } ) {
             $recce->alternative( $type, \$word, 1 )
@@ -123,12 +123,12 @@ for my $data ( 'time flies like an arrow', 'fruit flies like a banana' ) {
         $recce->earleme_complete();
     } ## end for my $word ( split q{ }, $data )
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: Recognizer end_input Synopsis
 
     $recce->end_input();
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
     while ( defined( my $value_ref = $recce->value() ) ) {
         my $value = $value_ref ? ${$value_ref} : 'No parse';

@@ -27,7 +27,7 @@ use Marpa::R2::Test;
 
 ## no critic (ErrorHandling::RequireCarping);
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: Scanless grammar synopsis
 
 use Marpa::R2;
@@ -65,14 +65,14 @@ END_OF_SOURCE
     }
 );
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: Scanless show_rules() synopsis
 
 my $show_rules_output = $grammar->show_rules();
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
 Marpa::R2::Test::is( $show_rules_output,
     <<'END_OF_SHOW_RULES_OUTPUT', 'Scanless show_rules()' );
@@ -125,7 +125,7 @@ END_OF_SHOW_RULES_OUTPUT
 sub my_parser {
     my ( $grammar, $p_input_string ) = @_;
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: Scanless recognizer synopsis
 
     my $recce = Marpa::R2::Scanless::R->new( { grammar => $grammar } );
@@ -148,7 +148,7 @@ sub my_parser {
             "No parse was found, after reading the entire input\n";
     }
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
     return ${$value_ref};
 
@@ -171,7 +171,7 @@ for my $test (@tests) {
     Test::More::like( $value, $output_re, 'Value of scannerless parse' );
 }
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: Scanless recognizer semantics
 
 package My_Actions;
@@ -188,9 +188,9 @@ sub do_pow       { shift; return $_[0]**$_[2] }
 sub do_first_arg { shift; return shift; }
 sub do_script    { shift; return join q{ }, @_ }
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: Scanless recognizer diagnostics
 
 sub show_last_expression {
@@ -202,7 +202,7 @@ sub show_last_expression {
     return "Last expression successfully parsed was: $last_expression";
 } ## end sub show_last_expression
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
 # Local Variables:
 #   mode: cperl

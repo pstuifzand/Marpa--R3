@@ -19,7 +19,7 @@ Marpa::R2::Recognizer - Marpa recognizers
 
 =head1 Synopsis
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
@@ -31,7 +31,7 @@ normalize-whitespace: 1
     $recce->read('Add');
     $recce->read( 'Number', 7 );
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 =head1 Description
 
@@ -62,14 +62,14 @@ document on alternative input models|Marpa::R2::Advanced::Models>.
 
 =head2 new()
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
 
     my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 The C<new> method creates a recognizer object.
 The C<new> method either returns a new recognizer object or throws an exception.
@@ -85,13 +85,13 @@ The named arguments are described L<below|/"Named arguments">.
 
 =head2 check_terminal()
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Recognizer check_terminal Synopsis
 normalize-whitespace: 1
 
     my $is_symbol_a_terminal = $recce->check_terminal('Document');
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 Returns a Perl true when its argument is the name of a terminal symbol.
 Otherwise, returns a Perl false.
@@ -99,7 +99,7 @@ Not often needed.
 
 =head2 events()
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Recognizer events() Synopsis
 normalize-whitespace: 1
 
@@ -107,7 +107,7 @@ normalize-whitespace: 1
         map { $_->[1]; }
         grep { $_->[0] eq 'SYMBOL_EXPECTED' } @{ $recce->events() };
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 Returns a reference to an array of the events
 from the last L</read()> method call.
@@ -121,13 +121,13 @@ L</"Recognizer events">.
 
 =head2 exhausted()
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Recognizer exhausted Synopsis
 normalize-whitespace: 1
 
 	$recce->exhausted() and die 'Recognizer exhausted';
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 The C<exhausted> method returns a Perl true if parsing
 in a recognizer is exhausted, and a Perl false
@@ -145,13 +145,13 @@ status to be discovered directly.
 
 =head2 latest_earley_set()
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: latest_earley_set() Synopsis
 normalize-whitespace: 1
 
     my $latest_earley_set = $recce->latest_earley_set();
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 Return the location of the latest (in other words,
 the most recent)
@@ -172,14 +172,14 @@ L<their own document|Marpa::R2::Progress>.
 
 =head2 terminals_expected()
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Recognizer terminals_expected Synopsis
 partial: 1
 normalize-whitespace: 1
 
     my $terminals_expected = $recce->terminals_expected();
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 Returns a reference to a list of strings,
 where the strings are the
@@ -194,13 +194,13 @@ This is highly useful for Ruby Slippers parsing.
 
 =head2 expected_symbol_event_set()
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Recognizer expected_symbol_event_set() Synopsis
 normalize-whitespace: 1
 
     $recce->expected_symbol_event_set( 'endmark', 1 );
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 Marpa can generate a recognizer event when 
 a symbol is expected at the current earleme.
@@ -220,7 +220,7 @@ L</new()> method can be used to set an expected-symbol event.
 
 =head2 read()
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
@@ -231,7 +231,7 @@ normalize-whitespace: 1
     $recce->read('Add');
     $recce->read( 'Number', 7 );
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 The C<read> method reads one token at the current parse location.
 It then advances the current location by 1.
@@ -282,13 +282,13 @@ is always a Perl C<undef>.
 
 =head2 set()
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Recognizer set Synopsis
 normalize-whitespace: 1
 
     $recce->set( { max_parses => 10, } );
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 The C<set> method's arguments are references to hashes of named
 arguments.
@@ -299,7 +299,7 @@ Details of the named arguments are L<below|/"Named arguments">.
 
 =head2 value()
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
@@ -307,7 +307,7 @@ normalize-whitespace: 1
     my $value_ref = $recce->value;
     my $value = $value_ref ? ${$value_ref} : 'No Parse';
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 Because Marpa parses ambiguous grammars, every parse
 is a series of zero or more parse trees.
@@ -322,14 +322,14 @@ the C<value> method returns C<undef>.
 
 =head2 reset_evaluation()
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: reset_evaluation Synopsis
 normalize-whitespace: 1
 
         $recce->reset_evaluation();
         $recce->set( { end => $loc, max_parses => 999, } );
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 The C<reset_evaluation()> method ends a parse series,
 and starts another.
@@ -369,7 +369,7 @@ parse end location.
 
 =head2 show_progress()
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: show_progress Synopsis
 partial: 1
 normalize-whitespace: 1
@@ -377,7 +377,7 @@ normalize-whitespace: 1
     print $recce->show_progress()
         or die "print failed: $ERRNO";
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 Returns a string describing the progress of the parse.
 With no arguments,
@@ -665,7 +665,7 @@ L<C<exhausted> method|/exhausted()>.
 
 =head1 Ruby Slippers parsing
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Engine Synopsis Interactive Parse
 partial: 1
 normalize-whitespace: 1
@@ -684,7 +684,7 @@ normalize-whitespace: 1
             or die q{Don't know how to fix things};
     }
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 Marpa is able to tell the application
 which symbols are acceptable as tokens at the next location
@@ -752,7 +752,7 @@ where it left off.
 
 =head1 Copyright and License
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 ignore: 1
 
   Copyright 2013 Jeffrey Kegler
@@ -770,7 +770,7 @@ ignore: 1
   General Public License along with Marpa::R3.  If not, see
   http://www.gnu.org/licenses/.
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 =cut
 

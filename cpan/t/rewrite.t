@@ -76,7 +76,7 @@ my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
 # the Single Parse Evaluator
 $recce->end_input();
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
 my $show_rules_output = $grammar->show_rules();
 

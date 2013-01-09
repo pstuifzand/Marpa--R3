@@ -13,7 +13,7 @@
 # General Public License along with Marpa::R3.  If not, see
 # http://www.gnu.org/licenses/.
 
-package Marpa::R2::Display;
+package Marpa::R3::Display;
 
 use 5.010;
 use strict;
@@ -23,19 +23,19 @@ use YAML::XS;
 use Data::Dumper;    # for debugging
 use Carp;
 
-package Marpa::R2::Display::Internal;
+package Marpa::R3::Display::Internal;
 
 use English qw( -no_match_vars );
 
-sub Marpa::R2::Display::new {
+sub Marpa::R3::Display::new {
     my ($class) = @_;
     my $self = {};
     $self->{displays}         = {};
     $self->{ignored_displays} = [];
     return bless $self, $class;
-} ## end sub Marpa::R2::Display::new
+} ## end sub Marpa::R3::Display::new
 
-@Marpa::R2::Display::Internal::DISPLAY_SPECS = qw(
+@Marpa::R3::Display::Internal::DISPLAY_SPECS = qw(
     start-after-line end-before-line perltidy normalize-whitespace name
     remove-display-indent
     remove-blank-last-line
@@ -43,7 +43,7 @@ sub Marpa::R2::Display::new {
     ignore
 );
 
-sub Marpa::R2::Display::read {
+sub Marpa::R3::Display::read {
     my ( $self, $data_arg, $file_name ) = @_;
     my @lines;
     GET_LINES: {
@@ -161,7 +161,7 @@ sub Marpa::R2::Display::read {
 
         SPEC: for my $spec ( keys %{$display_spec} ) {
             next SPEC
-                if $spec ~~ \@Marpa::R2::Display::Internal::DISPLAY_SPECS;
+                if $spec ~~ \@Marpa::R3::Display::Internal::DISPLAY_SPECS;
             say {*STDERR}
                 qq{Warning: Unknown display spec "$spec" in $file_name, line $display_spec_line_number}
                 or Carp::croak("Cannot print: $ERRNO");
@@ -213,7 +213,7 @@ sub Marpa::R2::Display::read {
                 my $content_line = $lines[ ++$zero_based_line ];
                 if ( not defined $content_line ) {
                     say {*STDERR}
-                        q{Warning: Pattern "Marpa::R2::Display::End" never found,}
+                        q{Warning: Pattern "Marpa::R3::Display::End" never found,}
                         . qq{started looking at $file_name, line $display_spec_line_number}
                         or Carp::croak("Cannot print: $ERRNO");
                     return $self;
@@ -265,6 +265,6 @@ sub Marpa::R2::Display::read {
 
     return $self;
 
-} ## end sub Marpa::R2::Display::read
+} ## end sub Marpa::R3::Display::read
 
 1;

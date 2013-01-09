@@ -30,7 +30,7 @@ use Perl::Tidy;
 use Text::Wrap;
 
 use lib 'inc';
-use Marpa::R2::Display;
+use Marpa::R3::Display;
 
 my $warnings = 0;
 my $options_result = GetOptions( 'warnings' => \$warnings );
@@ -98,7 +98,7 @@ else {
 }
 ## use critic
 
-my $display_data = Marpa::R2::Display->new();
+my $display_data = Marpa::R3::Display->new();
 
 FILE: for my $file (@test_files) {
     if ( not -f $file ) {

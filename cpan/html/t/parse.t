@@ -87,12 +87,12 @@ my $html_args = {
 
         my $descendant_data =
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: dataspec example
 
             Marpa::R2::HTML::descendants('token_type,literal,element')
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
             ;    # semi to end $descendant_data definition
 

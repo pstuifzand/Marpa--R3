@@ -42,7 +42,7 @@ use Marpa::R2::Test;
 # This is just a dummy value for the synopsis
 my %empty_elements = ();
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: 'HTML Synopsis: Delete Tables'
 
 use Marpa::R2::HTML qw(html);
@@ -54,9 +54,9 @@ my $no_table   = html(
     }
 );
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: 'HTML Synopsis: Delete Everything But Tables'
 
 my %handlers_to_keep_only_tables = (
@@ -65,17 +65,17 @@ my %handlers_to_keep_only_tables = (
 );
 my $only_table = html( \$with_table, \%handlers_to_keep_only_tables );
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: 'HTML Synopsis: Defective Tables'
 
 my $with_bad_table = 'Text<tr>I am a cell</table> More Text';
 my $only_bad_table = html( \$with_bad_table, \%handlers_to_keep_only_tables );
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: 'HTML Synopsis: Delete Comments'
 
 my $with_comment = 'Text <!-- I am a comment --> I am not a comment';
@@ -85,9 +85,9 @@ my $no_comment   = html(
     }
 );
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: 'HTML Synopsis: Change Title'
 
 my $old_title = '<title>Old Title</title>A little html text';
@@ -97,9 +97,9 @@ my $new_title = html(
     }
 );
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: 'HTML Synopsis: Delete by Class'
 
 my $stuff_to_be_edited = '<p>A<p class="delete_me">B<p>C';
@@ -109,9 +109,9 @@ my $edited_stuff       = html(
     }
 );
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: 'HTML Synopsis: Supply Missing Tags'
 
 sub supply_missing_tags {
@@ -126,9 +126,9 @@ my $html_with_just_a_title = '<title>I am a title and That is IT!';
 my $valid_html_with_all_tags =
     html( \$html_with_just_a_title, { q{*} => \&supply_missing_tags } );
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: 'HTML Synopsis: Maximum Element Depth'
 
 sub depth_below_me {
@@ -141,7 +141,7 @@ my %handlers_to_calculate_maximum_element_depth = (
 my $maximum_depth_with_just_a_title = html( \$html_with_just_a_title,
     \%handlers_to_calculate_maximum_element_depth );
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
 my $maximum_depth_with_all_tags_supplied = html( $valid_html_with_all_tags,
     \%handlers_to_calculate_maximum_element_depth );

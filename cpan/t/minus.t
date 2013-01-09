@@ -103,7 +103,7 @@ my $grammar = Marpa::R2::Grammar->new(
             },
         ],
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: Symbol descriptor example
 
         symbols => {
@@ -112,7 +112,7 @@ my $grammar = Marpa::R2::Grammar->new(
             Number     => { terminal => 1 },
         },
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
         default_action => 'default_action',
     },

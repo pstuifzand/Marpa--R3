@@ -105,12 +105,12 @@ TEST: for my $test (@tests) {
             next ITEM if $position >= 0;
             $position = $grammar_c->rule_length($rule_id);
 
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: earleme() Synopsis
 
             my $origin_earleme = $recce->earleme($origin_earley_set_id);
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 
             my $rule      = $rules->[$rule_id];
             my $rule_name = $rule->[Marpa::R2::Internal::Rule::NAME];

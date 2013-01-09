@@ -19,7 +19,7 @@ Marpa::R2::Grammar - Marpa grammars
 
 =head1 Synopsis
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
@@ -43,7 +43,7 @@ normalize-whitespace: 1
 
     $grammar->precompute();
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 =head1 Description
 
@@ -107,28 +107,28 @@ that the sequence is allowed to repeat.
 As of this writing,
 the maximum number of repetitions is always infinite.
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Marpa::R2::Grammar min 0 sequence example
 partial: 1
 normalize-whitespace: 1
 
     { lhs => 'sequence', rhs => ['item'], min => 0, action => 'do_sequence' }
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 A C<min> of zero indicates a sequence that repeats zero or more times.
 This is the equivalent of using the star quantifier
 ("C<*>") in the
 standard regular expression notation.
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Marpa::R2::Grammar min 1 sequence example
 partial: 1
 normalize-whitespace: 1
 
     { lhs => 'sequence', rhs => ['item'], min => 1, action => 'do_sequence' }
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 A C<min> of one indicates a sequence that repeats one or more times.
 This is the equivalent of using the plus quantifier
@@ -187,7 +187,7 @@ the right hand side of a sequence rule must be a single symbol.
 Of course, applications will often want to repeat sequences of multiple symbols.
 That is easy to do indirectly:
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Marpa::R2::Grammar multipart rhs sequence example
 partial: 1
 normalize-whitespace: 1
@@ -195,13 +195,13 @@ normalize-whitespace: 1
     { lhs => 'sequence', rhs => [qw(item)], min => 0, action => 'do_sequence' },
     { lhs => 'item', rhs => [qw(part1 part2)], action => 'do_item' },
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 =head1 Constructor
 
 =head2 new()
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
@@ -223,7 +223,7 @@ normalize-whitespace: 1
         }
     );
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 C<Marpa::R2::Grammar::new>
 returns a new Marpa grammar object or throws an exception.
@@ -241,14 +241,14 @@ L<below|/"Named arguments">.
 
 =head2 precompute()
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
 
     $grammar->precompute();
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 The C<precompute> method
 compiles data structures that the recognizer will need.
@@ -257,13 +257,13 @@ returns the grammar object or throws an exception.
 
 =head2 set()
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Grammar set Synopsis
 normalize-whitespace: 1
 
     $grammar->set( { trace_file_handle => $trace_fh } );
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 The arguments to the
 C<set> method are
@@ -284,14 +284,14 @@ the most convenient way to determine if a symbol is a terminal.
 
 =head2 rule()
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Action context synopsis
 normalize-whitespace: 1
 partial: 1
 
     my ( $lhs, @rhs ) = $grammar->rule($rule_id);
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 Given a rule ID as its argument,
 returns an array containing the symbols of the rule.
@@ -308,13 +308,13 @@ use of L<the progress method|Marpa::R2::Progress/progress()>.
 
 =head2 rule_ids()
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: rule_ids() Synopsis
 normalize-whitespace: 1
 
     my @rule_ids = $grammar->rule_ids();
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 Returns an array containing the valid rule IDs.
 Situations where
@@ -326,14 +326,14 @@ use of L<the progress method|Marpa::R2::Progress/progress()>.
 
 =head2 show_problems()
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: show_problems Synopsis
 perltidy: '-dcsc -sil=0'
 
     print $grammar->show_problems()
         or die "print failed: $ERRNO";
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 Usually the application does not call this method
 directly.
@@ -366,14 +366,14 @@ error message.
 
 =head2 show_rules()
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: show_rules Synopsis
 perltidy: '-dcsc -sil=0'
 
     print $grammar->show_rules()
         or die "print failed: $ERRNO";
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 Returns a string listing the rules.
 Each rule is shown with B<comments> which
@@ -403,14 +403,14 @@ were nullable, unproductive, inaccessible, or empty.
 
 =head2 show_symbols()
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: show_symbols Synopsis
 perltidy: '-dcsc -sil=0'
 
     print $grammar->show_symbols()
         or die "print failed: $ERRNO";
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 Returns a string listing the symbols, along with comments
 indicating whether they were
@@ -435,14 +435,14 @@ L<the document on semantics|Marpa::R2::Semantics>.
 
 =head2 actions
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
 
             actions => 'My_Actions',
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 The C<actions> named argument specifies
 the Perl package that Marpa will use when resolving
@@ -461,14 +461,14 @@ L<the document on semantics|Marpa::R2::Semantics>.
 
 =head2 default_action
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
 
             default_action => 'first_arg',
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 The C<default_action> named argument specifies
 the value action name
@@ -557,14 +557,14 @@ named argument.
 
 =head2 start
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
 
     start => 'Expression',
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 The value of the C<start> named argument must be a symbol name.
 It will be used as the start symbol for the grammar.
@@ -634,7 +634,7 @@ and itself results in a warning.
 
 =head1 Rule descriptors
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
@@ -650,7 +650,7 @@ normalize-whitespace: 1
         },
     ],
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 =head2 Rule descriptors as hashes
 
@@ -793,7 +793,7 @@ The separator must not be a nullable symbol.
 
 =head2 Rule descriptors as arrays
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Engine Synopsis Ambiguous Parse
 partial: 1
 normalize-whitespace: 1
@@ -804,7 +804,7 @@ normalize-whitespace: 1
         [ 'E', [qw/Number/], ],
     ],
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 Rule descriptors may be given in "short form" --
 as a reference to an array.
@@ -853,7 +853,7 @@ without restriction, as the LHS of other rules.
 
 =head1 Symbol descriptors
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 name: Symbol descriptor example
 normalize-whitespace: 1
 
@@ -863,7 +863,7 @@ normalize-whitespace: 1
         Number     => { terminal => 1 },
     },
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 A symbol descriptor is a hash.
 In the key/value pairs of this hash,
@@ -883,7 +883,7 @@ L<the section on terminals|/"Terminal symbols">.
 
 =head1 Copyright and License
 
-=for Marpa::R2::Display
+=for Marpa::R3::Display
 ignore: 1
 
   Copyright 2013 Jeffrey Kegler
@@ -901,7 +901,7 @@ ignore: 1
   General Public License along with Marpa::R3.  If not, see
   http://www.gnu.org/licenses/.
 
-=for Marpa::R2::Display::End
+=for Marpa::R3::Display::End
 
 =cut
 

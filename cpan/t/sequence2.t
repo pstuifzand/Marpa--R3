@@ -37,12 +37,12 @@ my $value;
 
 my $min0 =
 #<<< no perltidy
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: Marpa::R2::Grammar min 0 sequence example
 
     { lhs => 'sequence', rhs => ['item'], min => 0, action => 'do_sequence' }
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 ; # semicolon to terminate rule
 
 $grammar = Marpa::R2::Grammar->new(
@@ -68,12 +68,12 @@ Marpa::R2::Test::is( $value, 'seq(0;1)', 'min 0 value' );
 
 my $min1 =
 #<<< no perltidy
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: Marpa::R2::Grammar min 1 sequence example
 
     { lhs => 'sequence', rhs => ['item'], min => 1, action => 'do_sequence' }
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 ; # semicolon to terminate rule
 
 $grammar = Marpa::R2::Grammar->new({
@@ -98,13 +98,13 @@ Marpa::R2::Test::is( $value, 'seq(0;1)', 'min 1 value' );
 
 my $multipart = [
 #<<< no perltidy
-# Marpa::R2::Display
+# Marpa::R3::Display
 # name: Marpa::R2::Grammar multipart rhs sequence example
 
     { lhs => 'sequence', rhs => [qw(item)], min => 0, action => 'do_sequence' },
     { lhs => 'item', rhs => [qw(part1 part2)], action => 'do_item' },
 
-# Marpa::R2::Display::End
+# Marpa::R3::Display::End
 ]; # semicolon to terminate rule
 
 $grammar = Marpa::R2::Grammar->new(
