@@ -31,7 +31,7 @@ $VERSION = eval $VERSION;
 
 sub Marpa::R3::internal_error {
     Carp::confess(
-        "Internal Marpa::R3 Error: This could be a bug in Marpa::R2\n", @_ );
+        "Internal Marpa::R3 Error: This could be a bug in Marpa::R3\n", @_ );
 }
 
 # Perl critic at present is not smart about underscores

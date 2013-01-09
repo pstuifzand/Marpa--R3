@@ -1876,7 +1876,7 @@ sub parse_rules {
         }
         $action = $meta_g1_tracer->action($rule_id);
         next RULE if not defined $action;
-        next RULE if $action =~ / Marpa [:][:] R2 .* [:][:] external_do_arg0 \z /xms;
+        next RULE if $action =~ / Marpa [:][:] R3 .* [:][:] external_do_arg0 \z /xms;
         $actions_by_rule_id[$rule_id] = $action;
     } ## end for my $rule_id ( grep { $thin_meta_g1_grammar->rule_length($_...)})
 

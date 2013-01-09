@@ -33,17 +33,16 @@ use English qw( -no_match_vars );
 use Marpa::R3::Version;
 
 $Marpa::R3::USING_XS = 1;
-$Marpa::R3::USING_PP = 0;
 
 eval {
     require XSLoader;
-    XSLoader::load( 'Marpa::R3', $Marpa::R2::STRING_VERSION );
+    XSLoader::load( 'Marpa::R3', $Marpa::R3::STRING_VERSION );
     1;
 } or eval {
     require DynaLoader;
 ## no critic(ClassHierarchies::ProhibitExplicitISA)
     push @ISA, 'DynaLoader';
-    Dynaloader::bootstrap Marpa::R3 $Marpa::R2::STRING_VERSION;
+    Dynaloader::bootstrap Marpa::R3 $Marpa::R3::STRING_VERSION;
     1;
 } or Carp::croak("Could not load XS version of Marpa::R3: $EVAL_ERROR");
 
