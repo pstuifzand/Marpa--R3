@@ -24,7 +24,7 @@ use Fatal qw(open close chdir);
 use Test::More tests => 3;
 use lib 'inc';
 use Marpa::R3::Test;
-use Marpa::R2;
+use Marpa::R3;
 
 ## no critic (Subroutines::RequireArgUnpacking)
 sub show_a         { return 'A(' . $_[1] . ')' }

@@ -25,7 +25,7 @@ use lib 'inc';
 use Marpa::R3::Test;
 use Fatal qw( open close );
 use English qw( -no_match_vars );
-use Marpa::R2;
+use Marpa::R3;
 
 our $DEFAULT_NULL_DESC = '[default null]';
 our $NULL_DESC         = '[null]';

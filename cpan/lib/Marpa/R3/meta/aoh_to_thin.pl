@@ -27,7 +27,7 @@ use autodie;
 
 # Appropriate PERLLIB settings are expected to
 # be external
-use Marpa::R2;
+use Marpa::R3;
 
 use Getopt::Long;
 my $verbose   = 1;

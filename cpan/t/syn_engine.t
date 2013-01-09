@@ -30,7 +30,7 @@ use Marpa::R3::Test;
 # Marpa::R3::Display
 # name: Engine Synopsis Unambiguous Parse
 
-use Marpa::R2;
+use Marpa::R3;
 
 my $grammar = Marpa::R3::Grammar->new(
     {   start          => 'Expression',
@@ -81,7 +81,7 @@ my $value = $value_ref ? ${$value_ref} : 'No Parse';
 # Marpa::R3::Display
 # name: Engine Synopsis Ambiguous Parse
 
-use Marpa::R2;
+use Marpa::R3;
 
 my $ambiguous_grammar = Marpa::R3::Grammar->new(
     {   start   => 'E',

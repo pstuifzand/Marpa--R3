@@ -25,7 +25,7 @@ use lib 'inc';
 use Marpa::R3::Test;
 use English qw( -no_match_vars );
 use Fatal qw( close open );
-use Marpa::R2;
+use Marpa::R3;
 
 ## no critic (InputOutput::RequireBriefOpen)
 open my $original_stdout, q{>&STDOUT};

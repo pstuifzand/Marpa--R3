@@ -43,7 +43,7 @@ BEGIN {
     }
 } ## end BEGIN
 
-use Marpa::R2;
+use Marpa::R3;
 use Marpa::R3::Perl;
 use lib 'inc';
 use Marpa::R3::Test;

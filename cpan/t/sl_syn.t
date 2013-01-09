@@ -24,7 +24,7 @@ use Test::More tests => 21;
 use English qw( -no_match_vars );
 use lib 'inc';
 use Marpa::R3::Test;
-use Marpa::R2;
+use Marpa::R3;
 
 my $grammar = Marpa::R3::Scanless::G->new(
     {   action_object => 'My_Actions',

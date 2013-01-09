@@ -23,7 +23,7 @@ use List::Util qw(min);
 use Test::More tests => 7;
 use lib 'inc';
 use Marpa::R3::Test;
-use Marpa::R2;
+use Marpa::R3;
 
 sub find_match {
     my ($s) = @_;

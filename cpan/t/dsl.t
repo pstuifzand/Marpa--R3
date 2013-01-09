@@ -26,7 +26,7 @@ use English qw( -no_match_vars );
 use Test::More tests => 6;
 use lib 'inc';
 use Marpa::R3::Test;
-use Marpa::R2;
+use Marpa::R3;
 
 my $source = <<'END_OF_GRAMMAR';
 :start ::= script

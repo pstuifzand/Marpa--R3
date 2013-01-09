@@ -30,7 +30,7 @@ $DEBUG = 0;
 use Carp;
 use English qw( -no_match_vars );
 
-use Marpa::R2::Version;
+use Marpa::R3::Version;
 
 $Marpa::R2::USING_XS = 1;
 $Marpa::R2::USING_PP = 0;

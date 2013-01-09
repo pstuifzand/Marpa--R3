@@ -27,7 +27,7 @@ use Marpa::R3::Test;
 use Data::Dumper;
 use English qw( -no_match_vars );
 use Fatal qw( close open );
-use Marpa::R2;
+use Marpa::R3;
 
 # Regression test for bug originally found and documented
 # by Tomas Jirotka

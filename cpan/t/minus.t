@@ -23,7 +23,7 @@ use Test::More tests => 10;
 
 use lib 'inc';
 use Marpa::R3::Test;
-use Marpa::R2;
+use Marpa::R3;
 
 # The inefficiency (at least some of it) is deliberate.
 # Passing up a duples of [ string, value ] and then

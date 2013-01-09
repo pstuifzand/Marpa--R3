@@ -26,7 +26,7 @@ use warnings;
 use Test::More tests => 70;
 use lib 'inc';
 use Marpa::R3::Test;
-use Marpa::R2;
+use Marpa::R3;
 
 ## no critic (Subroutines::RequireArgUnpacking)
 

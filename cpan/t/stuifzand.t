@@ -26,7 +26,7 @@ use Marpa::R3::Test;
 
 ## no critic (ErrorHandling::RequireCarping);
 
-use Marpa::R2;
+use Marpa::R3;
 
 # Regression test of bug found by Andrew Rodland
 

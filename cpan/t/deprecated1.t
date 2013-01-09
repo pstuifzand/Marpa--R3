@@ -29,7 +29,7 @@ use lib 'inc';
 use Marpa::R3::Test;
 use English qw( -no_match_vars );
 use Fatal qw( close open );
-use Marpa::R2;
+use Marpa::R3;
 
 # Test the deprecated, zero-argument form
 # of the thin grammar constructor.

@@ -30,7 +30,7 @@ use Marpa::R3::Test;
 # Marpa::R3::Display
 # name: Scanless grammar synopsis
 
-use Marpa::R2;
+use Marpa::R3;
 
 my $grammar = Marpa::R3::Scanless::G->new(
     {   

@@ -25,7 +25,7 @@ use Test::More tests => 54;
 use English qw( -no_match_vars );
 use lib 'inc';
 use Marpa::R3::Test;
-use Marpa::R2;
+use Marpa::R3;
 
 my $source_template = <<'END_OF_SOURCE';
 :start       ::= Number

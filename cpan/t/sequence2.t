@@ -25,7 +25,7 @@ use Test::More tests => 3;
 
 use lib 'inc';
 use Marpa::R3::Test;
-use Marpa::R2;
+use Marpa::R3;
 
 sub do_sequence { shift; return 'seq(' .  ( join q{;}, @_ ) . ')' }
 sub do_item     { shift; return 'item(' . ( join q{;}, @_ ) . ')' }
