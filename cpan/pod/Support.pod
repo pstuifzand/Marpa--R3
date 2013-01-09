@@ -15,11 +15,11 @@
 
 =head1 NAME
 
-Marpa::R2::Support - Support, and how to report bugs
+Marpa::R3::Support - Support, and how to report bugs
 
 =head1 Description
 
-Marpa::R2 is free software.
+Marpa::R3 is free software.
 There is no warranty.
 
 =head1 Mailing list
@@ -31,7 +31,7 @@ L<https://groups.google.com/forum/?fromgroups#!forum/marpa-parser>.
 
 Please report any bugs or feature requests to
 C<bug-marpa-xs at rt.cpan.org>, or through the web interface at
-L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Marpa::R2>.
+L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Marpa::R3>.
 I will be notified, and then you'll automatically be notified of progress on
 your bug as I make changes.
 
@@ -42,7 +42,7 @@ You can find documentation for this module with the perldoc command.
 =for Marpa::R3::Display
 ignore: 1
 
-    perldoc Marpa::R2
+    perldoc Marpa::R3
 
 =for Marpa::R3::Display::End
 

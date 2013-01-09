@@ -15,19 +15,19 @@
 
 =head1 Name
 
-Marpa::R2::Scanless - Scanless interface
+Marpa::R3::Scanless - Scanless interface
 
 =head1 About this document
 
 This document is intended for readers already familiar with
-Marpa::R2's BNF (Stuifzand) interface.
+Marpa::R3's BNF (Stuifzand) interface.
 It is an introduction to Marpa's Scanless interface,
 dealing with the concepts behind the interface.
 The reference documentation for the
 scanless interface is in two separate documents,
-L<one dealing with scanless grammar objects|Marpa::R2::Scanless::G>
+L<one dealing with scanless grammar objects|Marpa::R3::Scanless::G>
 and
-L<one dealing with scanless recognizer objects|Marpa::R2::Scanless::R>.
+L<one dealing with scanless recognizer objects|Marpa::R3::Scanless::R>.
 
 =head1 The two levels of language description
 
@@ -199,7 +199,7 @@ interweaves the "split" and "unified" approaches
 and, I hope, preserves the best features of each.
 Here is full syntax of
 the example whitespace-and-digit language,
-described using Marpa::R2's scanless interface:
+described using Marpa::R3's scanless interface:
 
 =for Marpa::R3::Display
 name: Scanless concept example
@@ -299,7 +299,7 @@ same as for ordinary grammars.
 Actions may be specified for G1 rules and will
 behave in
 L<the same way as they do for
-ordinary grammars|Marpa::R2::Semantics>.
+ordinary grammars|Marpa::R3::Semantics>.
 
 =head1 Implementation
 

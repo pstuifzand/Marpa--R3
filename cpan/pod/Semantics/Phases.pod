@@ -15,7 +15,7 @@
 
 =head1 NAME
 
-Marpa::R2::Semantics::Phases - Details of parse evaluation
+Marpa::R3::Semantics::Phases - Details of parse evaluation
 
 =head1 Overview of the semantic phases
 
@@ -39,19 +39,19 @@ a series of zero or more parse trees,
 each with its own parse result.
 The first call to the
 L<the recognizer's C<value>
-method|Marpa::R2::Recognizer/"value">
+method|Marpa::R3::Recognizer/"value">
 after the recognizer is created is the
 start of the first parse series.
 The first parse series continues until there is
 a call to the
 L<the C<reset_evaluation>
-method|Marpa::R2::Recognizer/"reset_evaluation">
+method|Marpa::R3::Recognizer/"reset_evaluation">
 or until the recognizer is destroyed.
 Usually, an application is only interested in a single
 parse series.
 
 When the
-L<C<reset_evaluation>|Marpa::R2::Recognizer/"reset_evaluation">
+L<C<reset_evaluation>|Marpa::R3::Recognizer/"reset_evaluation">
 method
 is called
 for a recognizer, it begins a new parse series.
@@ -59,7 +59,7 @@ The new parse series continues until
 there is another
 call to the
 L<the C<reset_evaluation>
-method|Marpa::R2::Recognizer/"reset_evaluation">,
+method|Marpa::R3::Recognizer/"reset_evaluation">,
 or until the recognizer is destroyed.
 
 =head1 Summary of the phases

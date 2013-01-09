@@ -15,7 +15,7 @@
 
 =head1 NAME
 
-Marpa::R2::Semantics - How Marpa evaluates parses
+Marpa::R3::Semantics - How Marpa evaluates parses
 
 =head1 Synopsis
 
@@ -24,7 +24,7 @@ name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
 
-    my $grammar = Marpa::R2::Grammar->new(
+    my $grammar = Marpa::R3::Grammar->new(
         {   start          => 'Expression',
             actions        => 'My_Actions',
             default_action => 'first_arg',
@@ -135,9 +135,9 @@ B<resolved>.
 The action names are usually B<specified> with the grammar,
 but action B<resolution> takes place
 in the recognizer's
-L<C<value>|Marpa::R2::Recognizer/"value">
+L<C<value>|Marpa::R3::Recognizer/"value">
 and
-L<C<reset_evaluation>|Marpa::R2::Recognizer/"reset_evaluation">
+L<C<reset_evaluation>|Marpa::R3::Recognizer/"reset_evaluation">
 methods.
 This can sometimes be a source of confusion,
 because if a Perl closure is visible when the
@@ -220,7 +220,7 @@ the rule node has a "whatever" value.
 
 =head2 Sequence rule nodes
 
-Some rules are L<sequence rules|Marpa::R2::Grammar/"Sequence Rules">.
+Some rules are L<sequence rules|Marpa::R3::Grammar/"Sequence Rules">.
 Sequence rule nodes are also rule nodes.
 Everything said above about rule nodes
 applies to sequence rule nodes.
@@ -290,7 +290,7 @@ To fix the issue,
 the user can add an empty rule.
 For more details,
 see L<the document on
-null semantics|Marpa::R2::Semantics::Null>.
+null semantics|Marpa::R3::Semantics::Null>.
 
 =head1 Action context
 
@@ -300,14 +300,14 @@ normalize-whitespace: 1
 
     sub do_S {
         my ($action_object) = @_;
-        my $rule_id         = $Marpa::R2::Context::rule;
-        my $grammar         = $Marpa::R2::Context::grammar;
+        my $rule_id         = $Marpa::R3::Context::rule;
+        my $grammar         = $Marpa::R3::Context::grammar;
         my ( $lhs, @rhs ) = $grammar->rule($rule_id);
         $action_object->{text} =
               "rule $rule_id: $lhs ::= "
             . ( join q{ }, @rhs ) . "\n"
             . "locations: "
-            . ( join q{-}, Marpa::R2::Context::location() ) . "\n";
+            . ( join q{-}, Marpa::R3::Context::location() ) . "\n";
         return $action_object;
     } ## end sub do_S
 
@@ -320,16 +320,16 @@ to B<context variables>.
 
 =over
 
-=item * C<$Marpa::R2::Context::grammar> is set to
+=item * C<$Marpa::R3::Context::grammar> is set to
 the grammar being parsed.
 
-=item * C<$Marpa::R2::Context::rule> is the ID of the
+=item * C<$Marpa::R3::Context::rule> is the ID of the
 current rule.
 Given the rule ID, an application can find
 its LHS and RHS symbols using
-L<the grammar's C<rule()> method|Marpa::R2::Grammar/"rule">.
+L<the grammar's C<rule()> method|Marpa::R3::Grammar/"rule">.
 
-=item * C<Marpa::R2::Context::location()> returns the start
+=item * C<Marpa::R3::Context::location()> returns the start
 and end locations of the current rule.
 
 =back
@@ -344,17 +344,17 @@ normalize-whitespace: 1
 
     sub do_bail_with_message_if_A {
         my ($action_object, $terminal) = @_;
-        Marpa::R2::Context::bail($bail_message) if $terminal eq 'A';
+        Marpa::R3::Context::bail($bail_message) if $terminal eq 'A';
     }
 
     sub do_bail_with_object_if_A {
         my ($action_object, $terminal) = @_;
-        Marpa::R2::Context::bail([$bail_message]) if $terminal eq 'A';
+        Marpa::R3::Context::bail([$bail_message]) if $terminal eq 'A';
     }
 
 =for Marpa::R3::Display::End
 
-The C<Marpa::R2::Context::bail()> static method is used to
+The C<Marpa::R3::Context::bail()> static method is used to
 "bail out" of the evaluation of a parse tree.
 It will cause an exception to be thrown.
 If its first and only argument is a reference,
@@ -364,7 +364,7 @@ by converting the method's arguments to strings,
 concatenating them,
 and prepending them with a message indicating
 the file and line number at which the
-C<Marpa::R2::Context::bail()> method was called.
+C<Marpa::R3::Context::bail()> method was called.
 
 =head1 Parse trees, parse results and parse series
 
@@ -376,19 +376,19 @@ a series of zero or more parse trees,
 each with its own parse result.
 The first call to the
 L<the recognizer's C<value>
-method|Marpa::R2::Recognizer/"value">
+method|Marpa::R3::Recognizer/"value">
 after the recognizer is created is the
 start of the first parse series.
 The first parse series continues until there is
 a call to the
 L<the C<reset_evaluation>
-method|Marpa::R2::Recognizer/"reset_evaluation">
+method|Marpa::R3::Recognizer/"reset_evaluation">
 or until the recognizer is destroyed.
 Usually, an application is only interested in a single
 parse series.
 
 When the
-L<C<reset_evaluation>|Marpa::R2::Recognizer/"reset_evaluation">
+L<C<reset_evaluation>|Marpa::R3::Recognizer/"reset_evaluation">
 method
 is called
 for a recognizer, it begins a new parse series.
@@ -396,13 +396,13 @@ The new parse series continues until
 there is another
 call to the
 L<the C<reset_evaluation>
-method|Marpa::R2::Recognizer/"reset_evaluation">,
+method|Marpa::R3::Recognizer/"reset_evaluation">,
 or until the recognizer is destroyed.
 
 Most applications will find that the order in which
 Marpa executes its semantics "just works".
 L<A separate
-document|Marpa::R2::Semantics::Phases>
+document|Marpa::R3::Semantics::Phases>
 describes that order
 in detail.
 The details can matter in some applications,
@@ -635,7 +635,7 @@ with no duplication.
 By default, the order is arbitrary, but
 it is also possible to control the order.
 Details are in L<the document
-on parse order|Marpa::R2::Semantics::Order>.
+on parse order|Marpa::R3::Semantics::Order>.
 
 =head1 Infinite loops
 
@@ -655,7 +655,7 @@ the values from the grammar's
 cycle-free parses.
 For those who want to know more,
 the details are in a L<separate
-document|Marpa::R2::Semantics::Infinite>.
+document|Marpa::R3::Semantics::Infinite>.
 
 =head1 Copyright and License
 

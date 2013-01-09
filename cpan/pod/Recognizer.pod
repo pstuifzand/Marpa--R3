@@ -15,7 +15,7 @@
 
 =head1 NAME
 
-Marpa::R2::Recognizer - Marpa recognizers
+Marpa::R3::Recognizer - Marpa recognizers
 
 =head1 Synopsis
 
@@ -24,7 +24,7 @@ name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
 
-    my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+    my $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
     $recce->read( 'Number', 42 );
     $recce->read('Multiply');
     $recce->read( 'Number', 1 );
@@ -56,7 +56,7 @@ This document will describe only the token-stream model of input.
 Marpa allows other models of the input, but their use
 requires special method calls,
 which are described in L<the
-document on alternative input models|Marpa::R2::Advanced::Models>.
+document on alternative input models|Marpa::R3::Advanced::Models>.
 
 =head1 Constructor
 
@@ -67,7 +67,7 @@ name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
 
-    my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+    my $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
 
 =for Marpa::R3::Display::End
 
@@ -168,7 +168,7 @@ Given the location (Earley set ID) as its argument,
 returns an array that describes the parse progress
 at that location.
 Details on progress reports can be found in
-L<their own document|Marpa::R2::Progress>.
+L<their own document|Marpa::R3::Progress>.
 
 =head2 terminals_expected()
 
@@ -245,7 +245,7 @@ Here "whatever" means the value may vary from instance
 to instance,
 and cannot be relied on in any way.
 For details about terminal symbols,
-see L<Marpa::R2::Grammar/"Terminals">.
+see L<Marpa::R3::Grammar/"Terminals">.
 
 The parser may accept or reject the token.
 If the parser accepted the token,
@@ -416,7 +416,7 @@ A much fuller description,
 with an example,
 is in
 L<the document on debugging Marpa
-grammars|Marpa::R2::Progress>.
+grammars|Marpa::R3::Progress>.
 
 =head1 Named arguments
 
@@ -446,7 +446,7 @@ the C<closures> named argument is to
 allow anonymous
 subroutines to be semantic actions.
 For more details, see L<the document on
-semantics|Marpa::R2::Semantics>.
+semantics|Marpa::R3::Semantics>.
 
 =head2 end
 
@@ -522,7 +522,7 @@ in which parse results are returned by
 the C<value> method,
 and to exclude some parse results from the parse series.
 For details, see L<the document
-on parse order|Marpa::R2::Semantics::Order>.
+on parse order|Marpa::R3::Semantics::Order>.
 
 =head2 too_many_earley_items
 
@@ -670,7 +670,7 @@ name: Engine Synopsis Interactive Parse
 partial: 1
 normalize-whitespace: 1
 
-    $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+    $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
 
     my @tokens = (
         [ 'Number', 42 ],

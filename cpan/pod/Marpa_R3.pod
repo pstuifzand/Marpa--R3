@@ -15,7 +15,7 @@
 
 =head1 NAME
 
-Marpa::R2 - Release 2 of Marpa
+Marpa::R3 - Release 2 of Marpa
 
 =head1 Synopsis
 
@@ -23,9 +23,9 @@ Marpa::R2 - Release 2 of Marpa
 name: Engine Synopsis Unambiguous Parse
 normalize-whitespace: 1
 
-    use Marpa::R2;
+    use Marpa::R3;
 
-    my $grammar = Marpa::R2::Grammar->new(
+    my $grammar = Marpa::R3::Grammar->new(
         {   start   => 'Expression',
             actions => 'My_Actions',
             default_action => 'first_arg',
@@ -44,7 +44,7 @@ normalize-whitespace: 1
 
     $grammar->precompute();
 
-    my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+    my $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
 
     $recce->read( 'Number', 42 );
     $recce->read('Multiply');
@@ -107,10 +107,10 @@ according to a semantics.
 In Marpa these three tasks
 are, for the most part, distinct phases.
 Grammars are
-L<C<Marpa::R2::Grammar>|Marpa::R2::Grammar> objects.
+L<C<Marpa::R3::Grammar>|Marpa::R3::Grammar> objects.
 The reading of input and the evaluation of the parse
 according to the semantics is performed by
-L<C<Marpa::R2::Recognizer>|Marpa::R2::Recognizer> objects.
+L<C<Marpa::R3::Recognizer>|Marpa::R3::Recognizer> objects.
 
 =head1 Example 1: a simple calculator
 
@@ -119,14 +119,14 @@ It handles only
 addition and multiplication of integers.
 This section explains, line by line, how it works.
 
-=head2 Marpa::R2::Grammar::new
+=head2 Marpa::R3::Grammar::new
 
 =for Marpa::R3::Display
 name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
 
-    my $grammar = Marpa::R2::Grammar->new(
+    my $grammar = Marpa::R3::Grammar->new(
         {   start   => 'Expression',
             actions => 'My_Actions',
             default_action => 'first_arg',
@@ -146,13 +146,13 @@ normalize-whitespace: 1
 =for Marpa::R3::Display::End
 
 Marpa grammars are
-L<C<Marpa::R2::Grammar>|Marpa::R2::Grammar> objects.
+L<C<Marpa::R3::Grammar>|Marpa::R3::Grammar> objects.
 They are created
 with the
-L<Marpa::R2::Grammar::new|Marpa::R2::Grammar/"new">
+L<Marpa::R3::Grammar::new|Marpa::R3::Grammar/"new">
 constructor.
 The arguments to
-L<Marpa::R2::Grammar::new|Marpa::R2::Grammar/"new">
+L<Marpa::R3::Grammar::new|Marpa::R3::Grammar/"new">
 are references to
 hashes of named arguments.
 In the key/value pairs of these hashes,
@@ -268,7 +268,7 @@ to a Perl closure that
 implements
 the rule's semantics.
 
-=head2 Marpa::R2::Grammar::precompute
+=head2 Marpa::R3::Grammar::precompute
 
 =for Marpa::R3::Display
 name: Engine Synopsis Unambiguous Parse
@@ -283,18 +283,18 @@ Before a Marpa grammar object can be used by a Marpa recognizer,
 it must be B<precomputed>.
 Precomputation compiles data structures that the recognizer will need.
 
-=head2 Marpa::R2::Recognizer::new
+=head2 Marpa::R3::Recognizer::new
 
 =for Marpa::R3::Display
 name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
 
-    my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+    my $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
 
 =for Marpa::R3::Display::End
 
-C<Marpa::R2::Recognizer::new> creates a new recognizer.
+C<Marpa::R3::Recognizer::new> creates a new recognizer.
 Its arguments are references to hashes of named arguments.
 In this example the only named argument is
 the required argument: "C<grammar>".
@@ -303,7 +303,7 @@ C<grammar>
 named argument must be a precomputed Marpa
 grammar.
 
-=head2 Marpa::R2::Recognizer::read
+=head2 Marpa::R3::Recognizer::read
 
 =for Marpa::R3::Display
 name: Engine Synopsis Unambiguous Parse
@@ -318,7 +318,7 @@ normalize-whitespace: 1
 
 =for Marpa::R3::Display::End
 
-The C<Marpa::R2::Recognizer::read> method takes two arguments,
+The C<Marpa::R3::Recognizer::read> method takes two arguments,
 a B<token name> and a B<token value>.
 The token name must be the name
 of a valid terminal symbol in the grammar.
@@ -337,7 +337,7 @@ In the calculator example, the values of the
 and "C<Multiply>" tokens are never used,
 and are allowed to default to a "whatever" value.
 
-=head2 Marpa::R2::Recognizer::value
+=head2 Marpa::R3::Recognizer::value
 
 =for Marpa::R3::Display
 name: Engine Synopsis Unambiguous Parse
@@ -349,17 +349,17 @@ normalize-whitespace: 1
 
 =for Marpa::R3::Display::End
 
-The C<Marpa::R2::Recognizer::value> method returns
+The C<Marpa::R3::Recognizer::value> method returns
 a reference to the parse result's value,
 if there was a parse result.
 If there was no parse result,
-C<Marpa::R2::Recognizer::value>
+C<Marpa::R3::Recognizer::value>
 returns
 C<undef>.
 
 =head2 Resolving the semantics
 
-The first thing C<Marpa::R2::Recognizer::value> needs to do is
+The first thing C<Marpa::R3::Recognizer::value> needs to do is
 to resolve the semantics.
 B<Resolving the semantics> means
 mapping the action names into actions.
@@ -521,9 +521,9 @@ to return every one of the parse results.
 name: Engine Synopsis Ambiguous Parse
 normalize-whitespace: 1
 
-    use Marpa::R2;
+    use Marpa::R3;
 
-    my $ambiguous_grammar = Marpa::R2::Grammar->new(
+    my $ambiguous_grammar = Marpa::R3::Grammar->new(
         {   start   => 'E',
             actions => 'My_Actions',
             rules   => [
@@ -538,7 +538,7 @@ normalize-whitespace: 1
     $ambiguous_grammar->precompute();
 
     my $ambiguous_recce =
-        Marpa::R2::Recognizer->new( { grammar => $ambiguous_grammar } );
+        Marpa::R3::Recognizer->new( { grammar => $ambiguous_grammar } );
 
     $ambiguous_recce->read( 'Number', 42 );
     $ambiguous_recce->read('Multiply');
@@ -577,7 +577,7 @@ the C<lhs> property,
 the C<rhs> property,
 and the C<action> property.
 
-=head2 Marpa::R2::Recognizer::value
+=head2 Marpa::R3::Recognizer::value
 
 =for Marpa::R3::Display
 name: Engine Synopsis Ambiguous Parse
@@ -592,14 +592,14 @@ normalize-whitespace: 1
 =for Marpa::R3::Display::End
 
 When called more than once,
-the C<Marpa::R2::Recognizer::value> method iterates through the parse results.
+the C<Marpa::R3::Recognizer::value> method iterates through the parse results.
 For each call,
 it returns a reference to the parse result.
 At the end of the iteration, after
 all parse results have been returned,
-C<Marpa::R2::Recognizer::value> returns C<undef>.
+C<Marpa::R3::Recognizer::value> returns C<undef>.
 If there were no parse results,
-C<Marpa::R2::Recognizer::value> returns C<undef> the first
+C<Marpa::R3::Recognizer::value> returns C<undef> the first
 time that it is called.
 
 =head1 Errors and exceptions
@@ -633,24 +633,24 @@ DBI, LWP and Moose.
 This document gives a semi-tutorial overview of the entire Marpa API.
 For full details on Marpa's grammar objects and their methods,
 see the
-L<Marpa::R2::Grammar> document.
+L<Marpa::R3::Grammar> document.
 For full details on Marpa's recognizer objects and their methods,
 see the
-L<Marpa::R2::Recognizer> document.
+L<Marpa::R3::Recognizer> document.
 
-L<Marpa::R2::Vocabulary> is intended as a quick refresher in
+L<Marpa::R3::Vocabulary> is intended as a quick refresher in
 parsing terminology,
 emphasizing how the standard terms are used
 in the Marpa context.
 Marpa's standard semantics are fully described in the
-L<Marpa::R2::Semantics> document.
+L<Marpa::R3::Semantics> document.
 Techniques for tracing and for debugging your Marpa grammars
 are described in the
-L<Marpa::R2::Tracing> document and the
-L<Marpa::R2::Progress> document.
+L<Marpa::R3::Tracing> document and the
+L<Marpa::R3::Progress> document.
 For those with a theoretical bent,
 my sources, and other useful references, are described in
-L<Marpa::R2::Advanced::Bibliography>.
+L<Marpa::R3::Advanced::Bibliography>.
 
 =head1 Author
 
@@ -680,11 +680,11 @@ L<http://www.amazon.com/God-Proof-Jeffrey-Kegler/dp/1434807355>.
 
 =head1 Support
 
-L<Marpa::R2> comes without warranty.
+L<Marpa::R3> comes without warranty.
 Support is provided
 on a volunteer basis
 through the standard mechanisms for CPAN modules.
-L<The Support document|Marpa::R2::Support> has details.
+L<The Support document|Marpa::R3::Support> has details.
 
 =head1 Copyright and License
 

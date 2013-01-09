@@ -15,7 +15,7 @@
 
 =head1 Name
 
-Marpa::R2::Scanless::G - Scanless interface grammars
+Marpa::R3::Scanless::G - Scanless interface grammars
 
 =head1 Synopsis
 
@@ -24,7 +24,7 @@ name: Scanless grammar synopsis
 partial: 1
 normalize-whitespace: 1
 
-    my $grammar = Marpa::R2::Scanless::G->new(
+    my $grammar = Marpa::R3::Scanless::G->new(
         {   
             action_object  => 'My_Actions',
             default_action => 'do_first_arg',
@@ -75,13 +75,13 @@ The following named arguments are allowed:
 
 Specifies the C<action_object> named argument that
 will be used for the G1 grammar.
-For details, see L<Marpa::R2::Grammar/"action_object">.
+For details, see L<Marpa::R3::Grammar/"action_object">.
 
 =head2 default_action
 
 Specifies the C<default_action> named argument that
 will be used for the G1 grammar.
-For details, see L<Marpa::R2::Grammar/"default_action">.
+For details, see L<Marpa::R3::Grammar/"default_action">.
 
 =head2 source
 
@@ -110,8 +110,8 @@ normalize-whitespace: 1
 =for Marpa::R3::Display::End
 
 The C<show_rules()> method is the equivalent of
-calling L<Marpa::R2::Grammar's show_rules()
-method|Marpa::R2::Grammar/"show_rules()">
+calling L<Marpa::R3::Grammar's show_rules()
+method|Marpa::R3::Grammar/"show_rules()">
 for both the G0 and G1 grammars.
 It is useful for showing the rules as they will
 appear in trace and debugging outputs.
@@ -121,7 +121,7 @@ appear in trace and debugging outputs.
 The format of
 Scanless source strings is
 L<that of
-BNF source strings|Marpa::R2::BNF>,
+BNF source strings|Marpa::R3::BNF>,
 with the following changes
 and extensions:
 

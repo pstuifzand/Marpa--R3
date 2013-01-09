@@ -15,7 +15,7 @@
 
 =head1 NAME
 
-Marpa::R2::Advanced::Thin - Direct access to Libmarpa
+Marpa::R3::Advanced::Thin - Direct access to Libmarpa
 
 =head1 About this document
 
@@ -41,7 +41,7 @@ and is willing to go to some extra effort.
 =head1 How this document is written
 
 This document assumes that the reader is familiar with
-the other Marpa::R2 documentation,
+the other Marpa::R3 documentation,
 as well as with the Libmarpa API document.
 This means its reader will have to know some C language --
 at least enough to understand a discussion
@@ -160,13 +160,13 @@ C<c>, C<g>, C<r>, C<b>, C<o>, C<t> and C<v>.
 =for Marpa::R3::Display
 ignore: 1
 
-    Marpa_Config        Marpa::R2::Thin::C
-    Marpa_Grammar       Marpa::R2::Thin::G
-    Marpa_Recognizer    Marpa::R2::Thin::R
-    Marpa_Bocage        Marpa::R2::Thin::B
-    Marpa_Ordering      Marpa::R2::Thin::O
-    Marpa_Tree          Marpa::R2::Thin::T
-    Marpa_Value         Marpa::R2::Thin::V
+    Marpa_Config        Marpa::R3::Thin::C
+    Marpa_Grammar       Marpa::R3::Thin::G
+    Marpa_Recognizer    Marpa::R3::Thin::R
+    Marpa_Bocage        Marpa::R3::Thin::B
+    Marpa_Ordering      Marpa::R3::Thin::O
+    Marpa_Tree          Marpa::R3::Thin::T
+    Marpa_Value         Marpa::R3::Thin::V
 
 =for Marpa::R3::Display::End
 
@@ -201,7 +201,7 @@ name: Thin example
 partial: 1
 normalize-whitespace: 1
 
-    my $recce = Marpa::R2::Thin::R->new($grammar);
+    my $recce = Marpa::R3::Thin::R->new($grammar);
 
 =for Marpa::R3::Display::End
 
@@ -258,7 +258,7 @@ controls the throw setting, so that a problem with them
 suggests the throw setting itself may not be correct.
 The methods which never obey the throw setting,
 are
-L<< C<< Marpa::R2::Thin::G->new() >>|"Marpa::R2::Thin::G->new()" >>,
+L<< C<< Marpa::R3::Thin::G->new() >>|"Marpa::R3::Thin::G->new()" >>,
 L<< C<throw_set()>|"$g->throw_set()" >>
 and L<< C<ruby_slippers_set()>|"$r->ruby_slippers_set()" >>.
 These methods throw all failures.
@@ -465,7 +465,7 @@ to the time class
 of the Libmarpa method.
 For example, C<< $g->start_symbol_set() >>
 will be in
-the C<Marpa::R2::Thin:G> Perl class.
+the C<Marpa::R3::Thin:G> Perl class.
 
 =head2 Arguments
 
@@ -571,7 +571,7 @@ name: Thin grammar error methods
 normalize-whitespace: 1
 
     my ( $error_code, $error_description ) = $grammar->error();
-    my @error_names = Marpa::R2::Thin::error_names();
+    my @error_names = Marpa::R3::Thin::error_names();
     my $error_name = $error_names[$error_code];
 
 =for Marpa::R3::Display::End
@@ -631,14 +631,14 @@ class are omitted in the Marpa thin interface.
 
 =head1 Grammar methods
 
-=head2 C<< Marpa::R2::Thin::G->new() >>
+=head2 C<< Marpa::R3::Thin::G->new() >>
 
 =for Marpa::R3::Display
 name: Thin example
 partial: 1
 normalize-whitespace: 1
 
-    my $grammar = Marpa::R2::Thin::G->new( { if => 1 } );
+    my $grammar = Marpa::R3::Thin::G->new( { if => 1 } );
 
 =for Marpa::R3::Display::End
 
@@ -908,14 +908,14 @@ L<above|"The general pattern">.
 
 =head1 Recognizer methods
 
-=head2 C<< Marpa::R2::Thin::R->new() >>
+=head2 C<< Marpa::R3::Thin::R->new() >>
 
 =for Marpa::R3::Display
 name: Thin example
 partial: 1
 normalize-whitespace: 1
 
-    my $recce = Marpa::R2::Thin::R->new($grammar);
+    my $recce = Marpa::R3::Thin::R->new($grammar);
 
 =for Marpa::R3::Display::End
 
@@ -941,7 +941,7 @@ An argument of 0 disables "Ruby Slippers" mode.
 By default, 
 Ruby Slippers mode is disabled.
 Note that this default (disabled) is
-the opposite of that in the higher level L<Marpa::R2> interface.
+the opposite of that in the higher level L<Marpa::R3> interface.
 
 The L<< C<alternative()>
 method|"$r->alternative()" >>
@@ -1067,7 +1067,7 @@ L<above|"The general pattern">.
 
 =head1 Bocage methods
 
-=head2 C<< Marpa::R2::Thin::B->new() >>
+=head2 C<< Marpa::R3::Thin::B->new() >>
 
 =for Marpa::R3::Display
 name: Thin example
@@ -1075,7 +1075,7 @@ partial: 1
 normalize-whitespace: 1
 
     my $latest_earley_set_ID = $recce->latest_earley_set();
-    my $bocage = Marpa::R2::Thin::B->new( $recce, $latest_earley_set_ID );
+    my $bocage = Marpa::R3::Thin::B->new( $recce, $latest_earley_set_ID );
 
 =for Marpa::R3::Display::End
 
@@ -1104,14 +1104,14 @@ L<above|"The general pattern">.
 
 =head1 Ordering methods
 
-=head2 C<< Marpa::R2::Thin::O->new() >>
+=head2 C<< Marpa::R3::Thin::O->new() >>
 
 =for Marpa::R3::Display
 name: Thin example
 partial: 1
 normalize-whitespace: 1
 
-    my $order = Marpa::R2::Thin::O->new($bocage);
+    my $order = Marpa::R3::Thin::O->new($bocage);
 
 =for Marpa::R3::Display::End
 
@@ -1140,14 +1140,14 @@ L<above|"The general pattern">.
 
 =head1 Tree methods
 
-=head2 C<< Marpa::R2::Thin::T->new() >>
+=head2 C<< Marpa::R3::Thin::T->new() >>
 
 =for Marpa::R3::Display
 name: Thin example
 partial: 1
 normalize-whitespace: 1
 
-    my $tree = Marpa::R2::Thin::T->new($order);
+    my $tree = Marpa::R3::Thin::T->new($order);
 
 =for Marpa::R3::Display::End
 
@@ -1176,14 +1176,14 @@ L<above|"The general pattern">.
 
 =head1 Value methods
 
-=head2 C<< Marpa::R2::Thin::V->new() >>
+=head2 C<< Marpa::R3::Thin::V->new() >>
 
 =for Marpa::R3::Display
 name: Thin example
 partial: 1
 normalize-whitespace: 1
 
-    my $valuator = Marpa::R2::Thin::V->new($tree);
+    my $valuator = Marpa::R3::Thin::V->new($tree);
 
 =for Marpa::R3::Display::End
 
@@ -1454,7 +1454,7 @@ L<above|"The general pattern">.
 name: Thin example
 normalize-whitespace: 1
 
-    my $grammar = Marpa::R2::Thin::G->new( { if => 1 } );
+    my $grammar = Marpa::R3::Thin::G->new( { if => 1 } );
     my $symbol_S = $grammar->symbol_new();
     my $symbol_E = $grammar->symbol_new();
     $grammar->start_symbol_set($symbol_S);
@@ -1466,7 +1466,7 @@ normalize-whitespace: 1
     my $number_rule_id = $grammar->rule_new( $symbol_E, [$symbol_number] );
     $grammar->precompute();
 
-    my $recce = Marpa::R2::Thin::R->new($grammar);
+    my $recce = Marpa::R3::Thin::R->new($grammar);
     $recce->start_input();
 
     # The numbers from 1 to 3 are themselves --
@@ -1495,12 +1495,12 @@ normalize-whitespace: 1
     $recce->earleme_complete();
 
     my $latest_earley_set_ID = $recce->latest_earley_set();
-    my $bocage        = Marpa::R2::Thin::B->new( $recce, $latest_earley_set_ID );
-    my $order         = Marpa::R2::Thin::O->new($bocage);
-    my $tree          = Marpa::R2::Thin::T->new($order);
+    my $bocage        = Marpa::R3::Thin::B->new( $recce, $latest_earley_set_ID );
+    my $order         = Marpa::R3::Thin::O->new($bocage);
+    my $tree          = Marpa::R3::Thin::T->new($order);
     my @actual_values = ();
     while ( $tree->next() ) {
-        my $valuator = Marpa::R2::Thin::V->new($tree);
+        my $valuator = Marpa::R3::Thin::V->new($tree);
         $valuator->rule_is_valued_set( $op_rule_id,     1 );
         $valuator->rule_is_valued_set( $start_rule_id,  1 );
         $valuator->rule_is_valued_set( $number_rule_id, 1 );

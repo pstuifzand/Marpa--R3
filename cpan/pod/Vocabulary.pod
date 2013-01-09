@@ -15,7 +15,7 @@
 
 =head1 NAME
 
-Marpa::R2::Vocabulary - Standard parsing terms as used within Marpa
+Marpa::R3::Vocabulary - Standard parsing terms as used within Marpa
 
 =head1 Description
 
@@ -38,9 +38,9 @@ terse to act as a textbook or tutorial.
 They will need to look elsewhere first.
 As an introduction, I recommend
 L<Mark Jason Dominus's
-excellent chapter on parsing in the Perl context|Marpa::R2::Advanced::Bibliography/"Dominus 2005">.
+excellent chapter on parsing in the Perl context|Marpa::R3::Advanced::Bibliography/"Dominus 2005">.
 It's available on-line.
-L<Wikipedia|Marpa::R2::Advanced::Bibliography/"Wikipedia"> is also an excellent place to start.
+L<Wikipedia|Marpa::R3::Advanced::Bibliography/"Wikipedia"> is also an excellent place to start.
 
 =head2 Basic
 
@@ -107,7 +107,7 @@ These are new to Marpa, so that their terminology is
 of necessity non-standard.
 The terminology needed for alternative input models
 is explained in L<the document that introduces
-them|Marpa::R2::Advanced::Models>.
+them|Marpa::R3::Advanced::Models>.
 
 =head2 Rules
 

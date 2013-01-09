@@ -15,7 +15,7 @@
 
 =head1 NAME
 
-Marpa::R2::Semantics::Null - How Marpa evaluates null rules and symbols
+Marpa::R3::Semantics::Null - How Marpa evaluates null rules and symbols
 
 =head1 Overview
 
@@ -33,7 +33,7 @@ called a B<null parse>.
 
 When evaluating a parse, nulled rules and symbols are
 assigned values as described
-L<in the semantics document|Marpa::R2::Semantics>.
+L<in the semantics document|Marpa::R3::Semantics>.
 This document provides additional detail on the assignment
 of values to nulled symbols.
 
@@ -123,7 +123,7 @@ perltidy: '-dcsc -sil=0'
     our $null_Y = 'null Y';
     ## use critic
 
-    my $grammar = Marpa::R2::Grammar->new(
+    my $grammar = Marpa::R3::Grammar->new(
         {   start   => 'S',
             actions => 'main',
             rules   => [
@@ -144,7 +144,7 @@ perltidy: '-dcsc -sil=0'
 
     $grammar->precompute();
 
-    my $recce = Marpa::R2::Recognizer->new( { grammar => $grammar } );
+    my $recce = Marpa::R3::Recognizer->new( { grammar => $grammar } );
 
     $recce->read( 'x', 'x' );
 

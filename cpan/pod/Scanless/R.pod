@@ -15,7 +15,7 @@
 
 =head1 Name
 
-Marpa::R2::Scanless::R - Scanless interface recognizers
+Marpa::R3::Scanless::R - Scanless interface recognizers
 
 =head1 Synopsis
 
@@ -24,7 +24,7 @@ name: Scanless recognizer synopsis
 partial: 1
 normalize-whitespace: 1
 
-    my $recce = Marpa::R2::Scanless::R->new( { grammar => $grammar } );
+    my $recce = Marpa::R3::Scanless::R->new( { grammar => $grammar } );
     my $self = bless { grammar => $grammar }, 'My_Actions';
     $self->{recce} = $recce;
     local $My_Actions::SELF = $self;
@@ -95,7 +95,7 @@ name: Scanless recognizer synopsis
 partial: 1
 normalize-whitespace: 1
 
-    my $recce = Marpa::R2::Scanless::R->new( { grammar => $grammar } );
+    my $recce = Marpa::R3::Scanless::R->new( { grammar => $grammar } );
 
 =for Marpa::R3::Display::End
 
@@ -124,7 +124,7 @@ but it is also very helpful for tracing the G1 parser.
 
 This named argument is passed on
 to the G1 recognizer.
-See L<Marpa::R2::Recognizer/"trace_values">
+See L<Marpa::R3::Recognizer/"trace_values">
 
 =head2 trace_file_handle
 
@@ -199,7 +199,7 @@ normalize-whitespace: 1
 
 Has the same effect as a C<show_progress()> call
 on the G1 recognizer.
-See L<Marpa::R2::Recognizer/"show_progress()">.
+See L<Marpa::R3::Recognizer/"show_progress()">.
 
 =head2 value()
 
@@ -214,7 +214,7 @@ normalize-whitespace: 1
 
 Has the same effect as a C<value()> call
 on the G1 recognizer.
-See L<Marpa::R2::Recognizer/"value()">.
+See L<Marpa::R3::Recognizer/"value()">.
 
 =head1 Copyright and License
 

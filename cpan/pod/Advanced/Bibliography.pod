@@ -15,7 +15,7 @@
 
 =head1 NAME
 
-Marpa::R2::Advanced::Bibliography - A Marpa bibliography
+Marpa::R3::Advanced::Bibliography - A Marpa bibliography
 
 =head1 History of the Marpa algorithm
 

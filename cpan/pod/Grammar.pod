@@ -15,7 +15,7 @@
 
 =head1 NAME
 
-Marpa::R2::Grammar - Marpa grammars
+Marpa::R3::Grammar - Marpa grammars
 
 =head1 Synopsis
 
@@ -24,7 +24,7 @@ name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
 
-    my $grammar = Marpa::R2::Grammar->new(
+    my $grammar = Marpa::R3::Grammar->new(
         {   start   => 'Expression',
             actions => 'My_Actions',
             default_action => 'first_arg',
@@ -108,7 +108,7 @@ As of this writing,
 the maximum number of repetitions is always infinite.
 
 =for Marpa::R3::Display
-name: Marpa::R2::Grammar min 0 sequence example
+name: Marpa::R3::Grammar min 0 sequence example
 partial: 1
 normalize-whitespace: 1
 
@@ -122,7 +122,7 @@ This is the equivalent of using the star quantifier
 standard regular expression notation.
 
 =for Marpa::R3::Display
-name: Marpa::R2::Grammar min 1 sequence example
+name: Marpa::R3::Grammar min 1 sequence example
 partial: 1
 normalize-whitespace: 1
 
@@ -165,7 +165,7 @@ a single Perl closure often results in
 simpler and more
 natural code.
 See L<the section on sequences in the semantics
-document|Marpa::R2::Semantics/"Sequence Rule Nodes">.
+document|Marpa::R3::Semantics/"Sequence Rule Nodes">.
 
 =head3 Caveats
 
@@ -188,7 +188,7 @@ Of course, applications will often want to repeat sequences of multiple symbols.
 That is easy to do indirectly:
 
 =for Marpa::R3::Display
-name: Marpa::R2::Grammar multipart rhs sequence example
+name: Marpa::R3::Grammar multipart rhs sequence example
 partial: 1
 normalize-whitespace: 1
 
@@ -206,7 +206,7 @@ name: Engine Synopsis Unambiguous Parse
 partial: 1
 normalize-whitespace: 1
 
-    my $grammar = Marpa::R2::Grammar->new(
+    my $grammar = Marpa::R3::Grammar->new(
         {   start   => 'Expression',
             actions => 'My_Actions',
             default_action => 'first_arg',
@@ -225,10 +225,10 @@ normalize-whitespace: 1
 
 =for Marpa::R3::Display::End
 
-C<Marpa::R2::Grammar::new>
+C<Marpa::R3::Grammar::new>
 returns a new Marpa grammar object or throws an exception.
 The arguments to
-C<Marpa::R2::Grammar::new> are
+C<Marpa::R3::Grammar::new> are
 references to hashes of named arguments.
 In each key/value pair of this hash,
 the hash key is the argument name
@@ -304,7 +304,7 @@ RHS symbols in order.
 Situations where
 Rule ID's are encountered include
 callbacks and
-use of L<the progress method|Marpa::R2::Progress/progress()>.
+use of L<the progress method|Marpa::R3::Progress/progress()>.
 
 =head2 rule_ids()
 
@@ -320,7 +320,7 @@ Returns an array containing the valid rule IDs.
 Situations where
 Rule ID's are encountered include
 callbacks and
-use of L<the progress method|Marpa::R2::Progress/progress()>.
+use of L<the progress method|Marpa::R3::Progress/progress()>.
 
 =head1 Trace accessors
 
@@ -431,7 +431,7 @@ The per-parse-tree variable is passed
 to rule evaluation closures,
 as their first argument.
 Details are in
-L<the document on semantics|Marpa::R2::Semantics>.
+L<the document on semantics|Marpa::R3::Semantics>.
 
 =head2 actions
 
@@ -457,7 +457,7 @@ The C<actions> package is treated only as a package,
 and not as a class.
 Any C<new> constructor in the C<actions> package is ignored.
 Details are given in
-L<the document on semantics|Marpa::R2::Semantics>.
+L<the document on semantics|Marpa::R3::Semantics>.
 
 =head2 default_action
 
@@ -474,7 +474,7 @@ The C<default_action> named argument specifies
 the value action name
 for rules without an L<C<action> property|/"action">.
 Details are given in
-L<the document on semantics|Marpa::R2::Semantics>.
+L<the document on semantics|Marpa::R3::Semantics>.
 
 =head2 default_empty_action
 
@@ -482,7 +482,7 @@ The C<default_empty_action> named argument specifies
 the action for empty (zero length) rules
 which have no action specified explicitly.
 Details are given in
-L<the document on semantics|Marpa::R2::Semantics>.
+L<the document on semantics|Marpa::R3::Semantics>.
 
 =head2 inaccessible_ok
 
@@ -550,7 +550,7 @@ The value of the
 C<source> named argument is a reference to string
 that contains a description of the grammar in BNF format.
 The format of this string is described in
-L<the document on the BNF format|Marpa::R2::BNF>.
+L<the document on the BNF format|Marpa::R3::BNF>.
 The C<source> named argument may only be specified once,
 and it cannot be used together with the C<rules>
 named argument.
@@ -667,7 +667,7 @@ that property.
 The value of the C<action> rule property is a string which
 specifies the semantics for the rule.
 For details, see
-L<the document on semantics|Marpa::R2::Semantics>.
+L<the document on semantics|Marpa::R3::Semantics>.
 
 The semantics of nulling symbols are dealt with on a per-symbol
 basis, rather than a per-rule basis.
@@ -698,7 +698,7 @@ work of distinguishing
 sequence separators from sequence items
 is pushed into the semantic actions.
 For details about the semantics, see
-L<the document on semantics|Marpa::R2::Semantics>.
+L<the document on semantics|Marpa::R3::Semantics>.
 
 =head2 lhs
 
@@ -744,7 +744,7 @@ This is the default,
 and is acceptable to most applications.
 For details on using the
 C<null_ranking> named argument,
-see L<the document on parse order|Marpa::R2::Semantics::Order>.
+see L<the document on parse order|Marpa::R3::Semantics::Order>.
 
 =head2 proper
 
@@ -769,7 +769,7 @@ will always be allowed.
 C<rank> is 0 by default.
 For details on using the
 C<rank> named argument,
-see L<the document on parse order|Marpa::R2::Semantics::Order>.
+see L<the document on parse order|Marpa::R3::Semantics::Order>.
 
 =head2 rhs
 

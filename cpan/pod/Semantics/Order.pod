@@ -15,7 +15,7 @@
 
 =head1 NAME
 
-Marpa::R2::Semantics::Order - How Marpa ranks ambiguous parses
+Marpa::R3::Semantics::Order - How Marpa ranks ambiguous parses
 
 =head1 Description
 
@@ -29,7 +29,7 @@ each of which will have its own parse result.
 This document describes ways of controlling
 the order in which
 the recognizer's
-L<C<value>|Marpa::R2::Recognizer/"value">
+L<C<value>|Marpa::R3::Recognizer/"value">
 method
 evaluates the parse
 trees of an ambiguous parse.
@@ -88,7 +88,7 @@ the parse series is traversed.
 
 By calling
 the recognizer's
-L<C<value>|Marpa::R2::Recognizer/"value">
+L<C<value>|Marpa::R3::Recognizer/"value">
 method
 repeatedly,
 Marpa can produce all the parse results
@@ -96,13 +96,13 @@ in the current parse series.
 The default is for the parse results to be returned
 in an B<arbitrary parse order>.
 This corresponds to the "C<none>" value of
-L<the recognizer's C<ranking_method>|Marpa::R2::Recognizer/"ranking_method">
+L<the recognizer's C<ranking_method>|Marpa::R3::Recognizer/"ranking_method">
 named argument.
 
 =head2 Ranking methods
 
 Marpa recognizer objects have L<a C<ranking_method> named
-argument|Marpa::R2::Recognizer/"ranking_method">,
+argument|Marpa::R3::Recognizer/"ranking_method">,
 whose value can be the name of a ranking method,
 or "C<none>", indicating that the default ranking method is to
 be used.
@@ -206,7 +206,7 @@ with null symbols higher.
 
 The
 L<C<null_ranking> named
-argument for rules|Marpa::R2::Grammar/"null_ranking">
+argument for rules|Marpa::R3::Grammar/"null_ranking">
 specifies which nulling variants are ranked high or low.
 Ranking of nulling variants is done left-to-right,
 with the null preference as indicated by the C<null_ranking>
