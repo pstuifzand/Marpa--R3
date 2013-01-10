@@ -268,7 +268,9 @@ PPCODE:
 MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin::G
 
 void
-new( ... )
+new( class, named_args )
+    char * class;
+    HV *named_args;
 PPCODE:
 {
   Marpa_Grammar g;
@@ -278,27 +280,10 @@ PPCODE:
   Marpa_Config marpa_configuration;
   Marpa_Error_Code error_code;
 
-  switch (items)
-    {
-    case 1: {
-      /* If we are using the (deprecated) interface 0,
-       * get the throw setting from a (deprecated) global variable
-       */
-      SV *throw_sv = get_sv ("Marpa::R3::Thin::C::THROW", 0);
-      throw = throw_sv && SvTRUE (throw_sv);
-    }
-    break;
-    default: croak_xs_usage (cv, "class, arg_hash");
-    case 2:
       {
 	I32 retlen;
 	char *key;
 	SV *arg_value;
-	SV *arg = ST (1);
-	HV *named_args;
-	if (!SvROK (arg) || SvTYPE (SvRV (arg)) != SVt_PVHV)
-	    croak ("Problem in $g->new(): argument is not hash ref");
-	named_args = (HV *) SvRV (arg);
 	hv_iterinit (named_args);
 	while ((arg_value = hv_iternextsv (named_args, &key, &retlen)))
 	  {
@@ -319,7 +304,6 @@ PPCODE:
 	      ("Problem in $g->new(): 'interface' named argument is required");
 	  }
       }
-    }
 
   error_code =
     marpa_check_version (MARPA_MAJOR_VERSION, MARPA_MINOR_VERSION,
