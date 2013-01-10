@@ -228,6 +228,10 @@ enum marpa_recce_op {
    op_unregistered,
 };
 
+#define EXPECTED_LIBMARPA_MAJOR 4
+#define EXPECTED_LIBMARPA_MINOR 0
+#define EXPECTED_LIBMARPA_MICRO 1
+
 MODULE = Marpa::R3        PACKAGE = Marpa::R3::Thin
 
 PROTOTYPES: DISABLE
@@ -301,6 +305,21 @@ PPCODE:
     {
       croak ("Problem in $g->new(): 'interface' named argument is required");
     }
+
+  {
+    unsigned int version[3];
+    error_code = marpa_version (version);
+    if (error_code == MARPA_ERR_NONE
+	&& (version[0] != EXPECTED_LIBMARPA_MAJOR
+	    || version[1] != EXPECTED_LIBMARPA_MINOR
+	    || version[2] != EXPECTED_LIBMARPA_MICRO))
+      {
+	croak
+	  ("Problem in $g->new(): want Libmarpa %d.%d.%d, using Libmarpa %d.%d.%d",
+	   EXPECTED_LIBMARPA_MAJOR, EXPECTED_LIBMARPA_MINOR,
+	   EXPECTED_LIBMARPA_MICRO, version[0], version[1], version[2]);
+      }
+  }
 
   error_code =
     marpa_check_version (MARPA_MAJOR_VERSION, MARPA_MINOR_VERSION,
