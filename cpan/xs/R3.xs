@@ -280,30 +280,27 @@ PPCODE:
   Marpa_Config marpa_configuration;
   Marpa_Error_Code error_code;
 
-      {
-	I32 retlen;
-	char *key;
-	SV *arg_value;
-	hv_iterinit (named_args);
-	while ((arg_value = hv_iternextsv (named_args, &key, &retlen)))
-	  {
-	    if ((*key == 'i') && strnEQ (key, "if", (unsigned) retlen))
-	      {
-		interface = SvIV (arg_value);
-		if (interface != 1)
-		  {
-		    croak ("Problem in $g->new(): interface value must be 1");
-		  }
-		continue;
-	      }
-	    croak ("Problem in $g->new(): unknown named argument: %s", key);
-	  }
-	if (interface != 1)
-	  {
-	    croak
-	      ("Problem in $g->new(): 'interface' named argument is required");
-	  }
-      }
+  I32 retlen;
+  char *key;
+  SV *arg_value;
+  hv_iterinit (named_args);
+  while ((arg_value = hv_iternextsv (named_args, &key, &retlen)))
+    {
+      if ((*key == 'i') && strnEQ (key, "if", (unsigned) retlen))
+	{
+	  interface = SvIV (arg_value);
+	  if (interface != 1)
+	    {
+	      croak ("Problem in $g->new(): interface value must be 1");
+	    }
+	  continue;
+	}
+      croak ("Problem in $g->new(): unknown named argument: %s", key);
+    }
+  if (interface != 1)
+    {
+      croak ("Problem in $g->new(): 'interface' named argument is required");
+    }
 
   error_code =
     marpa_check_version (MARPA_MAJOR_VERSION, MARPA_MINOR_VERSION,
@@ -338,14 +335,8 @@ PPCODE:
 	{
 	  error_description = marpa_error_description[error_code].name;
 	}
-      if (throw)
-	croak ("Problem in Marpa::R3->new(): %s", error_description);
-      if (GIMME != G_ARRAY)
-	{
-	  XSRETURN_UNDEF;
-	}
-      XPUSHs (&PL_sv_undef);
-      XPUSHs (sv_2mortal (newSViv (error_code)));
+      /* Errors are always thrown */
+      croak ("Problem in Marpa::R3->new(): %s", error_description);
     }
 }
 
